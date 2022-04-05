@@ -1,4 +1,4 @@
-package tech.thuexe.post;
+package tech.thuexe.Controller;
 
 import org.springframework.web.bind.annotation.*;
 

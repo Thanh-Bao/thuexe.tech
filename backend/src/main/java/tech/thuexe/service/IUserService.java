@@ -1,4 +1,5 @@
-package tech.thuexe.user;
+package tech.thuexe.service;
 
 public interface IUserService {
+
 }
