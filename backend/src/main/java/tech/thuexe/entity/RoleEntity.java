@@ -1,26 +1,22 @@
 package tech.thuexe.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+import static javax.persistence.GenerationType.AUTO;
 
 @Entity
 @Data
-@Table(name="_role")
-public class RoleEntity extends BaseEntity {
-    @Column(name="_name", nullable = false, length = 20)
+@NoArgsConstructor
+@AllArgsConstructor
+public class RoleEntity {
+    @Id
+    @GeneratedValue(strategy = AUTO)
+    private Long id;
     private String name;
-
-    @Column(name="_description")
-    private String description;
-
-    @ManyToMany
-    private Set<UserEntity> user = new HashSet<>();
 }

@@ -1,49 +1,48 @@
-package tech.thuexe.Controller;
+package tech.thuexe.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import tech.thuexe.DAO.RoleRepository;
-import tech.thuexe.DAO.UserRepository;
 import tech.thuexe.entity.RoleEntity;
 import tech.thuexe.entity.UserEntity;
+import tech.thuexe.service.UserService;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-@RestController
-@RequestMapping("/v1/user")
+import java.net.URI;
+import java.util.List;
+
+@RestController @RequiredArgsConstructor @RequestMapping("/api")
 public class UserController {
+    private final UserService userService;
 
-    @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @GetMapping
-    public String findAll() {
-        String username = "Bao123";
-        String password = "has1234";
-        String role ="Admin";
-        UserEntity e = new UserEntity();
-        e.setUsername(username);
-        e.setPassword(password);
-        RoleEntity newRole = roleRepository.findByName(role);
-        e.getRoles().add(newRole);
-        userRepository.save(e);
-        return "XXXX" + e;
+    @GetMapping("/users")
+    public ResponseEntity<List<UserEntity>> getUser() {
+        return  ResponseEntity.ok().body(userService.getUsers());
     }
 
-    @GetMapping("/profile/{username}")
-    public Object getUserByUsername(@PathVariable(name = "username") String username) {
-        return "Hello";
+    @PostMapping("/user/save")
+    public ResponseEntity<UserEntity> saveUser(@RequestBody UserEntity user){
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/controller/user/save").toUriString());
+        return ResponseEntity.created(uri).body(userService.saveUser(user));
     }
 
-    @PostMapping("/follow")
-    public Object followUser(){
-        return "Hello";
+    @PostMapping("/role/save")
+    public ResponseEntity<RoleEntity> saveRole(@RequestBody RoleEntity role){
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/controller/role/save").toUriString());
+        return ResponseEntity.created(uri).body(userService.saveRole(role));
     }
 
-    @PostMapping("/unfollow")
-    public Object unfollowUser(){
-        return "Hello";
+    @PostMapping("/role/addtouser")
+    public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUserForm form){
+        userService.addRoleToUser(form.getUsername(),form.getRoleName());
+        return ResponseEntity.ok().build();
     }
 }
 
+
+@Data
+class RoleToUserForm {
+    private String username;
+    private String roleName;
+}

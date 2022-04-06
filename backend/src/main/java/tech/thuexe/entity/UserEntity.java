@@ -1,27 +1,21 @@
 package tech.thuexe.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-
+import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collection;
+import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.GenerationType.AUTO;
 
-@Entity
-@Data
-@Table(name = "_user")
-public class UserEntity extends BaseEntity {
-
-    @Column(name = "_username", nullable = false, unique = true)
+@Entity @Data @NoArgsConstructor @AllArgsConstructor
+public class UserEntity {
+    @Id @GeneratedValue(strategy = AUTO)
+    private Long id;
+    private String name;
     private String username;
-
-    @Column(name = "_password", nullable = false)
     private String password;
-
-    @Column(name = "_phone", length = 10)
-    private String phone;
-
-    @ManyToMany
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    @Column(nullable = false)
-    private Set<RoleEntity> roles = new HashSet<>();
+    @ManyToMany(fetch = EAGER)
+    private Collection<RoleEntity> roles = new ArrayList<>();
 }
