@@ -1,9 +1,8 @@
 package tech.thuexe.service.impl;
 
-import org.modelmapper.ModelMapper;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import tech.thuexe.DTO.user.UserDTO;
 import tech.thuexe.entity.RoleEntity;
 import tech.thuexe.entity.UserEntity;
 import tech.thuexe.repository.RoleRepo;
@@ -17,11 +16,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tech.thuexe.service.UserService;
+import tech.thuexe.utility.DataMapperUtils;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service @RequiredArgsConstructor @Transactional @Slf4j
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -29,6 +30,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepo userRepo;
     private final RoleRepo roleRepo;
     private final PasswordEncoder passwordEncoder;
+    private final DataMapperUtils dataMapperUtils;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -74,9 +76,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public List<UserEntity> getUsers() {
+    public List<UserDTO> getUsers() {
         log.info("Fetching all user");
-        return userRepo.findAll();
+        List<UserEntity> users = userRepo.findAll();
+        return dataMapperUtils.mapAll(users,UserDTO.class);
     }
 
     @Override

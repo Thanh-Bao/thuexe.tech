@@ -1,6 +1,6 @@
 package tech.thuexe.security;
 
-import tech.thuexe.Config;
+import tech.thuexe.utility.Config;
 import tech.thuexe.security.filter.CustomAuthenticationFilter;
 import tech.thuexe.security.filter.CustomAuthorizationFilter;
 import lombok.RequiredArgsConstructor;

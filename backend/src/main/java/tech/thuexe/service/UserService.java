@@ -1,5 +1,6 @@
 package tech.thuexe.service;
 
+import tech.thuexe.DTO.user.UserDTO;
 import tech.thuexe.entity.RoleEntity;
 import tech.thuexe.entity.UserEntity;
 
@@ -10,6 +11,6 @@ public interface UserService {
     RoleEntity saveRole(RoleEntity role);
     void addRoleToUser(String username, String roleName);
     UserEntity getUser(String username);
-    List<UserEntity> getUsers();
+    List<UserDTO> getUsers();
     String getUsername();
 }
