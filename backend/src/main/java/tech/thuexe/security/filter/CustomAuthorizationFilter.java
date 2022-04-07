@@ -1,4 +1,4 @@
-package tech.thuexe.filter;
+package tech.thuexe.security.filter;
 
 import tech.thuexe.Config;
 import tech.thuexe.security.SecurityConfig;
@@ -39,7 +39,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
             if(authorizationHeader !=null && authorizationHeader.startsWith("Bearer ")){
                 try {
                     String token = authorizationHeader.substring("Bearer ".length());
-                    Algorithm algorithm = Algorithm.HMAC256(Config.ENV.SECRET.name().getBytes());
+                    Algorithm algorithm = Algorithm.HMAC256(Config.CONFIG.SECRET.getValue().getBytes());
                     JWTVerifier verifier = JWT.require(algorithm).build();
                     DecodedJWT decodedJWT = verifier.verify(token);
                     String username = decodedJWT.getSubject();
@@ -52,10 +52,9 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                     filterChain.doFilter(request,response);
                 } catch (Exception exception){
-                    log.error("Error loggin in: {}", exception.getMessage());
+                    log.error("Error login in: {}", exception.getMessage());
                     response.setHeader("error", exception.getMessage());
                     response.setStatus(FORBIDDEN.value());
-                    //response.sendError(FORBIDDEN.value());
                     Map<String, String> error = new HashMap<>();
                     error.put("error_message",exception.getMessage());
                     new ObjectMapper().writeValue(response.getOutputStream(), error);

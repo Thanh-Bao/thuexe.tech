@@ -33,13 +33,13 @@ public class Application {
 	@Bean
 	CommandLineRunner run(UserService userService){
 		return args -> {
-		userService.saveRole(new RoleEntity(null, Config.ROLE.USER.name()));
-		userService.saveRole(new RoleEntity(null, Config.ROLE.SALE.name()));
-		userService.saveRole(new RoleEntity(null, Config.ROLE.ROOT.name()));
+		userService.saveRole(new RoleEntity( Config.ROLE.USER.getValue()));
+		userService.saveRole(new RoleEntity( Config.ROLE.SALE.getValue()));
+		userService.saveRole(new RoleEntity( Config.ROLE.ROOT.getValue()));
 
-		userService.saveUser(new UserEntity(null,"Jon Travolta", "john", "1234", new ArrayList<>()));
-		userService.addRoleToUser("john", Config.ROLE.USER.name());
-		userService.addRoleToUser("john", Config.ROLE.ROOT.name());
+		userService.saveUser(new UserEntity("Jon Travolta", "john", "1234", new ArrayList<>()));
+		userService.addRoleToUser("john", Config.ROLE.USER.getValue());
+		userService.addRoleToUser("john", Config.ROLE.ROOT.getValue());
 		};
 	}
 }

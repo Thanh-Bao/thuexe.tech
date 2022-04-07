@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             log.error("UserEntity not found in the database");
             throw new UsernameNotFoundException("UserEntity not found in the database");
         } else {
-            log.error("UserEntity found in the database : {}",username);
+            log.info("UserEntity found in the database : {}",username);
         }
         Collection<SimpleGrantedAuthority> authrities = new ArrayList<>();
         user.getRoles().forEach(role -> {

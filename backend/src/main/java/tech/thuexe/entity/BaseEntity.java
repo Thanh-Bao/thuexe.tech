@@ -6,23 +6,21 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Date;
-
-import static javax.persistence.GenerationType.AUTO;
+import java.util.UUID;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = AUTO)
-    private Long id;
+    private String id = UUID.randomUUID().toString();
 
-    @Column
     @CreatedDate
+    @Column(name="_createdDate", nullable = false)
     private Date createdDate;
 
-    @Column
     @CreatedBy
+    @Column(name="_createdBy")
     private String createdBy;
 
 }

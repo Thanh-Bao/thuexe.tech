@@ -1,7 +1,8 @@
 package tech.thuexe.security;
 
-import tech.thuexe.filter.CustomAuthenticationFilter;
-import tech.thuexe.filter.CustomAuthorizationFilter;
+import tech.thuexe.Config;
+import tech.thuexe.security.filter.CustomAuthenticationFilter;
+import tech.thuexe.security.filter.CustomAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,8 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeHttpRequests().antMatchers("/api/login/**").permitAll();
-        http.authorizeHttpRequests().antMatchers(GET, "/api/user/**").hasAnyAuthority("ROLE_USER");
-        http.authorizeHttpRequests().antMatchers(POST, "/api/user/save/**").hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeHttpRequests().antMatchers(GET, "/api/user/**").hasAnyAuthority(Config.ROLE.SALE.getValue());
+        http.authorizeHttpRequests().antMatchers(POST, "/api/user/save/**").hasAnyAuthority(Config.ROLE.ROOT.getValue());
         http.authorizeHttpRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);

@@ -2,18 +2,25 @@ package tech.thuexe;
 
 public class Config {
     public enum ROLE {
-        USER("ROLE_USER"), SALE("ROLE_SALE"), ROOT("ROLE_ROOT");
-        private final String name;
-
+        USER("ROLE_USER"),
+        SALE("ROLE_SALE"),
+        ROOT("ROLE_ROOT");
+        private String value;
         ROLE(String s) {
-            name = s;
+            this.value = s;
+        }
+        public String getValue(){
+            return  this.value;
         }
     }
-    public enum ENV {
-        SECRET((Math.random() * 600) + "this is secret code");
-        private final String name;
-        ENV(String s) {
-            name = s;
+    public enum CONFIG {
+        SECRET((Math.random()*9999)+" This is secret key");
+        private String value;
+        CONFIG(String s) {
+            this.value = s;
+        }
+        public String getValue(){
+            return  this.value;
         }
     }
 }
