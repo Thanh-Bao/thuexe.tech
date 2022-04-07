@@ -6,12 +6,23 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleEntity {
-    @Column(name = "_name", length = 20, nullable = false)
+public class ItemEntity {
+
+    @Column
     private String name;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "user_id",
+            nullable = false
+    )
+    private UserEntity user;
+
 }
