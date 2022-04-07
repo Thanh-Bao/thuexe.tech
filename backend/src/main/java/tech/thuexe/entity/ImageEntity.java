@@ -18,7 +18,7 @@ public class ImageEntity {
     @ManyToOne
     @JoinColumn(name="product_id",
                 nullable=false)
-    private ItemDetailEntity itemDetail;
+    private PostDetailEntity itemDetail;
 
 
 

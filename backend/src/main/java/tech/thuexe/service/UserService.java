@@ -11,4 +11,5 @@ public interface UserService {
     void addRoleToUser(String username, String roleName);
     UserEntity getUser(String username);
     List<UserEntity> getUsers();
+    String getUsername();
 }

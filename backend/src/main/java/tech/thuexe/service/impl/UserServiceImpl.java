@@ -1,6 +1,9 @@
 package tech.thuexe.service.impl;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import tech.thuexe.entity.RoleEntity;
 import tech.thuexe.entity.UserEntity;
 import tech.thuexe.repository.RoleRepo;
@@ -74,6 +77,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public List<UserEntity> getUsers() {
         log.info("Fetching all user");
         return userRepo.findAll();
+    }
+
+    @Override
+    public String getUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return null;
+        }
+        return  authentication.getName();
     }
 
 }

@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemDetailEntity {
+public class PostDetailEntity {
 
     @OneToMany(mappedBy = "itemDetail")
     private List<ImageEntity> images = new ArrayList<>();
