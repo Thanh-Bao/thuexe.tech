@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleEntity {
+public class RoleEntity extends BaseEntity{
     @Column(name = "_name", length = 20, nullable = false)
     private String name;
 }
