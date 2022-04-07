@@ -14,7 +14,8 @@ public class Config {
         }
     }
     public enum CONFIG {
-        SECRET((Math.random()*9999)+" This is secret key");
+        //SECRET((Math.random()*9999)+" This is secret key");
+        SECRET(" This is secret key");
         private String value;
         CONFIG(String s) {
             this.value = s;
