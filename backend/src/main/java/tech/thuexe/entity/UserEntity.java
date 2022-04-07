@@ -11,7 +11,7 @@ import static javax.persistence.FetchType.EAGER;
 @Entity
 @Data @NoArgsConstructor @AllArgsConstructor
 @Table(name = "_User")
-public class UserEntity extends BaseEntity{
+public class UserEntity extends BaseEntity {
     @Column(name = "_name", length = 25)
     private String name;
     @Column(name = "_username", unique = true, nullable = false, length = 20)
