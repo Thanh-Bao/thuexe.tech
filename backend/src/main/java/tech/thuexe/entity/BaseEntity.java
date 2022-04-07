@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @MappedSuperclass
-@Data 
+@Data
 public class BaseEntity {
 
     @Id

@@ -16,6 +16,8 @@ public class UserEntity extends BaseEntity {
     private String name;
     @Column(name = "_username", unique = true, nullable = false, length = 20)
     private String username;
+    @Column(name = "_phone")
+    private String phone;
     @Column(name = "_password", nullable = false)
     private String password;
     @ManyToMany(fetch = EAGER)

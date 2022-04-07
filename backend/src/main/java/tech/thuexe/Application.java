@@ -41,11 +41,11 @@ public class Application {
 		userService.saveRole(new RoleEntity( Config.ROLE.SALE.getValue()));
 		userService.saveRole(new RoleEntity( Config.ROLE.ROOT.getValue()));
 
-		userService.saveUser(new UserEntity("Jon Travolta", "john", "1234", new ArrayList<>()));
+		userService.saveUser(new UserEntity("Jon Travolta", "john","9999" ,"1234",new ArrayList<>()));
 		userService.addRoleToUser("john", Config.ROLE.USER.getValue());
 		userService.addRoleToUser("john", Config.ROLE.ROOT.getValue());
 
-		userService.saveUser(new UserEntity("Jon Travolta", "john1", "1234", new ArrayList<>()));
+		userService.saveUser(new UserEntity("Jon Travolta", "john1", "9999","1234", new ArrayList<>()));
 		userService.addRoleToUser("john1", Config.ROLE.USER.getValue());
 		};
 	}
