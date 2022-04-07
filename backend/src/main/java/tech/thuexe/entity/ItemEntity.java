@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemEntity {
+public class ItemEntity extends BaseEntity{
 
     @Column
     private String name;
