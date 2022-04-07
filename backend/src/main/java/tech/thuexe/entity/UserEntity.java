@@ -14,8 +14,9 @@ import static javax.persistence.FetchType.EAGER;
 public class UserEntity {
     @Column(name = "_name", length = 25)
     private String name;
-    @Column(name = "_username", unique = true, length = 20)
+    @Column(name = "_username", unique = true, nullable = false, length = 20)
     private String username;
+    @Column(name = "_password", length = 20, nullable = false)
     private String password;
     @ManyToMany(fetch = EAGER)
     private Collection<RoleEntity> roles = new ArrayList<>();

@@ -1,5 +1,6 @@
 package tech.thuexe.controller;
 
+import org.modelmapper.ModelMapper;
 import tech.thuexe.entity.RoleEntity;
 import tech.thuexe.entity.UserEntity;
 import tech.thuexe.service.UserService;
@@ -15,6 +16,8 @@ import java.util.List;
 @RestController @RequiredArgsConstructor @RequestMapping("/api")
 public class UserController {
     private final UserService userService;
+    private final ModelMapper modelMapper;
+
 
     @GetMapping("/users")
     public ResponseEntity<List<UserEntity>> getUser() {

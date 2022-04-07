@@ -31,6 +31,9 @@ public class Application {
 	}
 
 	@Bean
+	public  ObjectMapper objectMapper() {return  new ObjectMapper();}
+
+	@Bean
 	CommandLineRunner run(UserService userService){
 		return args -> {
 		userService.saveRole(new RoleEntity( Config.ROLE.USER.getValue()));
