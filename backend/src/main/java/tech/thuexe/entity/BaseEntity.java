@@ -12,7 +12,7 @@ import java.util.UUID;
 public class BaseEntity {
 
     @Id
-    private String id = UUID.randomUUID().toString();
+    private int id = 10000000 + (int)(Math.random() * 99999999);
 
     @CreatedDate
     @Column(name="_createdAt", nullable = false)
