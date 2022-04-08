@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import tech.thuexe.utility.CustomException;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -30,7 +31,10 @@ public class UserController {
     }
 
     @PostMapping("/user/save")
-    public ResponseEntity<UserDTO> saveUser(@Valid @RequestBody UserEntity user)  {
+    public ResponseEntity<UserDTO> saveUser(@Valid @RequestBody UserEntity user) throws CustomException {
+        if(userService.exists(user.getUsername())){
+            throw new CustomException("Username đã tồn tại, hãy chọn username khác");
+        }
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/controller/user/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveUser(user));
     }

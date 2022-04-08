@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
 
     // handle custom exception
     @ExceptionHandler(CustomException.class)
-    public ResponseEntity<?> customV(CustomException exception){
+    public ResponseEntity<?> customException(CustomException exception){
         Message message = new Message(new Date(), "Validation Error", exception.getMessage());
         return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
