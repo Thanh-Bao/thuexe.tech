@@ -8,7 +8,6 @@ import java.util.Date;
 @Data @AllArgsConstructor
 public class Message {
     private Date timestamp;
+    private String errorType;
     private String message;
-    private String details;
-
 }
