@@ -1,6 +1,6 @@
 package tech.thuexe.controller;
 
-import org.modelmapper.ModelMapper;
+import org.springframework.validation.annotation.Validated;
 import tech.thuexe.DTO.user.UserDTO;
 import tech.thuexe.entity.RoleEntity;
 import tech.thuexe.entity.UserEntity;
@@ -10,11 +10,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import tech.thuexe.utility.CustomException;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
-@RestController @RequiredArgsConstructor @RequestMapping("/api")
+@RestController @RequiredArgsConstructor @RequestMapping("/api") @Validated
 public class UserController {
     private final UserService userService;
 
@@ -25,12 +27,11 @@ public class UserController {
 
     @GetMapping("/users/test")
     public ResponseEntity<String> test() {
-
         return  ResponseEntity.ok().body(userService.getUsername());
     }
 
     @PostMapping("/user/save")
-    public ResponseEntity<UserEntity> saveUser(@RequestBody UserEntity user){
+    public ResponseEntity<UserDTO> saveUser(@Valid @RequestBody UserEntity user)  {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/controller/user/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveUser(user));
     }

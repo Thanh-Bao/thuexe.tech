@@ -12,7 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import tech.thuexe.utility.Config;
-import tech.thuexe.DTO.user.LoginDTO;
+import tech.thuexe.DTO.user.UserLoginDTO;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -38,7 +38,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @SneakyThrows
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-            LoginDTO loginDTO = mapper.readValue(request.getInputStream(), LoginDTO.class);
+            UserLoginDTO loginDTO = mapper.readValue(request.getInputStream(), UserLoginDTO.class);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword());
             return authenticationManager.authenticate(authenticationToken);
     }

@@ -3,6 +3,7 @@ package tech.thuexe.service.impl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import tech.thuexe.DTO.user.UserDTO;
+import tech.thuexe.DTO.user.UserLoginDTO;
 import tech.thuexe.entity.RoleEntity;
 import tech.thuexe.entity.UserEntity;
 import tech.thuexe.repository.RoleRepo;
@@ -36,10 +37,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity user  = userRepo.findByUsername(username);
         if (user==null){
-            log.error("UserEntity not found in the database");
             throw new UsernameNotFoundException("UserEntity not found in the database");
-        } else {
-            log.info("UserEntity found in the database : {}",username);
         }
         Collection<SimpleGrantedAuthority> authrities = new ArrayList<>();
         user.getRoles().forEach(role -> {
@@ -48,22 +46,21 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),authrities);
     }
 
+
     @Override
-    public UserEntity saveUser(UserEntity user) {
-        log.info("Save new user {} to the database", user.getName());
+    public UserDTO saveUser(UserEntity user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepo.save(user);
+        UserEntity userResult = userRepo.save(dataMapperUtils.map(user,UserEntity.class));
+        return dataMapperUtils.map(userResult,UserDTO.class);
     }
 
     @Override
     public RoleEntity saveRole(RoleEntity role) {
-        log.info("Save new RoleEntity {} to the database", role.getName());
         return roleRepo.save(role);
     }
 
     @Override
     public void addRoleToUser(String username, String roleName) {
-        log.info("Add roleEntity {} to userEntity {}",roleName, username);
         UserEntity userEntity =  userRepo.findByUsername(username);
         RoleEntity roleEntity = roleRepo.findByName(roleName);
         userEntity.getRoles().add(roleEntity);
@@ -71,13 +68,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserEntity getUser(String username) {
-        log.info("Fetching user {}", username);
         return userRepo.findByUsername(username);
     }
 
     @Override
     public List<UserDTO> getUsers() {
-        log.info("Fetching all user");
         List<UserEntity> users = userRepo.findAll();
         return dataMapperUtils.mapAll(users,UserDTO.class);
     }
