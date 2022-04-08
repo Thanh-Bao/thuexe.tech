@@ -1,4 +1,4 @@
-package tech.thuexe.controller;
+package tech.thuexe.controller.enpointAPI;
 
 import org.springframework.validation.annotation.Validated;
 import tech.thuexe.DTO.user.UserDTO;
@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import tech.thuexe.utility.CustomException;
 
 import javax.validation.Valid;
 import java.net.URI;

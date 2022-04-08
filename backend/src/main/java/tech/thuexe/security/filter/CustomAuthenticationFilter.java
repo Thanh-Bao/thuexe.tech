@@ -11,8 +11,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import tech.thuexe.utility.Config;
 import tech.thuexe.DTO.user.UserLoginDTO;
+import tech.thuexe.utility.Config;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -29,7 +29,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
-    private ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
 
     public CustomAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
@@ -38,9 +38,9 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @SneakyThrows
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-            UserLoginDTO loginDTO = mapper.readValue(request.getInputStream(), UserLoginDTO.class);
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword());
-            return authenticationManager.authenticate(authenticationToken);
+        UserLoginDTO loginDTO = mapper.readValue(request.getInputStream(), UserLoginDTO.class);
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword());
+        return authenticationManager.authenticate(authenticationToken);
     }
 
     @Override
@@ -49,13 +49,13 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         Algorithm algorithm = Algorithm.HMAC256(Config.CONFIG.SECRET.getValue().getBytes());
         String access_token = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis()+ 9999999))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000))
                 .withIssuer(request.getRequestURL().toString())
-                .withClaim("roles",user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+                .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(algorithm);
 
         Map<String, String> tokens = new HashMap<>();
-        tokens.put("access_token",access_token);
+        tokens.put("access_token", access_token);
         response.setContentType(APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
 

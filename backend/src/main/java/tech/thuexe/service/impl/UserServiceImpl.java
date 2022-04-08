@@ -46,6 +46,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),authrities);
     }
 
+    @Override
+    public boolean exists(String username) {
+        return userRepo.existsByUsername(username);
+    }
 
     @Override
     public UserDTO saveUser(UserEntity user) {

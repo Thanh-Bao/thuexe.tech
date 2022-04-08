@@ -8,6 +8,7 @@ import tech.thuexe.entity.UserEntity;
 import java.util.List;
 
 public interface UserService {
+    boolean exists(String username);
     UserDTO saveUser(UserEntity user);
     RoleEntity saveRole(RoleEntity role);
     void addRoleToUser(String username, String roleName);

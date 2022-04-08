@@ -18,16 +18,17 @@ import static javax.persistence.FetchType.EAGER;
 @Table(name = "_User")
 public class UserEntity extends BaseEntity {
 
-    @Column(name = "_name", length = 25)
-   // @Max(value = 25, message = "Tên không được vượt quá 25 ký tự")
+    @Column(name = "_name", length = 20)
+    @Size(min = 3, max = 20, message = "Tên phải từ 3 đến 20 ký tự")
     private String name;
 
     @Column(name = "_username", unique = true, nullable = false, length = 20)
     @NotBlank(message = "username không được bỏ trống")
+    @Size(min = 3, max = 20, message = "Tên tài khoản phải từ 3 đến 20 ký tự")
     private String username;
 
     @Column(name = "_phone")
-    //@Size( min = 10, max=10,message = "Số điện thoại phải 10 chữ số")
+    @Size( min = 10, max=10,message = "Số điện thoại phải 10 chữ số")
     private String phone;
 
     @Column(name = "_password")
