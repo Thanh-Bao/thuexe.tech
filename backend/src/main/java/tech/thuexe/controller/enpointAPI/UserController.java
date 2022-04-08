@@ -1,5 +1,6 @@
 package tech.thuexe.controller.enpointAPI;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import tech.thuexe.DTO.user.UserDTO;
 import tech.thuexe.entity.RoleEntity;
@@ -33,7 +34,7 @@ public class UserController {
     @PostMapping("/user/save")
     public ResponseEntity<UserDTO> saveUser(@Valid @RequestBody UserEntity user) throws CustomException {
         if(userService.exists(user.getUsername())){
-            throw new CustomException("Username đã tồn tại, hãy chọn username khác");
+            throw new CustomException("Username đã tồn tại, hãy chọn username khác", HttpStatus.BAD_REQUEST);
         }
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/controller/user/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveUser(user));

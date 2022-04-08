@@ -24,6 +24,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<?> customException(CustomException exception){
         Message message = new Message(new Date(), "Validation Error", exception.getMessage());
-        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(message, exception.getStatus());
     }
 }
