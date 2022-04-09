@@ -8,6 +8,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import static javax.persistence.FetchType.EAGER;
 
 @Entity
@@ -33,5 +36,5 @@ public class UserEntity extends BaseEntity {
     private String password;
 
     @ManyToMany(fetch = EAGER)
-    private Collection<RoleEntity> roles = new ArrayList<>();
+    private Set<RoleEntity> roles = new HashSet<>();
 }

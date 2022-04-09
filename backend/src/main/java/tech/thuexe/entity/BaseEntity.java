@@ -8,7 +8,7 @@ import java.time.Instant;
 
 @MappedSuperclass
 @Data
-public class BaseEntity {
+public abstract class BaseEntity {
 
     @Id
     private int id = 10000000 + (int)(Math.random() * 99999999);

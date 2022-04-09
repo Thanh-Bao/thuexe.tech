@@ -2,9 +2,8 @@ package tech.thuexe.utility;
 
 public class Config {
     public enum ROLE {
-        USER("ROLE_USER"),
-        SALE("ROLE_SALE"),
-        ROOT("ROLE_ROOT");
+        USER("USER"),
+        ADMIN("AMIN");
         private String value;
         ROLE(String s) {
             this.value = s;

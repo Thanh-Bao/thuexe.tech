@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import tech.thuexe.utility.Config;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 @SpringBootApplication
 public class Application {
@@ -38,14 +39,13 @@ public class Application {
 	CommandLineRunner run(UserService userService){
 		return args -> {
 		userService.saveRole(new RoleEntity( Config.ROLE.USER.getValue()));
-		userService.saveRole(new RoleEntity( Config.ROLE.SALE.getValue()));
-		userService.saveRole(new RoleEntity( Config.ROLE.ROOT.getValue()));
+		userService.saveRole(new RoleEntity( Config.ROLE.ADMIN.getValue()));
 
-		userService.saveUser(new UserEntity("fds sdf fsd ", "john","0988766765" ,"1234",new ArrayList<>()));
-		userService.addRoleToUser("john", Config.ROLE.USER.getValue());
-		userService.addRoleToUser("john", Config.ROLE.ROOT.getValue());
+		userService.saveUser(new UserEntity("fds sdf fsd ", "john","0988766765" ,"1234",new HashSet<>()));
+		//userService.addRoleToUser("john", Config.ROLE.USER.getValue());
+		userService.addRoleToUser("john", Config.ROLE.ADMIN.getValue());
 
-		userService.saveUser(new UserEntity("sdf dsfsd sdf", "john1", "8767898789","1234", new ArrayList<>()));
+		userService.saveUser(new UserEntity("sdf dsfsd sdf", "john1", "8767898789","1234", new HashSet<>()));
 		userService.addRoleToUser("john1", Config.ROLE.USER.getValue());
 		};
 	}
