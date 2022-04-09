@@ -17,7 +17,14 @@ import java.util.List;
 
 @RestController @RequiredArgsConstructor @RequestMapping(path = "${APIVersion}/user") @Validated
 public class UserController {
+
     private final UserService userService;
+
+    @CrossOrigin(origins="*")
+    @GetMapping("/haha")
+        public String haha(){
+            return "haha";
+        }
 
     @GetMapping("/exist/{username}")
     public ResponseEntity<Boolean> checkUserExist(@PathVariable String username) {

@@ -21,6 +21,9 @@ const Index = props => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        fetch("http://localhost:8080/api/v1/user/haha").then(
+           (x)=> console.log(x)
+        ).then(()=>console.log("YYYY"))
         dispatch(updateLoginStatus(Boolean(havedLogin())));
     }, [])
 

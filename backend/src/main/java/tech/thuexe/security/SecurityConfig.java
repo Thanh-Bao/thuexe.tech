@@ -29,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
         customAuthenticationFilter.setFilterProcessesUrl("/api/v1/login");
         http.csrf().disable();
@@ -37,15 +38,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 antMatchers(
                         "/static/**",
                         "/api/v1/login/**",
-                        "/api/v1/user/isactive/{username}",
-                        "/api/v1/user/exist/**",
-                        "/api/v1/user/register/**"
+                        "/api/v1/user/**"
                 ).permitAll();
         http.authorizeHttpRequests().antMatchers(GET, "/api/v1/user/all/**").hasAnyAuthority(Config.ROLE.ADMIN.getValue());
         http.authorizeHttpRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
-
     }
 
     @Bean
