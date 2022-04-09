@@ -1,19 +1,20 @@
-package tech.thuexe.entity;
+package tech.thuexe.DTO.post;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import tech.thuexe.entity.ImageEntity;
+import tech.thuexe.entity.LocationEntity;
 
-import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostDetailEntity {
-
-    @OneToMany(mappedBy = "itemDetail")
+public class PostWriteDTO {
     private List<ImageEntity> images = new ArrayList<>();
+    private String title;
+    private String description;
+    private LocationEntity location;
 }

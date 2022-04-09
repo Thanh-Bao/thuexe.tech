@@ -1,25 +1,28 @@
 package tech.thuexe.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-//@Entity
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ImageEntity {
+@Table(name = "_Image")
+public class ImageEntity extends BaseEntity {
 
     @Column(nullable = false)
     private String link;
 
-    @ManyToOne
-    @JoinColumn(name="product_id",
-                nullable=false)
-    private PostDetailEntity itemDetail;
-
+    @ManyToOne(
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    @JoinColumn(name = "post_id", nullable = false)
+    @JsonBackReference
+    private PostEntity post;
 
 
 }

@@ -1,22 +1,38 @@
 package tech.thuexe.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostEntity extends BaseEntity{
+@Table(name = "_Post")
+public class PostEntity extends BaseEntity {
+
+    @OneToMany(
+            mappedBy = "post",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
+    @JsonManagedReference
+    private List<ImageEntity> images = new ArrayList<>();
 
     @Column
-    private String name;
+    private String title;
+
+    @Column
+    private String description;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id", referencedColumnName = "id")
+    private LocationEntity location;
 
     @ManyToOne
     @JoinColumn(
@@ -24,5 +40,15 @@ public class PostEntity extends BaseEntity{
             nullable = false
     )
     private UserEntity user;
+
+    public void addImage(ImageEntity image) {
+        images.add(image);
+        image.setPost(this);
+    }
+
+    public void removeImage(ImageEntity image) {
+        images.remove(image);
+        image.setPost(null);
+    }
 
 }
