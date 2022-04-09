@@ -38,10 +38,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 antMatchers(
                         "/api/v1/login/**",
                         "/api/v1/user/isactive/{username}",
-                        "/api/v1/user/exist/**"
+                        "/api/v1/user/exist/**",
+                        "/api/v1/user/register/**"
                 ).permitAll();
-        http.authorizeHttpRequests().antMatchers(GET, "/v1/api/user/**").hasAnyAuthority(Config.ROLE.ADMIN.getValue());
-        http.authorizeHttpRequests().antMatchers(POST, "/v1/api/user/register/**").hasAnyAuthority(Config.ROLE.ADMIN.getValue());
+        http.authorizeHttpRequests().antMatchers(GET, "/api/v1/user/all/**").hasAnyAuthority(Config.ROLE.ADMIN.getValue());
         http.authorizeHttpRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
