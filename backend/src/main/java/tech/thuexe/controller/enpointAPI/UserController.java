@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import tech.thuexe.utility.Config;
 import tech.thuexe.utility.CustomException;
 import tech.thuexe.utility.DataMapperUtils;
 
@@ -47,10 +48,12 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<UserDTO> saveUser(@Valid @RequestBody UserEntity user) throws CustomException {
         if(userService.exists(user.getUsername())){
-            throw new CustomException("Username đã tồn tại, hãy chọn username khác", HttpStatus.BAD_REQUEST);
+            throw new CustomException("Tên tài khoản đã tồn tại trên hệ thống", HttpStatus.BAD_REQUEST);
         }
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path(null).toUriString());
-        return ResponseEntity.created(uri).body(userService.saveUser(user));
+        userService.saveUser(user);
+        userService.addRoleToUser(user.getUsername(), Config.ROLE.USER.getValue());
+        return ResponseEntity.created(uri).body(dataMapperUtils.map(userService.getUser(user.getUsername()), UserDTO.class));
     }
 
 }

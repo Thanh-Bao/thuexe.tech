@@ -1,5 +1,5 @@
-import {login} from '@/api/user';
-import {register} from '@/api/user';
+import { login } from '@/api/user';
+import { USERregister } from '@/api/user';
 import { setAccount } from '@/helper/account';
 import { LoadingButton } from '@mui/lab';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, LinearProgress, TextField } from '@mui/material';
@@ -73,7 +73,7 @@ const Login = (props, ref) => {
         REGISTER_FAILED: "Đăng ký thất bại, hãy kiểm tra lại",
         NETWORK_ERROR: "Lỗi server, vui lòng thử lại",
         POLICY_DENIED: "Bạn cần đồng ý điều khoản khi đăng ký",
-        USERNAME_EXISTS: "Tên tài khoản đã tồn tại",
+        USERNAME_EXISTS: "Tên tài khoản đã tồn tại trên hệ thống",
         PASSWORD_MATCH: "Mật khẩu không khớp",
         USERNAME_MIN: "Tài khoản tối thiểu 5 ký tự",
         USERNAME_MAX: "Tài khoản tối đa 20 ký tự",
@@ -134,9 +134,9 @@ const Login = (props, ref) => {
 
     const onSubmitLogin = (data) => {
         if (!validateUsername(data.username)) {
-            enqueueSnackbar(MESSAGE.VALIDATE_INPUT.USERNAME, {variant: 'error'});
+            enqueueSnackbar(MESSAGE.VALIDATE_INPUT.USERNAME, { variant: 'error' });
         } else if (!validatePassword(data.password)) {
-            enqueueSnackbar(MESSAGE.VALIDATE_INPUT.PASSWORD, {variant: 'error'});
+            enqueueSnackbar(MESSAGE.VALIDATE_INPUT.PASSWORD, { variant: 'error' });
         } else {
             setHandlingRequest(true);
             login(data).then(user => {
@@ -151,37 +151,37 @@ const Login = (props, ref) => {
                     handleClose();
 
                     setShowErrorMessage("none");
-                    enqueueSnackbar(MESSAGE.LOGIN_SUCCESS,{ variant: 'success' });
+                    enqueueSnackbar(MESSAGE.LOGIN_SUCCESS, { variant: 'success' });
                 }
                 else {
                     setShowErrorMessage("none");
-                    enqueueSnackbar("Sai username hoặc password",{variant: 'error'});
+                    enqueueSnackbar("Sai username hoặc password", { variant: 'error' });
                 }
 
-            }).catch(error => { enqueueSnackbar("Sai username hoặc password", {variant: 'error'}); })
+            }).catch(error => { enqueueSnackbar("Sai username hoặc password", { variant: 'error' }); })
                 .finally(() => { setHandlingRequest(false) });
         }
     };
 
     const onSubmitRegister = (data) => {
         const errorMessage = validateRegister(data);
-        if (errorMessage){
+        if (errorMessage) {
             handlleShowErrorMessage(errorMessage);
         } else {
             setHandlingRequest(true);
 
-            register(data).then(userCreated => {
+            USERregister(data).then(userCreated => {
                 if (userCreated) {
                     setActionLogin(true);
                     setShowErrorMessage("none");
-                    enqueueSnackbar(MESSAGE.REGISTER_SUCCESS,{variant: 'success'});
+                    enqueueSnackbar(MESSAGE.REGISTER_SUCCESS, { variant: 'success' });
                 }
                 else {
                     setShowErrorMessage("none");
-                    enqueueSnackbar(MESSAGE.USERNAME_EXISTS, {variant: 'error'});
+                    enqueueSnackbar(MESSAGE.USERNAME_EXISTS, { variant: 'error' });
                 }
 
-            }).catch(error => { handlleShowErrorMessage(MESSAGE.NETWORK_ERROR, {variant: 'error'}); })
+            }).catch(error => { handlleShowErrorMessage(MESSAGE.USERNAME_EXISTS, { variant: 'error' }); })
                 .finally(() => { setHandlingRequest(false) });
         }
     };

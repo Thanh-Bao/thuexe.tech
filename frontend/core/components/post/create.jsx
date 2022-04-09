@@ -115,7 +115,6 @@ const PostCreate = (props, ref) => {
             isAnonymous: userCard.current.anonymous,
         }
         createPost(params).then(post => {
-            console.log(post)
             setEditorState(EditorState.push(editorState, ContentState.createFromText('')));
             setFileUploads([]);
             handleClose();

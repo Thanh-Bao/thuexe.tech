@@ -57,20 +57,8 @@ const PersonalInfor = (props) => {
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
     const { user, isViewMyProfilePage, userIdLoggedIn } = props;
-    console.log(props)
     const [followStatus, setFollowStatus] = useState(user.follower.includes(userIdLoggedIn));
 
-    const handleFollow = () => {
-        follow(user._id)
-            .then((res) => { console.log(res), setFollowStatus(true) })
-            .catch(() => enqueueSnackbar(`Lỗi follow ${user.username}, vui lòng thử lại`))
-    }
-
-    const handleUnfollow = () => {
-        unfollow(user._id)
-            .then((res) => { console.log(res), setFollowStatus(false) })
-            .catch(() => enqueueSnackbar(`Lỗi unfollow ${user.username}, vui lòng thử lại`))
-    }
 
     return (
         <>

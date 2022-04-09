@@ -22,6 +22,7 @@ export function getUserByUsername(username) {
 }
 
 export function login(params) {
+    delete params.confirmPassword;
     return new Promise((resolve, reject) => {
         axios.post(`${API_URL}/api/v1/login`, params).then(response => {
             const { data } = response;
@@ -31,13 +32,13 @@ export function login(params) {
 }
 
 
-export function register(params) {
+export function USERregister(params) {
+    delete params.confirmPassword;
     return new Promise((resolve, reject) => {
-        axios.post(`${API_URL}/auth/user/register`, params).then(response => {
+        axios.post(`${API_URL}/api/v1/user/register`, params).then(response => {
             const { data } = response;
-
             resolve(data);
-        }).catch(error => { reject(error) })
+        }).catch(error => { console.log(error); reject(error) })
     })
 }
 

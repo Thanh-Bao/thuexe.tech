@@ -13,7 +13,6 @@ export function createPost(params) {
             }
         }).then(response => {
             const { data } = response;
-            console.log("HIHIH", data)
             resolve(data);
         }).catch(error => reject(error))
     })
