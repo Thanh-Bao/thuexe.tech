@@ -41,3 +41,4 @@ public class UserEntity extends BaseEntity {
     @ManyToMany(fetch = EAGER)
     private Set<RoleEntity> roles = new HashSet<>();
 }
+

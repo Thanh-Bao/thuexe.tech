@@ -20,7 +20,6 @@ public class UserController {
 
     private final UserService userService;
 
-    @CrossOrigin(origins="*")
     @GetMapping("/haha")
         public String haha(){
             return "haha";

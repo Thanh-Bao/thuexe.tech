@@ -22,8 +22,8 @@ const Index = props => {
 
     useEffect(() => {
         fetch("http://localhost:8080/api/v1/user/haha").then(
-           (x)=> console.log(x)
-        ).then(()=>console.log("YYYY"))
+           (x)=> x.text()
+        ).then((x)=>console.log(x))
         dispatch(updateLoginStatus(Boolean(havedLogin())));
     }, [])
 
