@@ -20,7 +20,7 @@ const ImageLoader = ({ item, handleClickPhoto }) => {
             onClick={() => { handleClickPhoto(item) }}
             src={src}
             alt={item.title}
-            onError={() => setSrc(`${API_URL}/default/imageholder/404.jpg`)}
+            onError={() => setSrc(`${API_URL}/static/404.jpg`)}
         />
     )
 }

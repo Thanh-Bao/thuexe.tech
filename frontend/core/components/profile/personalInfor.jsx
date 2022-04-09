@@ -19,9 +19,6 @@ const useStyles = makeStyles(theme => ({
         justifyContent: "center",
         margin: "auto"
     },
-    blurText: {
-        color: "#9ea0a3"
-    },
     count: {
         fontSize: '22px',
         fontWeight: 900
@@ -93,40 +90,6 @@ const PersonalInfor = (props) => {
                     component="div">
                     Tham gia từ {moment(user.createdAt).format('DD-MM-YYYY')}
                 </Typography>
-                <Stack direction="row" spacing={5}>
-                    <Statistics count={user.following.length} label="Đang theo dõi" />
-                    <Statistics count={user.follower.length} label="Người theo dõi" />
-                    <Statistics count={0} label="Like" />
-                </Stack>
-
-                {!isViewMyProfilePage && (
-                    followStatus ?
-                        <Tooltip title="Hủy theo dõi" placement="bottom">
-                            <Button
-                                onClick={handleUnfollow}
-                                className={classes.btnFollow}
-                                variant="outlined" >
-                                <Stack direction="row" spacing={1}>
-                                    <DoneRoundedIcon className={classes.followIcon} />
-                                    <Typography sx={{ fontSize: 19 }} component="span">
-                                        Đang theo dõi
-                                    </Typography>
-                                </Stack>
-                            </Button>
-                        </Tooltip>
-                        :
-                        <Button
-                            onClick={handleFollow}
-                            className={classes.btnFollow}
-                            variant="contained" >
-                            <Stack direction="row" spacing={1}>
-                                <NotificationsNoneIcon className={classes.followIcon} />
-                                <Typography sx={{ fontSize: 19 }} component="span">
-                                    Theo dõi
-                                </Typography>
-                            </Stack>
-                        </Button>
-                )}
             </Stack>
         </>
     )

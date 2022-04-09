@@ -83,14 +83,6 @@ const Header = props => {
             {MOBILE_WIDTH_MAXIMUM < screenWidth &&
                 <AppBar position="fixed" key='appbar-desktop' className={classes.appBar}>
                     <Toolbar className={classes.toolbarHeader}>
-                        <IconButton
-                            edge="start"
-                            color="inherit"
-                            aria-label="Open sidebar"
-                        >
-                            <Menu />
-                        </IconButton>
-
                         <Link href={`/`}>
                             <a>
                                 <img src="/logo.png" alt="logo" className={styles.logo} />
@@ -114,18 +106,6 @@ const Header = props => {
                                 <Button className={styles.buttonCreatePost} edge="end" startIcon={<AddToPhotos fontSize='small' />} size='medium' onClick={openPostForm} >
                                     Đăng bài
                                 </Button>
-
-                                <IconButton
-                                    color="inherit"
-                                    aria-label="Notification"
-                                    className={styles.baseButton}
-                                >
-                                    <Badge>
-                                        <Telegram />
-                                    </Badge>
-                                </IconButton>
-
-                                <NotificationsDropdown />
 
                                 <IconButton
                                     color="inherit"

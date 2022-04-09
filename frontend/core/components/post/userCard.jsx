@@ -41,7 +41,7 @@ const PostUserCard = (props) => {
                         query: { slug: _id }
                     }}>
                         <Tooltip title={moment(createdAt).format('HH:mm DD-MM-YYYY')}>
-                            <a className={classes.linkPost}>{moment(createdAt).format('DD [Thg] MM, YYYY')}<DotDivider />{formatSpacingNumber(views)} lượt xem </a> 
+                            <a className={classes.linkPost}>{moment(createdAt).format('DD [Thg] MM, YYYY')}<DotDivider /> </a> 
                         </Tooltip>
                     </Link>
                 </>,

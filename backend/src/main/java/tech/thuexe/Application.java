@@ -2,6 +2,9 @@ package tech.thuexe;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.CacheControl;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import tech.thuexe.entity.RoleEntity;
 import tech.thuexe.entity.UserEntity;
 import tech.thuexe.service.UserService;
@@ -13,12 +16,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import tech.thuexe.utility.Config;
 
 import java.util.HashSet;
+import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication
-public class Application {
+public class Application implements WebMvcConfigurer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
+	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/static/**").addResourceLocations("/WEB-INF/static/")
+				.setCacheControl(CacheControl.maxAge(2, TimeUnit.HOURS).cachePublic());
 	}
 
 	@Bean

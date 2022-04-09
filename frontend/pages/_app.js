@@ -6,8 +6,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import theme from '@/theme';
 import '../styles/global.scss';
 import { SnackbarProvider } from 'notistack';
-import ConsentPolicy from '@/components/policy/consentPolicy';
-import { havedAcceptPolicy } from '@/helper/handleCookie';
 import { store } from '@/reduxToolkit/store';
 import { Provider } from 'react-redux'
 
@@ -32,8 +30,6 @@ export default function Application(props) {
                     content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
                 />
             </Head>
-
-            {havedAcceptPolicy() ? null : <ConsentPolicy />}
 
             <ThemeProvider theme={theme}>
                 {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}

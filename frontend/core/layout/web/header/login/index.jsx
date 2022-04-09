@@ -8,7 +8,6 @@ import Checkbox from '@mui/material/Checkbox';
 import { useSnackbar } from 'notistack';
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import TermAndService from "@/components/policy/termService";
 import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles(theme => ({
@@ -45,8 +44,7 @@ const useStyles = makeStyles(theme => ({
     centerAlign: {
         display: 'flex',
         justifyContent: 'center'
-    },
-    TermAndService: { textTransform: 'none', color: 'blue', cursor: 'pointer', fontSize: '0.93em' }
+    }
 }))
 
 const Login = (props, ref) => {
@@ -61,10 +59,8 @@ const Login = (props, ref) => {
     const [handlingRequest, setHandlingRequest] = useState(false);
     const [actionLogin, setActionLogin] = useState(true);
 
-    const [openTerm, setOpenTerm] = useState(false);
     const [showErrorMessage, setShowErrorMessage] = useState('none');
     const [errorMessage, setErrorMessage] = useState(null);
-    const [acceptPolicy, setAcceptPolicy] = useState(false);
 
 
     const MESSAGE = {
@@ -85,14 +81,6 @@ const Login = (props, ref) => {
         PASSWORD_MIN: "Mật khẩu tối thiểu 3 ký tự",
         PASSSORD_MAX: "Mật khẩu tối đa 50 ký tự"
     }
-
-
-
-    // this function passing to TermAndService component via props
-    const handleCloseTermAndService = () => {
-        setOpenTerm(false);
-    }
-
 
     useImperativeHandle(ref, () => ({
         open: () => {
@@ -141,9 +129,6 @@ const Login = (props, ref) => {
 
         if (data.password != data.confirmPassword) {
             error = MESSAGE.PASSWORD_MATCH;
-        }
-        if (!acceptPolicy) {
-            error = MESSAGE.POLICY_DENIED;
         }
         return error;
     }
@@ -292,7 +277,6 @@ const Login = (props, ref) => {
 
                             <DialogContent className={styles.wrapperLoginForm}>
                                 <TextField
-                                style={{color}}
                                     margin="dense"
                                     id="username"
                                     label="Tài khoản"
@@ -327,21 +311,6 @@ const Login = (props, ref) => {
                                         required: "required",
                                     })}
                                 />
-
-                                <div className={styles.centerAlign}>
-                                    <div>
-                                        <Checkbox
-                                            checked={acceptPolicy}
-                                            onChange={() => { setAcceptPolicy(!acceptPolicy) }}
-                                        />
-                                        Đồng ý các <b><span
-                                            onClick={() => setOpenTerm(true)}
-                                            className={styles.TermAndService}>
-                                            điều khoản & dịch vụ</span></b>
-                                    </div>
-                                </div>
-
-                                <TermAndService openTerm={openTerm} onCloseTermAndService={handleCloseTermAndService} />
 
                                 <LoadingButton
                                     type="submit"

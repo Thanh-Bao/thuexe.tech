@@ -7,9 +7,6 @@ import GalleryPostMedia from '../gallery/postMedia';
 import { PhotoLibrary, ModeComment } from '@mui/icons-material';
 import { roundToNearest5 } from '@/helper/roundNumber';
 import PostUserCard from './userCard';
-import SharePost from '../share/post';
-import ReactPost from '@/components/react/like';
-import BookmarkPost from '@/components/bookmark/bookmark';
 
 const useStyles = makeStyles((theme) => ({
     media: {
@@ -88,25 +85,7 @@ const PostCard = (props) => {
                     <Divider />
 
                     <Stack className={classes.iconAction} spacing={1} direction="row" justifyContent="space-between" alignItems="center">
-                        <Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={1}>
-                            <ReactPost _id={_id} react={react} />
-
-                            <Link href={{
-                                pathname: '/post/[slug]',
-                                query: { slug: _id }
-                            }}>
-                                <IconButton component="span" size='small'>
-                                    <Tooltip title='Bình luận' aria-label="comment">
-                                        <ModeComment color='primary' />
-                                    </Tooltip>
-                                </IconButton>
-                            </Link> {comment && comment.length > 0 ? comment.length : null}
-
-                            <SharePost post={props.post} />
-                        </Stack>
-                        <Stack direction="row" alignItems="center" spacing={1}>
-                            <BookmarkPost  _id={_id} userSave={userSave} isShowNumberLeft={true} />
-                        </Stack>
+                        
                     </Stack>
                 </Stack>
             </Stack>
