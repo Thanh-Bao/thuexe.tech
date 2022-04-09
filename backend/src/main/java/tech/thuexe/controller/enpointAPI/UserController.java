@@ -19,14 +19,23 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("/all")
-    public ResponseEntity<List<UserDTO>> getUsers() {
-        return  ResponseEntity.ok().body(userService.getUsers());
-    }
-
     @GetMapping("/exist/{username}")
     public ResponseEntity<Boolean> checkUserExist(@PathVariable String username) {
         return  ResponseEntity.ok().body(userService.exists(username));
+    }
+
+    @GetMapping("/isactive/{username}")
+    public ResponseEntity<Boolean> checkUserIsActive(@PathVariable String username) throws CustomException {
+        if(!userService.exists(username)){
+            throw new CustomException("Username không tồn tại, hãy kiểm tra lại", HttpStatus.BAD_REQUEST);
+        }
+        boolean isActive = userService.getUser(username).isActive();
+        return ResponseEntity.ok().body(isActive);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<UserDTO>> getUsers() {
+        return  ResponseEntity.ok().body(userService.getUsers());
     }
 
     @PostMapping("/register")
