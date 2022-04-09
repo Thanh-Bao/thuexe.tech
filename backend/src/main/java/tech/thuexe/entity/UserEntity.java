@@ -35,6 +35,9 @@ public class UserEntity extends BaseEntity {
     @NotBlank(message = "mật khẩu không được bỏ trống")
     private String password;
 
+    @Column(name = "_isActive",nullable = false)
+    private boolean isActive ;
+
     @ManyToMany(fetch = EAGER)
     private Set<RoleEntity> roles = new HashSet<>();
 }

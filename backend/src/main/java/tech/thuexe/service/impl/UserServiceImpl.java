@@ -17,12 +17,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tech.thuexe.service.UserService;
+import tech.thuexe.utility.Config;
 import tech.thuexe.utility.DataMapperUtils;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 
 @Service @RequiredArgsConstructor @Transactional @Slf4j
@@ -77,7 +76,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public List<UserDTO> getUsers() {
-        List<UserEntity> users = userRepo.findAll();
+        Set<RoleEntity> roles = new HashSet();
+        RoleEntity roleEntity = roleRepo.findByName(Config.ROLE.USER.getValue());
+        roles.add(roleEntity);
+        List<UserEntity> users = userRepo.findAllByRolesIn(roles);
         return dataMapperUtils.mapAll(users,UserDTO.class);
     }
 
