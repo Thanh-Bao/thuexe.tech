@@ -10,7 +10,6 @@ import { API_URL, MOBILE_WIDTH_MAXIMUM, PAGE_TAB } from '@/config';
 import styles from '@styles/header.module.scss';
 import Login from './login';
 import RightMenuHeader from './menu';
-import NotificationsDropdown from '@/components/notificationsDropdown'
 
 const useStyles = makeStyles(theme => ({
     appBar: {
@@ -99,7 +98,7 @@ const Header = props => {
                                     href='/me'
                                     className={styles.meInfo}
                                     avatar={<Avatar alt={meInformation.username}
-                                        src={`${API_URL}${meInformation.avatar}`} />}
+                                        src={`${API_URL}/static/avatar.png`} />}
                                     label={meInformation.username}
                                 />
 
@@ -147,7 +146,7 @@ const Header = props => {
                                         onClick={(event) => { handleMenu(event) }}
                                         className={styles.meInfo}
                                         avatar={<Avatar alt={meInformation.username}
-                                            src={`${API_URL}${meInformation.avatar}`} />}
+                                            src={`${API_URL}/static/avatar.png`} />}
                                         label={meInformation.username}
                                     />
                                 </>

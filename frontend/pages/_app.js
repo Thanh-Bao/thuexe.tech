@@ -12,7 +12,6 @@ import { Provider } from 'react-redux'
 export default function Application(props) {
     const { Component, pageProps } = props;
 
-
     useEffect(() => {
         // Remove the server-side injected CSS.
         const jssStyles = document.querySelector('#jss-server-side');
@@ -24,7 +23,7 @@ export default function Application(props) {
     return (
         <React.Fragment>
             <Head>
-                <title>GORE VN</title>
+                <title>WEB</title>
                 <meta
                     name="viewport"
                     content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"

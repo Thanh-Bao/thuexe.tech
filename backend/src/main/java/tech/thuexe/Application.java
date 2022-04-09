@@ -49,12 +49,12 @@ public class Application implements WebMvcConfigurer {
 		userService.saveRole(new RoleEntity( Config.ROLE.USER.getValue()));
 		userService.saveRole(new RoleEntity( Config.ROLE.ADMIN.getValue()));
 
-		userService.saveUser(new UserEntity("fds sdf fsd ", "john","0988766765" ,"1234", true,new HashSet<>()));
+		userService.saveUser(new UserEntity("fds sdf fsd ", "baobao","0988766765" ,"1234", true,new HashSet<>()));
 		//userService.addRoleToUser("john", Config.ROLE.USER.getValue());
-		userService.addRoleToUser("john", Config.ROLE.ADMIN.getValue());
+		userService.addRoleToUser("baobao", Config.ROLE.ADMIN.getValue());
 
-		userService.saveUser(new UserEntity("sdf dsfsd sdf", "john1", "8767898789","1234",true, new HashSet<>()));
-		userService.addRoleToUser("john1", Config.ROLE.USER.getValue());
+		userService.saveUser(new UserEntity("sdf dsfsd sdf", "john", "8767898789","1234",true, new HashSet<>()));
+		userService.addRoleToUser("john", Config.ROLE.USER.getValue());
 		};
 	}
 }

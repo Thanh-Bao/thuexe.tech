@@ -1,10 +1,9 @@
-import login from '@/api/login';
-import registerAPI from '@/api/register';
+import {login} from '@/api/user';
+import {register} from '@/api/user';
 import { setAccount } from '@/helper/account';
 import { LoadingButton } from '@mui/lab';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, LinearProgress, TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import Checkbox from '@mui/material/Checkbox';
 import { useSnackbar } from 'notistack';
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -135,32 +134,31 @@ const Login = (props, ref) => {
 
     const onSubmitLogin = (data) => {
         if (!validateUsername(data.username)) {
-            enqueueSnackbar(MESSAGE.VALIDATE_INPUT.USERNAME);
+            enqueueSnackbar(MESSAGE.VALIDATE_INPUT.USERNAME, {variant: 'error'});
         } else if (!validatePassword(data.password)) {
-            enqueueSnackbar(MESSAGE.VALIDATE_INPUT.PASSWORD);
+            enqueueSnackbar(MESSAGE.VALIDATE_INPUT.PASSWORD, {variant: 'error'});
         } else {
             setHandlingRequest(true);
-            login(data).then(payload => {
-                const { statusCode, user, access_token } = payload;
-
-                if (statusCode != 401) {
+            login(data).then(user => {
+                const { access_token } = user;
+                if (access_token) {
                     setAccount(access_token, {
-                        _id: user._id,
-                        username: user.username
+                        _id: data.username,
+                        username: data.username
                     });
 
                     afterLogin();
                     handleClose();
 
                     setShowErrorMessage("none");
-                    enqueueSnackbar(MESSAGE.LOGIN_SUCCESS);
+                    enqueueSnackbar(MESSAGE.LOGIN_SUCCESS,{ variant: 'success' });
                 }
                 else {
                     setShowErrorMessage("none");
-                    enqueueSnackbar(MESSAGE.LOGIN_FAILD);
+                    enqueueSnackbar("Sai username hoặc password",{variant: 'error'});
                 }
 
-            }).catch(error => { enqueueSnackbar(MESSAGE.LOGIN_FAILD); })
+            }).catch(error => { enqueueSnackbar("Sai username hoặc password", {variant: 'error'}); })
                 .finally(() => { setHandlingRequest(false) });
         }
     };
@@ -172,18 +170,18 @@ const Login = (props, ref) => {
         } else {
             setHandlingRequest(true);
 
-            registerAPI(data).then(userCreated => {
+            register(data).then(userCreated => {
                 if (userCreated) {
                     setActionLogin(true);
                     setShowErrorMessage("none");
-                    enqueueSnackbar(MESSAGE.REGISTER_SUCCESS);
+                    enqueueSnackbar(MESSAGE.REGISTER_SUCCESS,{variant: 'success'});
                 }
                 else {
                     setShowErrorMessage("none");
-                    enqueueSnackbar(MESSAGE.USERNAME_EXISTS);
+                    enqueueSnackbar(MESSAGE.USERNAME_EXISTS, {variant: 'error'});
                 }
 
-            }).catch(error => { handlleShowErrorMessage(MESSAGE.NETWORK_ERROR); })
+            }).catch(error => { handlleShowErrorMessage(MESSAGE.NETWORK_ERROR, {variant: 'error'}); })
                 .finally(() => { setHandlingRequest(false) });
         }
     };

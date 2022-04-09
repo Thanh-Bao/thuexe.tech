@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.thuexe.utility.CustomException;
+import tech.thuexe.utility.DataMapperUtils;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -19,15 +20,19 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-
-    @GetMapping("/haha")
-        public String haha(){
-            return "haha";
-        }
+    private final DataMapperUtils dataMapperUtils;
 
     @GetMapping("/exist/{username}")
     public ResponseEntity<Boolean> checkUserExist(@PathVariable String username) {
         return  ResponseEntity.ok().body(userService.exists(username));
+    }
+
+    @GetMapping("/{username}")
+    public ResponseEntity<UserDTO> getUser(@PathVariable String username) throws CustomException {
+        if(!userService.exists(username)){
+            throw new CustomException("Username không tồn tại, hãy kiểm tra lại", HttpStatus.BAD_REQUEST);
+        }
+        return ResponseEntity.ok().body(dataMapperUtils.map(userService.getUser(username), UserDTO.class));
     }
 
     @GetMapping("/isactive/{username}")
@@ -37,11 +42,6 @@ public class UserController {
         }
         boolean isActive = userService.getUser(username).isActive();
         return ResponseEntity.ok().body(isActive);
-    }
-
-    @GetMapping("/all")
-    public ResponseEntity<List<UserDTO>> getUsers() {
-        return  ResponseEntity.ok().body(userService.getUsers());
     }
 
     @PostMapping("/register")

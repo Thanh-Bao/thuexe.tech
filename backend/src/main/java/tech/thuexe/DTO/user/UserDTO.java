@@ -12,6 +12,7 @@ public class UserDTO {
     private String name;
     private String username;
     private int createdAt;
+    private boolean isActive ;
     private String phone;
     private Set<RoleDTO> roles = new HashSet<RoleDTO>();
 }
