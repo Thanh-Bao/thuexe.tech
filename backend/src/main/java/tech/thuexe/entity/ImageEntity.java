@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Table(name = "_Image")
 public class ImageEntity extends BaseEntity {
 
-    @Column(nullable = false)
+    @Column(name="_link",nullable = false)
     private String link;
 
     @ManyToOne(

@@ -24,7 +24,7 @@ import javax.transaction.Transactional;
 import java.util.*;
 
 
-@Service @RequiredArgsConstructor @Transactional @Slf4j
+@Service @RequiredArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepo userRepo;
@@ -53,6 +53,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDTO saveUser(UserEntity user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setActive(true);
         UserEntity userResult = userRepo.save(dataMapperUtils.map(user,UserEntity.class));
         return dataMapperUtils.map(userResult,UserDTO.class);
     }

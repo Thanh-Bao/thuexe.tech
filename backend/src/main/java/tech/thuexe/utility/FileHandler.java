@@ -15,11 +15,11 @@ import java.util.UUID;
 @Component
 public class FileHandler {
     @Value("${FilePath}")
-    private String filePath;
+    private String imagePath;
 
     public String storeFile(MultipartFile file) throws Exception {
-        if (!Files.isDirectory(Paths.get(filePath))) {
-            new File(filePath).mkdirs();
+        if (!Files.isDirectory(Paths.get(imagePath))) {
+            new File(imagePath).mkdirs();
         }
         if (file.getSize() > (10 * 1024 * 1024)) {
             throw  new CustomException("Vui lòng chọn file dung lượng nhỏ", HttpStatus.BAD_REQUEST) ;
@@ -31,7 +31,7 @@ public class FileHandler {
         UUID uuid = UUID.randomUUID();
         String uuidAsString = uuid.toString();
         String fileName =  uuidAsString+"."+ FilenameUtils.getExtension(originFileName);
-        File newFile = new File(filePath+fileName);
+        File newFile = new File(imagePath +fileName);
         newFile.createNewFile();
         FileOutputStream fos = new FileOutputStream(newFile);
         fos.write(file.getBytes());

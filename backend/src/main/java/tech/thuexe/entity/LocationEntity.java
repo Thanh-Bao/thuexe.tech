@@ -16,16 +16,16 @@ import javax.persistence.Table;
 @Table(name = "_Location")
 public class LocationEntity extends BaseEntity {
 
-    @Column
-    private String province;
+    @Column(name="_provinceId")
+    private int provinceId;
 
-    @Column
-    private String district;
+    @Column(name="_districtId")
+    private int districtId;
 
-    @Column
-    private String ward;
+    @Column(name="_wardId")
+    private int wardId;
 
-    @Column
+    @Column(name="_street")
     private String street;
 
     @OneToOne(mappedBy = "location")

@@ -14,13 +14,12 @@ import tech.thuexe.utility.DataMapperUtils;
 import javax.transaction.Transactional;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
 
     private final PostRepo postRepo;
     private final UserService userService;
-    private DataMapperUtils mapper;
+    private final DataMapperUtils mapper;
 
     @Override
     public PostReadDTO save(PostWriteDTO postWriteDTO) {
