@@ -14,6 +14,7 @@ import tech.thuexe.utility.DataMapperUtils;
 import javax.transaction.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
 
@@ -27,7 +28,7 @@ public class PostServiceImpl implements PostService {
         if (postEntity == null) {
             return null;
         }
-        return mapEntityToDTO(postEntity);
+        return mapper.map(postEntity,PostReadDTO.class);
     }
 
     private PostEntity mapDTOtoEntity(PostWriteDTO postWriteDTO) {
@@ -39,16 +40,5 @@ public class PostServiceImpl implements PostService {
         postEntity.setDescription(postWriteDTO.getDescription());
         postEntity.setUser(user);
         return postEntity;
-    }
-
-    private PostReadDTO mapEntityToDTO(PostEntity postEntity) {
-        PostReadDTO postReadDTO = new PostReadDTO();
-        postReadDTO.setId(postEntity.getId());
-        postReadDTO.setImages(postEntity.getImages());
-        postReadDTO.setTitle(postEntity.getTitle());
-        postReadDTO.setDescription(postEntity.getDescription());
-        postReadDTO.setLocation(postEntity.getLocation());
-        postReadDTO.setUser(postEntity.getUser());
-        return postReadDTO;
     }
 }

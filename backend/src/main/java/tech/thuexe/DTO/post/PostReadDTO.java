@@ -3,6 +3,7 @@ package tech.thuexe.DTO.post;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import tech.thuexe.DTO.user.UserDTO;
 import tech.thuexe.entity.ImageEntity;
 import tech.thuexe.entity.LocationEntity;
 import tech.thuexe.entity.UserEntity;
@@ -19,5 +20,5 @@ public class PostReadDTO {
     private String title;
     private String description;
     private LocationEntity location;
-    private UserEntity user;
+    private UserDTO user;
 }

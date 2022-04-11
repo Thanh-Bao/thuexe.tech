@@ -18,20 +18,21 @@ public class FileHandler {
     private String imagePath;
 
     public String storeFile(MultipartFile file) throws Exception {
-        if (!Files.isDirectory(Paths.get(imagePath))) {
-            new File(imagePath).mkdirs();
+        final String URLImage = System.getProperty("user.home") + imagePath;
+        if (!Files.isDirectory(Paths.get(URLImage))) {
+            new File(URLImage).mkdirs();
         }
         if (file.getSize() > (10 * 1024 * 1024)) {
-            throw  new CustomException("Vui lòng chọn file dung lượng nhỏ", HttpStatus.BAD_REQUEST) ;
+            throw new CustomException("Vui lòng chọn file dung lượng nhỏ", HttpStatus.BAD_REQUEST);
         }
         if (file.getSize() == 0 || file == null) {
-            throw new CustomException("Bạn chưa chọn file", HttpStatus.BAD_REQUEST) ;
+            throw new CustomException("Bạn chưa chọn file", HttpStatus.BAD_REQUEST);
         }
         String originFileName = file.getOriginalFilename();
         UUID uuid = UUID.randomUUID();
         String uuidAsString = uuid.toString();
-        String fileName =  uuidAsString+"."+ FilenameUtils.getExtension(originFileName);
-        File newFile = new File(imagePath +fileName);
+        String fileName = uuidAsString + "." + FilenameUtils.getExtension(originFileName);
+        File newFile = new File(URLImage + fileName);
         newFile.createNewFile();
         FileOutputStream fos = new FileOutputStream(newFile);
         fos.write(file.getBytes());

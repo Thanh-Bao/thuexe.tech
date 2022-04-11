@@ -66,7 +66,7 @@ const PersonalInfor = (props) => {
                 <Avatar
                     className={classes.avatar}
                     alt={`${user.username}`}
-                    src={`${API_URL}${user.avatar}`}
+                    src={`${API_URL}/static/avatar.png`}
                 />
                 <Typography
                     variant="h4"

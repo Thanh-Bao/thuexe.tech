@@ -2,6 +2,7 @@ package tech.thuexe;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.CacheControl;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -20,6 +21,9 @@ import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication
 public class Application implements WebMvcConfigurer {
+	@Value("${FilePath}")
+	private String imagePath;
+
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
@@ -28,6 +32,7 @@ public class Application implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/static/**").addResourceLocations("/WEB-INF/static/")
 				.setCacheControl(CacheControl.maxAge(2, TimeUnit.HOURS).cachePublic());
+		registry.addResourceHandler("/images/**").addResourceLocations("file:" + System.getProperty("user.home") + imagePath);
 	}
 
 	@Bean

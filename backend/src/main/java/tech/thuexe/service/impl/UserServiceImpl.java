@@ -3,13 +3,11 @@ package tech.thuexe.service.impl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import tech.thuexe.DTO.user.UserDTO;
-import tech.thuexe.DTO.user.UserLoginDTO;
 import tech.thuexe.entity.RoleEntity;
 import tech.thuexe.entity.UserEntity;
 import tech.thuexe.repository.RoleRepo;
 import tech.thuexe.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,7 +22,9 @@ import javax.transaction.Transactional;
 import java.util.*;
 
 
-@Service @RequiredArgsConstructor
+@Service
+@Transactional
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepo userRepo;

@@ -24,5 +24,4 @@ public class ImageEntity extends BaseEntity {
     @JsonBackReference
     private PostEntity post;
 
-
 }

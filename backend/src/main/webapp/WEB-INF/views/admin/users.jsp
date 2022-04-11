@@ -15,7 +15,7 @@
     <title>SB Admin 2 - Dashboard</title>
 
     <!-- Custom fonts for this template-->
-    <link href="<c:url value='/template/admin/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet" type="text/css">
+    <link href="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.0-7/css/all.css'/>" rel="stylesheet" type="text/css">
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
@@ -133,7 +133,7 @@
 
 
 <!-- Bootstrap core JavaScript-->
-<script src="<c:url value='/template/admin/vendor/jquery/jquery.min.js'/>"></script>
+<script src="<c:url value='https://code.jquery.com/jquery-3.6.0.min.js'/>"></script>
 <script src="<c:url value='/template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
 
 <!-- Core plugin JavaScript-->

@@ -40,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeHttpRequests().
                 antMatchers(
                         "/static/**",
+                        "/images/**",
                         "/template/**",
                         "/api/v1/login/**",
                         "/api/v1/user/{username}",
