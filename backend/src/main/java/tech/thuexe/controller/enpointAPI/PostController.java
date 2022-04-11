@@ -21,7 +21,11 @@ public class PostController {
     @PostMapping("/save")
     public ResponseEntity<PostReadDTO> save(@RequestBody PostWriteDTO post) {
         return ResponseEntity.ok().body(postService.save(post));
+    }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<PostReadDTO>> getPost(){
+        return  ResponseEntity.ok().body(postService.getPosts());
     }
 }
 

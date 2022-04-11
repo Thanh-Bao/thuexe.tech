@@ -12,6 +12,7 @@ import tech.thuexe.service.UserService;
 import tech.thuexe.utility.DataMapperUtils;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -20,7 +21,7 @@ public class PostServiceImpl implements PostService {
 
     private final PostRepo postRepo;
     private final UserService userService;
-    private final DataMapperUtils mapper;
+    private final DataMapperUtils dataMapperUtils;
 
     @Override
     public PostReadDTO save(PostWriteDTO postWriteDTO) {
@@ -28,7 +29,13 @@ public class PostServiceImpl implements PostService {
         if (postEntity == null) {
             return null;
         }
-        return mapper.map(postEntity,PostReadDTO.class);
+        return dataMapperUtils.map(postEntity,PostReadDTO.class);
+    }
+
+    @Override
+    public List<PostReadDTO> getPosts() {
+        List<PostEntity> post = postRepo.findAll();;
+        return dataMapperUtils.mapAll(post,PostReadDTO.class);
     }
 
     private PostEntity mapDTOtoEntity(PostWriteDTO postWriteDTO) {
@@ -41,4 +48,15 @@ public class PostServiceImpl implements PostService {
         postEntity.setUser(user);
         return postEntity;
     }
+
+   /* private PostReadDTO mapEntityToDTO(PostEntity postEntity) {
+        PostReadDTO postReadDTO = new PostReadDTO();
+        postReadDTO.setId(postEntity.getId());
+        postReadDTO.setImages(postEntity.getImages());
+        postReadDTO.setTitle(postEntity.getTitle());
+        postReadDTO.setDescription(postEntity.getDescription());
+        postReadDTO.setLocation(postEntity.getLocation());
+        postReadDTO.setUser(postEntity.getUser());
+        return postReadDTO;
+    }*/
 }

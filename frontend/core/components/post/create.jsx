@@ -115,7 +115,7 @@ const PostCreate = (props, ref) => {
             images: mediaId,
         }
         createPost(params).then(post => {
-            console.log()
+            console.log("BAO",post)
             setEditorState(EditorState.push(editorState, ContentState.createFromText('')));
             setFileUploads([]);
             handleClose();
