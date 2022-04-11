@@ -1,6 +1,7 @@
 package tech.thuexe.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import tech.thuexe.DTO.post.PostReadDTO;
 import tech.thuexe.DTO.post.PostWriteDTO;
@@ -34,7 +35,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostReadDTO> getPosts() {
-        List<PostEntity> post = postRepo.findAll();;
+        List<PostEntity> post = postRepo.findAllByOrderByCreatedAtDesc();
         return dataMapperUtils.mapAll(post,PostReadDTO.class);
     }
 

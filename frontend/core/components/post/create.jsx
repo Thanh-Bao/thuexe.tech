@@ -15,6 +15,7 @@ import PostCreateLoading from './create/loading';
 
 import { useDispatch } from 'react-redux';
 import { addPost } from '@/reduxTookit/slices/postsIndexSlice'
+import { postMapper } from '@/helper/mapper';
 
 const useStyles = makeStyles((theme) => ({
     titleCreatePost: {
@@ -81,7 +82,6 @@ const PostCreate = (props, ref) => {
     const uploadFiles = event => {
         const files = event.target.files;
         const filesName = _.map(Array.from(files), item => item.name);
-        console.log(filesName);
 
         setFileLoadings([...fileLoadings, filesName]);
 
@@ -115,11 +115,11 @@ const PostCreate = (props, ref) => {
             images: mediaId,
         }
         createPost(params).then(post => {
-            console.log("BAO",post)
             setEditorState(EditorState.push(editorState, ContentState.createFromText('')));
             setFileUploads([]);
             handleClose();
-            dispatch(addPost(post))
+            const data = postMapper(post);
+            dispatch(addPost(data))
         }).finally(() => {
             setHandlingRequest(false);
             loadingModal.current.close();
