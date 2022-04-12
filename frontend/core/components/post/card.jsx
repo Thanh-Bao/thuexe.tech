@@ -41,7 +41,10 @@ const useStyles = makeStyles((theme) => ({
     },
     mediaCount: {
         color: theme.typography.body2.color,
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: "##e8e8e8",
+        "&:hover" : {
+            backgroundColor: "#a6a6a6",
+        }
     },
     mediaWrapper: {
         margin: 0
@@ -79,6 +82,18 @@ const PostCard = (props) => {
                         </Typography>
                     </ShowMore>
                 </CardContent>
+                <CardContent className={classes.mediaCounter}>
+                <Link 
+                href={{
+                    pathname: '/post/[slug]',
+                    query: { slug: "_id" }
+                }}
+                >
+                    <Tooltip title="Xem toàn bộ hình">
+                        <Chip size='small' className={classes.mediaCount} avatar={<PhotoLibrary />} label={`${media.length < 5 ? media.length : `${roundToNearest5(media.length)}+`}`} />
+                    </Tooltip>
+                </Link>
+            </CardContent>
                 <GalleryPostMedia media={media} maximage={4} className={classes.mediaWrapper} />
                 <Stack spacing={1} className={classes.content}>
                 </Stack>
@@ -88,3 +103,4 @@ const PostCard = (props) => {
 }
 
 export default PostCard;
+

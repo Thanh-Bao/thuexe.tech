@@ -20,5 +20,6 @@ public class PostReadDTO {
     private String title;
     private String description;
     private LocationEntity location;
+    private int createdAt;
     private UserDTO user;
 }
