@@ -64,15 +64,14 @@ const useStyles = makeStyles((theme) => ({
 const PostCard = (props) => {
     const classes = useStyles();
 
-    const { _id, media, content, react, userSave, comment } = props.post;
+    const { media, content } = props.post;
 
     return (
         <Card className={classes.contentWrapper}>
             <PostUserCard post={props.post} />
-
+            <Divider />
+            <br/>
             <Stack spacing={1}>
-                <GalleryPostMedia media={media} maximage={4} className={classes.mediaWrapper} />
-
                 <CardContent className={classes.content}>
                     <ShowMore>
                         <Typography variant="body2" fontSize={'14px'} component="p">
@@ -80,13 +79,8 @@ const PostCard = (props) => {
                         </Typography>
                     </ShowMore>
                 </CardContent>
-
+                <GalleryPostMedia media={media} maximage={4} className={classes.mediaWrapper} />
                 <Stack spacing={1} className={classes.content}>
-                    <Divider />
-
-                    <Stack className={classes.iconAction} spacing={1} direction="row" justifyContent="space-between" alignItems="center">
-                        
-                    </Stack>
                 </Stack>
             </Stack>
         </Card>

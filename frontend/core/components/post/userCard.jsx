@@ -29,6 +29,8 @@ const PostUserCard = (props) => {
     const { postLink = 'post', cardProps } = props;
     const { _id, media, content, user, createdAt, views } = props.post;
 
+    console.log("MMM",user)
+
     return (
         <UserPortalCard
             user={user}
