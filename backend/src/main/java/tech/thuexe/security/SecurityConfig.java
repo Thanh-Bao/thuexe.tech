@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/images/**",
                         "/template/**",
                         "/api/v1/login/**",
-                        "/api/v1/user/**",
+                        "/api/v1/user/{username}",
                         "/admin/**",
                         "/api/v1/post/all"
                 ).permitAll();

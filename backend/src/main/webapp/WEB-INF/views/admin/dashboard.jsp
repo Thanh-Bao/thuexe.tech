@@ -393,13 +393,6 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
-<script>
-    $.ajax({
-        url : "http://localhost:8080/api/v1/user/exist/john",
-        success : data=> alert(data),
-        error : ()=> alert("Lỗi rồi")
-    })   ;
-</script>
 
 
 <!-- Bootstrap core JavaScript-->
@@ -420,8 +413,6 @@
 <script src="<c:url value='/template/admin/js/demo/chart-area-demo.js'/>"></script>
 <script src=""></script>
 <script src="<c:url value='/template/admin/js/demo/chart-pie-demo.js'/>"></script>
-
-
 
 </body>
 
