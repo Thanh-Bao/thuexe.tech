@@ -11,6 +11,5 @@ import java.util.Optional;
 public interface PostService {
     PostReadDTO save(PostWriteDTO postWriteDTO);
     List<PostReadDTO> getPosts();
-    ImageEntity getImage(int id);
     PostEntity findById(int id);
 }
