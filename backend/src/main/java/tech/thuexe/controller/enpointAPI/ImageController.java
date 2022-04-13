@@ -20,6 +20,12 @@ import javax.servlet.http.HttpServletRequest;
 public class ImageController {
 
     private final FileHandler fileHandler;
+    private final PostService postService;
+
+    @GetMapping(value="/id/{id}")
+    public ResponseEntity<ImageEntity> getImage(@PathVariable int id){
+       return ResponseEntity.ok().body(postService.getImage(id));
+    }
 
     @PostMapping(value = "/uploadFile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> fileUpload(@RequestParam("media") MultipartFile file, HttpServletRequest httpServletRequest) throws IOException {

@@ -1,10 +1,14 @@
+import { API_URL } from '@/config';
 import { CircularProgress, Dialog, ImageList, ImageListItem, Stack } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import _ from 'lodash';
 import React, { useState } from 'react';
 import { useContextualRouting } from 'next-use-contextual-routing';
 import { useRouter } from 'next/router';
+import MediaPhotoPage from '@/pages/photo/[slug]';
+import { getPhoto } from '@api/media';
 import { useSnackbar } from 'notistack';
+import router from 'next/router';
 
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
@@ -66,9 +70,14 @@ const GalleryPostMedia = (props) => {
         enqueueSnackbar('', {
             content: <CircularProgress sx={{ color: '#e4e6eb' }} />
         });
-        closeSnackbar();
-        setPhotoSelection("fdfd");
-        setOpenPhoto(true);
+
+        getPhoto(item._id).then(payload => {
+            closeSnackbar();
+            router.push(makeContextualHref({ id: item._id }), '/photo/' + item._id, { shallow: true });
+
+            setPhotoSelection(payload);
+            setOpenPhoto(true);
+        })
     }
 
     const handleClose = () => {
@@ -146,7 +155,7 @@ const GalleryPostMedia = (props) => {
                     className: classes.rootDialog
                 }}
             >
-                 {/* {photoSelection && <MediaPhotoPage onCloseImgDialog={handleClose} header={false} photo={photoSelection} navigateImage={navigateImage} />} */}
+                {photoSelection && <MediaPhotoPage onCloseImgDialog={handleClose} header={false} photo={photoSelection} navigateImage={navigateImage} />}
             </Dialog>
         </>
     );

@@ -10,4 +10,5 @@ import java.util.List;
 public interface PostService {
     PostReadDTO save(PostWriteDTO postWriteDTO);
     List<PostReadDTO> getPosts();
+    ImageEntity getImage(int id);
 }

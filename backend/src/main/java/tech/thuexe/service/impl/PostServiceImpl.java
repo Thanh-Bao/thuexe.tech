@@ -7,6 +7,7 @@ import tech.thuexe.DTO.post.PostWriteDTO;
 import tech.thuexe.entity.ImageEntity;
 import tech.thuexe.entity.PostEntity;
 import tech.thuexe.entity.UserEntity;
+import tech.thuexe.repository.ImageRepo;
 import tech.thuexe.repository.PostRepo;
 import tech.thuexe.service.PostService;
 import tech.thuexe.service.UserService;
@@ -21,6 +22,7 @@ import java.util.List;
 public class PostServiceImpl implements PostService {
 
     private final PostRepo postRepo;
+    private final ImageRepo imageRepo;
     private final UserService userService;
     private final DataMapperUtils dataMapperUtils;
 
@@ -39,6 +41,10 @@ public class PostServiceImpl implements PostService {
         return dataMapperUtils.mapAll(post,PostReadDTO.class);
     }
 
+    @Override
+    public ImageEntity getImage(int id) {
+        return imageRepo.findById(id);
+    }
 
     private PostEntity mapDTOtoEntity(PostWriteDTO postWriteDTO) {
         UserEntity user = userService.getUser(userService.getUsername());
