@@ -1,4 +1,4 @@
-package tech.thuexe.DTO;
+package tech.thuexe.DTO.user;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

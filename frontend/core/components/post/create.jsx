@@ -1,5 +1,5 @@
 import { API_URL } from '@/config';
-import { upload } from '@api/media';
+import { upload } from '@api/post';
 import { createPost } from '@api/post';
 import { PhotoLibrarySharp } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
