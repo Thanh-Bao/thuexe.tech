@@ -25,6 +25,9 @@ public class PostEntity extends BaseEntity {
     private List<ImageEntity> images = new ArrayList<>();
 
     @Column
+    private double price;
+
+    @Column
     private String title;
 
     @Column
@@ -32,6 +35,7 @@ public class PostEntity extends BaseEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id", referencedColumnName = "id")
+    @JsonManagedReference
     private LocationEntity location;
 
     @ManyToOne

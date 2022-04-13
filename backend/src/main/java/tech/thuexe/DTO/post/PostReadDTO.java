@@ -8,6 +8,7 @@ import tech.thuexe.entity.ImageEntity;
 import tech.thuexe.entity.LocationEntity;
 import tech.thuexe.entity.UserEntity;
 
+import javax.persistence.Column;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class PostReadDTO {
     private int id;
     private List<ImageEntity> images = new ArrayList<>();
+    private double price;
     private String title;
     private String description;
     private LocationEntity location;

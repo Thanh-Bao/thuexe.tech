@@ -15,6 +15,7 @@ import tech.thuexe.utility.DataMapperUtils;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -46,10 +47,16 @@ public class PostServiceImpl implements PostService {
         return imageRepo.findById(id);
     }
 
+    @Override
+    public PostEntity findById(int id) {
+        return postRepo.findById(id).get();
+    }
+
     private PostEntity mapDTOtoEntity(PostWriteDTO postWriteDTO) {
         UserEntity user = userService.getUser(userService.getUsername());
         PostEntity postEntity = new PostEntity();
         postWriteDTO.getImages().forEach(image -> postEntity.addImage(image));
+        postEntity.setPrice(postWriteDTO.getPrice());
         postEntity.setTitle(postWriteDTO.getTitle());
         postEntity.setLocation(postWriteDTO.getLocation());
         postEntity.setDescription(postWriteDTO.getDescription());
@@ -57,15 +64,4 @@ public class PostServiceImpl implements PostService {
         return postEntity;
     }
 
-
-   /* private PostReadDTO mapEntityToDTO(PostEntity postEntity) {
-        PostReadDTO postReadDTO = new PostReadDTO();
-        postReadDTO.setId(postEntity.getId());
-        postReadDTO.setImages(postEntity.getImages());
-        postReadDTO.setTitle(postEntity.getTitle());
-        postReadDTO.setDescription(postEntity.getDescription());
-        postReadDTO.setLocation(postEntity.getLocation());
-        postReadDTO.setUser(postEntity.getUser());
-        return postReadDTO;
-    }*/
 }

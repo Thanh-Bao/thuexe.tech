@@ -24,7 +24,7 @@ public class PostController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<PostReadDTO>> getPost(){
+    public ResponseEntity<List<PostReadDTO>> getPosts(){
         return  ResponseEntity.ok().body(postService.getPosts());
     }
 }
