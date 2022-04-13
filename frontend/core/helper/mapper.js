@@ -2,9 +2,11 @@ export const postMapper = post => (
     {
         ...post,
         content: post.description,
-        _id: "62543052cf0d2792f3582b4fd",
+        _id: post.id,
         media: post.images.map(image => (
             {
+                ...image,
+                _id : image.id,
                 url: `/images/${image.link}`
             }
         ))
