@@ -16,6 +16,7 @@ import PostCreateLoading from './create/loading';
 import { useDispatch } from 'react-redux';
 import { addPost } from '@/reduxTookit/slices/postsIndexSlice'
 import { postMapper } from '@/helper/mapper';
+import Image from 'next/image';
 
 const useStyles = makeStyles((theme) => ({
     titleCreatePost: {

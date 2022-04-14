@@ -13,7 +13,6 @@ import { API_URL } from '@/config';
 import Head from '@/layout/web/head';
 import WebLayout from '@/layout/web';
 
-import { commentPost, getCommentsPost, getPost } from '@/api/post';
 import UserPortalCard from '@/components/user/portalCard';
 import DotDivider from '@/components/dotDivider';
 import GalleryPostMedia from '@/components/gallery/postMedia';
@@ -61,46 +60,7 @@ const Post = ({ article }) => {
     const classes = useStyles();
     const { user, _id, createdAt, views, react, userSave, content, media } = article;
 
-    const [commentContent, setCommentContent] = useState('');
     const [loading, setLoading] = useState(false);
-    const [comments, setComments] = useState([]);
-
-    const completeTask = () => {
-        setLoading(false);
-    }
-
-    const startTask = () => {
-        setLoading(true);
-    }
-
-    const handleCreateComment = () => {
-        commentPost(_id, {
-            content: commentContent
-        }).then(payload => {
-            if (payload) {
-                setComments([
-                    ...[payload],
-                    ...comments
-                ])
-            }
-        }).catch(err => {
-            console.log(err)
-        })
-    }
-
-    const fetchComments = (postId) => {
-        startTask();
-
-        getCommentsPost(postId).then(payload => {
-            setComments(payload);
-        });
-
-        completeTask();
-    }
-
-    useEffect(() => {
-        fetchComments(_id);
-    }, [])
 
     return (
         <>
@@ -182,8 +142,6 @@ const Post = ({ article }) => {
                                 </Grid>
                             </div>
 
-                            {comments.map((comment, key) => <UserComment comment={comment} key={`comment-${key}`} />)}
-                            {loading && <CommentSkeleton />}
                         </Grid>
                     </Grid>
                 </Container>

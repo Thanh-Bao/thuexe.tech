@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Image from 'material-ui-image';
 import React from 'react';
+import NextImage from 'next/image'; 
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
@@ -84,7 +85,7 @@ const MediaPhotoPage = (props) => {
                                 objectFit: 'contain',
                                 backgroundColor: 'rgb(0 0 0)',
                             }}
-                            errorIcon={<img src={`${API_URL}/static/404.jpg`} width="auto" height="auto" />}
+                            errorIcon={<NextImage layout="fill" src="static/404.jpg" width="auto" height="auto" />}
                             imageStyle={{
                                 width: "auto",
                                 maxWidth: "100%",

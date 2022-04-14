@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { API_URL } from '@/config';
 import { makeStyles } from '@mui/styles';
+import Image from 'next/image';
 
 const useStyles = makeStyles((theme) => ({
     showPointer: { cursor: 'pointer' },
@@ -10,16 +11,15 @@ const useStyles = makeStyles((theme) => ({
 const ImageLoader = ({ item, handleClickPhoto }) => {
     const classes = useStyles();
 
-    const [src, setSrc] = useState(`${API_URL}${item.url}`);
+    const [src, setSrc] = useState(item.url);
 
     return (
-        <img
+        <Image
             className={classes.showPointer}
-            width="100%"
-            height="auto"
+            layout="fill"
             src={src}
             alt={item.title}
-            onError={() => setSrc(`${API_URL}/static/404.jpg`)}
+            onError={() => setSrc(`static/404.jpg`)}
         />
     )
 }
