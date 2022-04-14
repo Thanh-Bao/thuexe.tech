@@ -17,10 +17,9 @@ import UserPortalCard from '@/components/user/portalCard';
 import DotDivider from '@/components/dotDivider';
 import GalleryPostMedia from '@/components/gallery/postMedia';
 import Box from '@mui/material/Box';
+import { getPost } from '@/api/post';
 
 import { formatSpacingNumber } from '@/helper/roundNumber';
-import UserComment from '@/components/user/comment';
-import CommentSkeleton from '@/components/skeleton/comment';
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
