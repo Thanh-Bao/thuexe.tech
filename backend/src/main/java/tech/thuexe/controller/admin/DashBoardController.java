@@ -14,4 +14,9 @@ public class DashBoardController {
     public String getUsers(){
         return "admin/users";
     }
+
+    @GetMapping("/admin/login")
+    public String getLoginPage(){
+        return "admin/login";
+    }
 }
