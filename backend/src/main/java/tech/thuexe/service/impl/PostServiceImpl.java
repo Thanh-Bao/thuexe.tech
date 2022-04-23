@@ -2,9 +2,8 @@ package tech.thuexe.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import tech.thuexe.DTO.post.PostReadDTO;
-import tech.thuexe.DTO.post.PostWriteDTO;
-import tech.thuexe.entity.ImageEntity;
+import tech.thuexe.dto.post.PostReadDTO;
+import tech.thuexe.dto.post.PostWriteDTO;
 import tech.thuexe.entity.PostEntity;
 import tech.thuexe.entity.UserEntity;
 import tech.thuexe.repository.PostRepo;
@@ -14,7 +13,6 @@ import tech.thuexe.utility.DataMapperUtils;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional

@@ -1,6 +1,6 @@
 package tech.thuexe.service;
 
-import tech.thuexe.DTO.user.UserDTO;
+import tech.thuexe.dto.user.UserDTO;
 import tech.thuexe.entity.RoleEntity;
 import tech.thuexe.entity.UserEntity;
 

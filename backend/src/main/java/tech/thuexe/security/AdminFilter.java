@@ -15,7 +15,6 @@ public class AdminFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         HttpSession session = ((HttpServletRequest) request).getSession();
-        System.out.println("HAD_LOGIN==> "+session.getAttribute("HAD_LOGIN"));
         if(session.getAttribute("HAD_LOGIN")==null){
             request.getRequestDispatcher("/admin/login").forward(request, response);
         } else {
