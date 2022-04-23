@@ -46,12 +46,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/v1/user/**",
                         "/api/v1/post/all",
                         "/api/v1/location/**",
-                        "/admin/login"
+                        "/admin/**"
                 ).permitAll();
         http.authorizeHttpRequests().antMatchers(GET, "/api/v1/user/all/**").hasAnyAuthority(Config.ROLE.ADMIN.getValue());
-        http.authorizeHttpRequests().antMatchers("/admin/**")
+        /*http.authorizeHttpRequests().antMatchers("/admin/**")
                 .hasAnyAuthority(Config.ROLE.ADMIN.getValue())
-                .and().formLogin().loginPage("/admin/login");
+                .and().formLogin().loginPage("/admin/login");*/
         http.authorizeHttpRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
