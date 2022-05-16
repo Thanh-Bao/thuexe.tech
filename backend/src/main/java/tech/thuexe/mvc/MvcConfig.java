@@ -1,4 +1,4 @@
-package tech.thuexe.config;
+package tech.thuexe.mvc;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,8 +18,8 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/assets/**")
-                .addResourceLocations("/assets/");
+        registry.addResourceHandler("/template/**")
+                .addResourceLocations("/template/");
     }
 
     @Bean

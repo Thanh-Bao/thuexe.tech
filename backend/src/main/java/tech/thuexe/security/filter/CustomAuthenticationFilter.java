@@ -1,4 +1,4 @@
-package tech.thuexe.security;
+package tech.thuexe.security.filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -9,11 +9,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import tech.thuexe.dto.user.UserLoginDTO;
-import tech.thuexe.config.Config;
+import tech.thuexe.DTO.user.UserLoginDTO;
+import tech.thuexe.utility.Config;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -27,12 +26,12 @@ import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
     private final ObjectMapper mapper = new ObjectMapper();
 
-    public AuthenticationFilter(AuthenticationManager authenticationManager) {
+    public CustomAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
 
@@ -47,10 +46,6 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         User user = (User) authentication.getPrincipal();
-        if(user.getAuthorities().contains(new SimpleGrantedAuthority(Config.ROLE.ADMIN.getValue()))){
-            request.getSession().setAttribute("HAD_LOGIN",true);
-            return;
-        }
         Algorithm algorithm = Algorithm.HMAC256(Config.CONFIG.SECRET.getValue().getBytes());
         String access_token = JWT.create()
                 .withSubject(user.getUsername())

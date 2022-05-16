@@ -1,8 +1,9 @@
-package tech.thuexe.controller.enpoint_api;
+package tech.thuexe.controller.enpointAPI;
 
 import java.io.IOException;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

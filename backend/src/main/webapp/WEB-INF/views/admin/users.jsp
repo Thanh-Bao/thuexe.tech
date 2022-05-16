@@ -21,7 +21,7 @@
             rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="<c:url value='/assets/css/sb-admin-2.min.css'/>" rel="stylesheet">
+    <link href="<c:url value='/template/admin/css/sb-admin-2.min.css'/>" rel="stylesheet">
 
 </head>
 
@@ -31,7 +31,7 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <%@ include file="/common/sidebar.jsp" %>
+    <%@ include file="/common/admin/sidebar.jsp" %>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -41,7 +41,7 @@
         <div id="content">
 
             <!-- Topbar -->
-            <%@ include file="/common/topbar.jsp" %>
+            <%@ include file="/common/admin/topbar.jsp" %>
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
@@ -116,7 +116,7 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <%@ include file="/common/footer.jsp" %>
+        <%@ include file="/common/admin/footer.jsp" %>
         <!-- End of Footer -->
 
     </div>
@@ -134,22 +134,22 @@
 
 <!-- Bootstrap core JavaScript-->
 <script src="<c:url value='https://code.jquery.com/jquery-3.6.0.min.js'/>"></script>
-<script src="<c:url value='/assets/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+<script src="<c:url value='/template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="<c:url value='/assets/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
+<script src="<c:url value='/template/admin/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
 
 <!-- Custom scripts for all pages-->
-<script src="<c:url value='/assets/js/sb-admin-2.min.js'/>"></script>
+<script src="<c:url value='/template/admin/js/sb-admin-2.min.js'/>"></script>
 
 <!-- Page level plugins -->
-<script src="<c:url value='/assets/vendor/chart.js/Chart.min.js'/>"></script>
+<script src="<c:url value='/template/admin/vendor/chart.js/Chart.min.js'/>"></script>
 
 <!-- Page level custom scripts -->
 <script src=""></script>
-<script src="<c:url value='/assets/js/demo/chart-area-demo.js'/>"></script>
+<script src="<c:url value='/template/admin/js/demo/chart-area-demo.js'/>"></script>
 <script src=""></script>
-<script src="<c:url value='/assets/js/demo/chart-pie-demo.js'/>"></script>
+<script src="<c:url value='/template/admin/js/demo/chart-pie-demo.js'/>"></script>
 
 </body>
 

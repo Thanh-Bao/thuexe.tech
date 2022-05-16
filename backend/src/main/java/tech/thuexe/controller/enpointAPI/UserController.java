@@ -1,20 +1,21 @@
-package tech.thuexe.controller.enpoint_api;
+package tech.thuexe.controller.enpointAPI;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import tech.thuexe.dto.user.UserDTO;
+import tech.thuexe.DTO.user.UserDTO;
 import tech.thuexe.entity.UserEntity;
 import tech.thuexe.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import tech.thuexe.config.Config;
+import tech.thuexe.utility.Config;
 import tech.thuexe.utility.CustomException;
 import tech.thuexe.utility.DataMapperUtils;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @RestController @RequiredArgsConstructor @RequestMapping(path = "${APIVersion}/user") @Validated
 public class UserController {

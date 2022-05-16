@@ -1,7 +1,7 @@
-package tech.thuexe.dto.user;
+package tech.thuexe.DTO.user;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import tech.thuexe.dto.RoleDTO;
+import tech.thuexe.DTO.RoleDTO;
 
 import java.util.HashSet;
 import java.util.Set;

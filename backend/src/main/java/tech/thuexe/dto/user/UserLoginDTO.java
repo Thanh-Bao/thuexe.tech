@@ -1,4 +1,4 @@
-package tech.thuexe.dto.user;
+package tech.thuexe.DTO.user;
 
 import lombok.Data;
 

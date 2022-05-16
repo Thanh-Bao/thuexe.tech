@@ -1,11 +1,9 @@
-package tech.thuexe.entity.location;
+package tech.thuexe.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import tech.thuexe.entity.BaseEntity;
-import tech.thuexe.entity.PostEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,10 +1,8 @@
-package tech.thuexe.entity.location;
+package tech.thuexe.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import tech.thuexe.entity.location.DistrictEntity;
-import tech.thuexe.entity.location.ProvinceEntity;
 
 import javax.persistence.*;
 
@@ -12,8 +10,8 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "_Street")
-public class StreetEntity {
+@Table(name = "_Ward")
+public class WardEntity {
 
     @Id
     private int id;

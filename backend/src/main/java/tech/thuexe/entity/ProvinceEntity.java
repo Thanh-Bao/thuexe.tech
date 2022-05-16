@@ -1,4 +1,4 @@
-package tech.thuexe.entity.location;
+package tech.thuexe.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

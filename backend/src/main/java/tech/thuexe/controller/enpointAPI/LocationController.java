@@ -1,4 +1,4 @@
-package tech.thuexe.controller.enpoint_api;
+package tech.thuexe.controller.enpointAPI;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -7,9 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import tech.thuexe.entity.location.DistrictEntity;
-import tech.thuexe.entity.location.ProvinceEntity;
-import tech.thuexe.entity.location.WardEntity;
+import tech.thuexe.entity.DistrictEntity;
+import tech.thuexe.entity.OrderEntity;
+import tech.thuexe.entity.ProvinceEntity;
+import tech.thuexe.entity.WardEntity;
 import tech.thuexe.service.LocationService;
 
 import java.util.List;

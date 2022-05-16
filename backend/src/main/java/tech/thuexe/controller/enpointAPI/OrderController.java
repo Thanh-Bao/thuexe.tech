@@ -1,4 +1,4 @@
-package tech.thuexe.controller.enpoint_api;
+package tech.thuexe.controller.enpointAPI;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

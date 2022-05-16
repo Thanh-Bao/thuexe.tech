@@ -2,7 +2,7 @@ package tech.thuexe.service.impl;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import tech.thuexe.dto.user.UserDTO;
+import tech.thuexe.DTO.user.UserDTO;
 import tech.thuexe.entity.RoleEntity;
 import tech.thuexe.entity.UserEntity;
 import tech.thuexe.repository.RoleRepo;
@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tech.thuexe.service.UserService;
-import tech.thuexe.config.Config;
+import tech.thuexe.utility.Config;
 import tech.thuexe.utility.DataMapperUtils;
 
 import javax.transaction.Transactional;

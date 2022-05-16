@@ -4,19 +4,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class DashboardController {
+public class DashBoardController {
     @GetMapping("/admin/dashboard")
     public String getDashBoard(){
-    return "dashboard";
+    return "admin/dashboard";
     }
 
     @GetMapping("/admin/users")
     public String getUsers(){
-        return "users";
+        return "admin/users";
     }
 
     @GetMapping("/admin/login")
     public String getLoginPage(){
-        return "login";
+        return "admin/login";
     }
 }

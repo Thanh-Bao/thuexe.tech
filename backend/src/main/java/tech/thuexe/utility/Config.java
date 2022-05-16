@@ -1,4 +1,4 @@
-package tech.thuexe.config;
+package tech.thuexe.utility;
 
 public class Config {
     public enum ROLE {

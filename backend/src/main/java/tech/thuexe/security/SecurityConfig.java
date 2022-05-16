@@ -1,10 +1,11 @@
-package tech.thuexe.config;
+package tech.thuexe.security;
 
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import tech.thuexe.security.AuthenticationFilter;
-import tech.thuexe.security.AuthorizationFilter;
+import tech.thuexe.utility.Config;
+import tech.thuexe.security.filter.CustomAuthenticationFilter;
+import tech.thuexe.security.filter.CustomAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,8 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and();
-        AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManagerBean());
-        authenticationFilter.setFilterProcessesUrl("/api/v1/login");
+        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
+        customAuthenticationFilter.setFilterProcessesUrl("/api/v1/login");
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeHttpRequests().
@@ -45,15 +46,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/v1/user/**",
                         "/api/v1/post/all",
                         "/api/v1/location/**",
-                        "/admin/**"
+                        "/admin/login"
                 ).permitAll();
         http.authorizeHttpRequests().antMatchers(GET, "/api/v1/user/all/**").hasAnyAuthority(Config.ROLE.ADMIN.getValue());
-        /*http.authorizeHttpRequests().antMatchers("/admin/**")
+        http.authorizeHttpRequests().antMatchers("/admin/**")
                 .hasAnyAuthority(Config.ROLE.ADMIN.getValue())
-                .and().formLogin().loginPage("/admin/login");*/
+                .and().formLogin().loginPage("/admin/login");
         http.authorizeHttpRequests().anyRequest().authenticated();
-        http.addFilter(authenticationFilter);
-        http.addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilter(customAuthenticationFilter);
+        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean

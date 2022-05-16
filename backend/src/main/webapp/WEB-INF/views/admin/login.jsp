@@ -23,8 +23,8 @@
             rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="<c:url value='/assets/css/sb-admin-2.min.css'/>" rel="stylesheet">
-    <link href="<c:url value='/assets/css/custom.css '/>" rel="stylesheet">
+    <link href="<c:url value='/template/admin/css/sb-admin-2.min.css'/>" rel="stylesheet">
+    <link href="<c:url value='/template/admin/css/custom.css '/>" rel="stylesheet">
 </head>
 
 <body class="bg-gradient-primary">
@@ -77,10 +77,10 @@
 <!-- Bootstrap core JavaScript-->
 <script src="<c:url value='https://code.jquery.com/jquery-3.6.0.min.js'/>"></script>
 
-<script src="<c:url value='/assets/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+<script src="<c:url value='/template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="<c:url value='/assets/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
+<script src="<c:url value='/template/admin/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
 
 <!-- Custom scripts for all pages-->
 <script src="<c:url value='/template/admin/js/sb-admin-2.min.js'/>"></script>

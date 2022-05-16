@@ -1,12 +1,14 @@
-package tech.thuexe.dto.post;
+package tech.thuexe.DTO.post;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import tech.thuexe.dto.user.UserDTO;
+import tech.thuexe.DTO.user.UserDTO;
 import tech.thuexe.entity.ImageEntity;
-import tech.thuexe.entity.location.LocationEntity;
+import tech.thuexe.entity.LocationEntity;
+import tech.thuexe.entity.UserEntity;
 
+import javax.persistence.Column;
 import java.util.ArrayList;
 import java.util.List;
 

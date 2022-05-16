@@ -1,11 +1,12 @@
-package tech.thuexe.controller.enpoint_api;
+package tech.thuexe.controller.enpointAPI;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import tech.thuexe.dto.post.PostReadDTO;
-import tech.thuexe.dto.post.PostWriteDTO;
+import tech.thuexe.DTO.post.PostReadDTO;
+import tech.thuexe.DTO.post.PostWriteDTO;
+import tech.thuexe.entity.PostEntity;
 import tech.thuexe.service.PostService;
 
 import java.util.List;

@@ -2,10 +2,10 @@ package tech.thuexe.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import tech.thuexe.entity.location.DistrictEntity;
-import tech.thuexe.entity.location.ProvinceEntity;
-import tech.thuexe.entity.location.StreetEntity;
-import tech.thuexe.entity.location.WardEntity;
+import tech.thuexe.entity.DistrictEntity;
+import tech.thuexe.entity.ProvinceEntity;
+import tech.thuexe.entity.StreetEntity;
+import tech.thuexe.entity.WardEntity;
 import tech.thuexe.repository.DistrictRepo;
 import tech.thuexe.repository.ProvinceRepo;
 import tech.thuexe.repository.StreetRepo;

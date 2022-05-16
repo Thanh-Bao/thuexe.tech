@@ -1,6 +1,6 @@
-package tech.thuexe.security;
+package tech.thuexe.security.filter;
 
-import tech.thuexe.config.Config;
+import tech.thuexe.utility.Config;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -25,7 +25,7 @@ import static java.util.Arrays.stream;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 
-public class AuthorizationFilter extends OncePerRequestFilter {
+public class CustomAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         if(request.getServletPath().equals("/api/login")){
