@@ -27,7 +27,7 @@ public class LocationEntity extends BaseEntity {
     private int wardId;
 
     @Column(name="_street")
-    private String street;
+    private int street;
 
     @OneToOne(mappedBy = "location")
     @JsonBackReference

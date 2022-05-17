@@ -27,6 +27,12 @@ public class PostController {
     public ResponseEntity<List<PostReadDTO>> getPosts(){
         return  ResponseEntity.ok().body(postService.getPosts());
     }
+
+    @PutMapping("/re-rent")
+    public ResponseEntity<String> reRent(@RequestParam int postId){
+        postService.reRent(postId);
+        return  ResponseEntity.ok("Ok");
+    }
 }
 
 

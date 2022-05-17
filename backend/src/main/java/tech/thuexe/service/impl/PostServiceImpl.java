@@ -46,6 +46,12 @@ public class PostServiceImpl implements PostService {
         return postRepo.findById(id).get();
     }
 
+    @Override
+    public void reRent(int id) {
+        PostEntity postEntity = findById(id);
+        postEntity.setRented(false);
+    }
+
     private PostEntity mapDTOtoEntity(PostWriteDTO postWriteDTO) {
         UserEntity user = userService.getUser(userService.getUsername());
         PostEntity postEntity = new PostEntity();

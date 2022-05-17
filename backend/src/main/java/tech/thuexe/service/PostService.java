@@ -12,4 +12,5 @@ public interface PostService {
     PostReadDTO save(PostWriteDTO postWriteDTO);
     List<PostReadDTO> getPosts();
     PostEntity findById(int id);
+    void reRent(int id);
 }

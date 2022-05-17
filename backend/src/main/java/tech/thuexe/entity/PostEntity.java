@@ -45,6 +45,9 @@ public class PostEntity extends BaseEntity {
     )
     private UserEntity user;
 
+    @Column
+    private boolean rented;
+
     public void addImage(ImageEntity image) {
         images.add(image);
         image.setPost(this);

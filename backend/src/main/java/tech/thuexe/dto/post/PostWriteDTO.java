@@ -19,4 +19,5 @@ public class PostWriteDTO {
     private String title;
     private String description;
     private LocationEntity location;
+    private boolean rented;
 }

@@ -25,6 +25,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderEntity save(OrderEntity orderEntity, int postId) {
         PostEntity postEntity = postService.findById(postId);
+        postEntity.setRented(true);
         UserEntity user = userService.getUser(userService.getUsername());
         orderEntity.setUser(user);
         orderEntity.setPost(postEntity);
