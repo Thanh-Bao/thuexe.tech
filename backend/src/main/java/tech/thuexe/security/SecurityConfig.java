@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/images/**",
                         "/api/v1/login/**",
                         "/api/v1/user/**",
-                        "/api/v1/post/all",
+                        "/api/v1/post/all/**",
                         "/api/v1/location/**"
                 ).permitAll();
         http.authorizeHttpRequests().antMatchers(GET, "/api/v1/user/all/**").hasAnyAuthority(Config.ROLE.ADMIN.getValue());

@@ -2,14 +2,8 @@ package tech.thuexe.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import tech.thuexe.entity.DistrictEntity;
-import tech.thuexe.entity.ProvinceEntity;
-import tech.thuexe.entity.StreetEntity;
-import tech.thuexe.entity.WardEntity;
-import tech.thuexe.repository.DistrictRepo;
-import tech.thuexe.repository.ProvinceRepo;
-import tech.thuexe.repository.StreetRepo;
-import tech.thuexe.repository.WardRepo;
+import tech.thuexe.entity.*;
+import tech.thuexe.repository.*;
 import tech.thuexe.service.LocationService;
 
 import java.util.List;
@@ -22,7 +16,7 @@ public class LocationServiceImpl implements LocationService {
     private final DistrictRepo districtRepo;
     private final WardRepo wardRepo;
     private final StreetRepo streetRepo;
-
+    private final LocationRepo locationRepo;
 
     @Override
     public ProvinceEntity findProvinceById(int provinceId) {
@@ -52,5 +46,10 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public List<StreetEntity> findAllStreet(ProvinceEntity province, DistrictEntity district) {
         return streetRepo.findAllByProvinceAndDistrict(province, district);
+    }
+
+    @Override
+    public List<LocationEntity> findAllByLocationId(int provinceId) {
+        return locationRepo.findAllByProvinceId(provinceId);
     }
 }

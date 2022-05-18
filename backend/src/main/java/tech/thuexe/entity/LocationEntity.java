@@ -17,17 +17,17 @@ import javax.persistence.Table;
 @Table(name = "_Location")
 public class LocationEntity extends BaseEntity {
 
-    @Column(name="_provinceId")
+    @Column(name = "_provinceId")
     private int provinceId;
 
-    @Column(name="_districtId")
+    @Column(name = "_districtId")
     private int districtId;
 
-    @Column(name="_wardId")
+    @Column(name = "_wardId")
     private int wardId;
 
-    @Column(name="_street")
-    private int street;
+    @Column(name = "_streetId")
+    private int streetId;
 
     @OneToOne(mappedBy = "location")
     @JsonBackReference
