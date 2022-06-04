@@ -9,7 +9,6 @@ import tech.thuexe.entity.LocationEntity;
 import tech.thuexe.entity.PostEntity;
 import tech.thuexe.entity.UserEntity;
 import tech.thuexe.repository.PostRepo;
-import tech.thuexe.service.LocationService;
 import tech.thuexe.service.PostService;
 import tech.thuexe.service.UserService;
 import tech.thuexe.utility.DataMapperUtils;
@@ -25,10 +24,11 @@ public class PostServiceImpl implements PostService {
     private final PostRepo postRepo;
     private final UserService userService;
     private final DataMapperUtils dataMapperUtils;
-    private final LocationService locationService;
+
 
     @Override
     public PostReadDTO save(PostWriteDTO postWriteDTO) {
+        postWriteDTO.setRented(false);
         PostEntity postEntity = postRepo.save(mapDTOtoEntity(postWriteDTO));
         if (postEntity == null) {
             return null;
@@ -60,14 +60,14 @@ public class PostServiceImpl implements PostService {
         postEntity.setRented(false);
     }
 
-    @Override
+    /*@Override
     public List<PostReadDTO> getPostsByProvince(int id, Pageable pageable) {
         List<LocationEntity> locationEntities = locationService
                 .findAllByLocationId(id);
         List<PostEntity> postEntities = postRepo.findByRentedAndLocationIn(
                 false, locationEntities, pageable).getContent();
         return dataMapperUtils.mapAll(postEntities, PostReadDTO.class);
-    }
+    }*/
 
     private PostEntity mapDTOtoEntity(PostWriteDTO postWriteDTO) {
         UserEntity user = userService.getUser(userService.getUsername());

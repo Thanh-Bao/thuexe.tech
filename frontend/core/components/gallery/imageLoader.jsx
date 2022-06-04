@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     showPointer: { cursor: 'pointer' },
 }));
 
-const ImageLoader = ({ item, handleClickPhoto }) => {
+const ImageLoader = ({ item }) => {
     const classes = useStyles();
 
     const [src, setSrc] = useState(item.url);

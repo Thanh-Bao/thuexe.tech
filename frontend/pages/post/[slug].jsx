@@ -101,7 +101,7 @@ const Post = ({ article }) => {
                                     }}
                                 />
 
-                                {HTMLReactParse(content)}
+                                {/* {HTMLReactParse(content)} */}
                             </Paper>
 
                             <GalleryPostMedia media={media} maximage={-1} sx={{ height: 'auto' }} />
@@ -117,7 +117,7 @@ const Post = ({ article }) => {
                             <div className={classes.margin}>
                                 <Grid container alignItems="flex-end" className={classes.wrapper} >
                                     <Grid item className={classes.wrapperAvatar} >
-                                        <Avatar className={classes.avatar} alt={user.name} src={`${API_URL}${user.avatar.url}`} />
+                                        {/* <Avatar className={classes.avatar} alt={user.name} src={`${API_URL}${user.avatar.url}`} /> */}
                                     </Grid>
                                     <Grid item className={classes.wrapperInput}>
                                         <TextField
@@ -155,7 +155,7 @@ Post.getInitialProps = async (ctx) => {
     const { slug } = ctx.query;
 
     const article = await getPost(slug);
-
+console.log(article)
     return { article };
 }
 

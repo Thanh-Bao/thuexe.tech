@@ -1,5 +1,6 @@
 package tech.thuexe.controller.enpointAPI;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import tech.thuexe.DTO.user.UserDTO;
@@ -17,11 +18,13 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
-@RestController @RequiredArgsConstructor @RequestMapping(path = "${APIVersion}/user") @Validated
+@RestController  @RequestMapping(path = "/users") @Validated
 public class UserController {
 
-    private final UserService userService;
-    private final DataMapperUtils dataMapperUtils;
+    @Autowired
+    private  UserService userService;
+    @Autowired
+    private DataMapperUtils dataMapperUtils;
 
     @GetMapping("/exist/{username}")
     public ResponseEntity<Boolean> checkUserExist(@PathVariable String username) {

@@ -30,7 +30,7 @@ public class Application implements WebMvcConfigurer {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/static/**").addResourceLocations("/WEB-INF/static/")
+		registry.addResourceHandler("/static/**").addResourceLocations("/")
 				.setCacheControl(CacheControl.maxAge(2, TimeUnit.HOURS).cachePublic());
 		registry.addResourceHandler("/images/**").addResourceLocations("file:" + imagePath);
 	}
@@ -51,15 +51,15 @@ public class Application implements WebMvcConfigurer {
 	@Bean
 	CommandLineRunner run(UserService userService){
 		return args -> {
-		userService.saveRole(new RoleEntity( Config.ROLE.USER.getValue()));
-		userService.saveRole(new RoleEntity( Config.ROLE.ADMIN.getValue()));
-
-		userService.saveUser(new UserEntity("fds sdf fsd ", "baobao","0988766765" ,"1234", true,new HashSet<>()));
-		//userService.addRoleToUser("john", Config.ROLE.USER.getValue());
-		userService.addRoleToUser("baobao", Config.ROLE.ADMIN.getValue());
-
-		userService.saveUser(new UserEntity("sdf dsfsd sdf", "john", "8767898789","1234",true, new HashSet<>()));
-		userService.addRoleToUser("john", Config.ROLE.USER.getValue());
+//		userService.saveRole(new RoleEntity( Config.ROLE.USER.getValue()));
+//		userService.saveRole(new RoleEntity( Config.ROLE.ADMIN.getValue()));
+//
+//		userService.saveUser(new UserEntity("fds sdf fsd ", "baobao","0988766765" ,"1234", true,new HashSet<>()));
+//		//userService.addRoleToUser("john", Config.ROLE.USER.getValue());
+//		userService.addRoleToUser("baobao", Config.ROLE.ADMIN.getValue());
+//
+//		userService.saveUser(new UserEntity("sdf dsfsd sdf", "john", "8767898789","1234",true, new HashSet<>()));
+//		userService.addRoleToUser("john", Config.ROLE.USER.getValue());
 		};
 	}
 }

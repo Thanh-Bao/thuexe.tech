@@ -3,6 +3,7 @@ package tech.thuexe.controller.enpointAPI;
 import java.io.IOException;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,11 +15,11 @@ import tech.thuexe.utility.FileHandler;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequiredArgsConstructor
-@RequestMapping(path = "${APIVersion}/image")
+@RequestMapping(path = "/image")
 public class ImageController {
 
-    private final FileHandler fileHandler;
+    @Autowired
+    private FileHandler fileHandler;
 
     @PostMapping(value = "/uploadFile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> fileUpload(@RequestParam("media") MultipartFile file, HttpServletRequest httpServletRequest) throws IOException {

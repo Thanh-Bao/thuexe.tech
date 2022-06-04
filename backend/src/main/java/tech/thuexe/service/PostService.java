@@ -18,5 +18,5 @@ public interface PostService {
 
     void reRent(int id);
 
-    List<PostReadDTO> getPostsByProvince(int id, Pageable pageable);
+    //List<PostReadDTO> getPostsByProvince(int id, Pageable pageable);
 }

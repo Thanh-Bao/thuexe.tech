@@ -7,7 +7,7 @@ export function upload(formData) {
     return new Promise((resolve, reject) => {
         const token = havedLogin();
 
-        axios.post(`${API_URL}/api/v1/image/uploadFile`, formData, {
+        axios.post(`${API_URL}/image/uploadFile`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
                 "Authorization": `Bearer ${token}`

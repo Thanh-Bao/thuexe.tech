@@ -1,6 +1,7 @@
 package tech.thuexe.controller.enpointAPI;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +13,12 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
-@RequestMapping(path = "${APIVersion}/order")
+@RequestMapping(path = "/order")
 @Validated
 public class OrderController {
 
-    private final OrderService orderService;
+    @Autowired
+    private OrderService orderService;
 
     @PostMapping("/save")
     public ResponseEntity<OrderEntity> save(@RequestBody OrderEntity order,

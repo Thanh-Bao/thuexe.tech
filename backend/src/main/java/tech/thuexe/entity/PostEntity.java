@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -28,9 +29,11 @@ public class PostEntity extends BaseEntity {
     private double price;
 
     @Column
+    @Nationalized
     private String title;
 
     @Column
+    @Nationalized
     private String description;
 
     @OneToOne(cascade = CascadeType.ALL)

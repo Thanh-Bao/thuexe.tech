@@ -26,9 +26,6 @@ public class LocationEntity extends BaseEntity {
     @Column(name = "_wardId")
     private int wardId;
 
-    @Column(name = "_streetId")
-    private int streetId;
-
     @OneToOne(mappedBy = "location")
     @JsonBackReference
     private PostEntity post;

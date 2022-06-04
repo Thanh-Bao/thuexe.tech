@@ -25,7 +25,6 @@ const ShowMore = (props) => {
                     `
                         .anchor-button-see-more {
                             text-decoration: none;
-                            color: #e4e6eb
                         }
                     `
                 }
