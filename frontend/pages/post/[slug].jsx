@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Avatar, Container, Grid, IconButton, InputAdornment, Paper, Stack, TextField, Tooltip } from '@mui/material';
+/* eslint-disable @next/next/no-img-element */
+import React, { useState } from 'react';
+import { Container, Grid, Paper, Stack, TextField, Tooltip } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { Send } from '@mui/icons-material';
 import HTMLReactParse from 'html-react-parser';
 import _ from 'lodash';
 import moment from 'moment-timezone';
 import Card from '@mui/material/Card';
 
-import Link from 'next/link';
 import { API_URL } from '@/config';
 
 import Head from '@/layout/web/head';
@@ -15,12 +14,10 @@ import WebLayout from '@/layout/web';
 
 import UserPortalCard from '@/components/user/portalCard';
 import DotDivider from '@/components/dotDivider';
-import GalleryPostMedia from '@/components/gallery/postMedia';
+import { ImageList, ImageListItem } from '@mui/material';
 import Box from '@mui/material/Box';
 import { getPost } from '@/api/post';
-
 import { formatSpacingNumber } from '@/helper/roundNumber';
-
 const useStyles = makeStyles((theme) => ({
     wrapper: {
         backgroundColor: theme.palette.primary.bgColor,
@@ -36,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.article.contentWrapper.bgColor,
         padding: theme.article.contentWrapper.padding,
         color: theme.typography.body2.color,
-        marginTop: '16px'
+        margin: '16px'
     },
     commentWrapper: {
         padding: '16px',
@@ -57,9 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Post = ({ article }) => {
     const classes = useStyles();
-    const { user, _id, createdAt, views, react, userSave, content, media } = article;
-
-    const [loading, setLoading] = useState(false);
+    const { user, id, createdAt, images, price, title, description } = article;
 
     return (
         <>
@@ -70,22 +65,13 @@ const Post = ({ article }) => {
                 <br />
                 <Container maxWidth='lg'>
                     <Grid container spacing={3}>
-                        <Grid item xs={12} sm={12} md={8} lg={8} xl={8} key='post'>
-
+                        <Grid item xs={12} sm={12} md={12} lg={12} xl={12} key='post'>
                             <Paper variant="outlined" square className={classes.articleWrapper}>
                                 <UserPortalCard
                                     user={user}
                                     cardProps={{
                                         subheader: <>
-                                            <Link
-                                                href={{
-                                                    pathname: '/post/[slug]',
-                                                    query: { slug: _id }
-                                                }}
-                                                passHref
-                                            >
-                                                <Tooltip title={moment(createdAt).format('h:mm a DD-MM-YYYY')}><a className={classes.linkPost}>{moment(createdAt).format('DD [Thg] MM, YYYY')}</a></Tooltip>
-                                            </Link>
+                                            <Tooltip title={moment.unix(createdAt).format('DD-MM-YYYY')}><a className={classes.linkPost}>{moment.unix(createdAt).format('DD-MM-YYYY')}</a></Tooltip>
                                             <DotDivider />
                                         </>,
                                         action:
@@ -100,52 +86,34 @@ const Post = ({ article }) => {
                                         }
                                     }}
                                 />
-
-                                {/* {HTMLReactParse(content)} */}
+                                <hr/>
+                                <Stack direction="row" justifyContent="space-around" >
+                                    <h1>{title}</h1>
+                                    <h1 style={{color: "red"}}>{formatSpacingNumber(price)}đ/ngày</h1>
+                                </Stack>
+                                <div style={{ boxSizing: "border-box", padding: "20px" }}>{HTMLReactParse(description)}</div>
                             </Paper>
+                            <ImageList >
+                                {
+                                    images.map(item => (
+                                        <ImageListItem key={item.id}>
+                                            <img
+                                                src={`${API_URL}/images/${item.link}`}
+                                                alt={item}
+                                            />
+                                        </ImageListItem>
+                                    ))
+                                }
+                            </ImageList>
 
-                            <GalleryPostMedia media={media} maximage={-1} sx={{ height: 'auto' }} />
                             <Card>
                                 <Box ml={3} mt={3} mb={4} >
                                     {/* ////////////// */}
                                 </Box>
                             </Card>
-
-                        </Grid>
-
-                        <Grid item xs={12} sm={12} md={4} lg={4} xl={4} key='other' id='comments'>
-                            <div className={classes.margin}>
-                                <Grid container alignItems="flex-end" className={classes.wrapper} >
-                                    <Grid item className={classes.wrapperAvatar} >
-                                        {/* <Avatar className={classes.avatar} alt={user.name} src={`${API_URL}${user.avatar.url}`} /> */}
-                                    </Grid>
-                                    <Grid item className={classes.wrapperInput}>
-                                        <TextField
-                                            id="input-with-icon-grid"
-                                            className={classes.input}
-                                            label="Viết bình luận"
-                                            onKeyPress={(e) => {
-                                                if (e.key === 'Enter') {
-                                                    handleCreateComment()
-                                                }
-                                            }
-                                            }
-                                            onChange={e => { setCommentContent(e.target.value) }}
-                                            InputProps={{
-                                                endAdornment: <InputAdornment position='end' >
-                                                    <IconButton className={classes.sendingComment} aria-label="send comment"> <Send fontSize='small' /> </IconButton>
-                                                </InputAdornment>
-                                            }}
-                                        />
-                                    </Grid>
-                                </Grid>
-                            </div>
-
                         </Grid>
                     </Grid>
                 </Container>
-
-
             </WebLayout>
         </>
     )
@@ -155,7 +123,6 @@ Post.getInitialProps = async (ctx) => {
     const { slug } = ctx.query;
 
     const article = await getPost(slug);
-console.log(article)
     return { article };
 }
 

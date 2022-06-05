@@ -9,7 +9,7 @@ export default function me(params) {
         const token = havedLogin();
 
         if (token) {
-            axios.get(`${API_URL}/user/${getMetaAccount().username}`, {
+            axios.get(`${API_URL}/users/${getMetaAccount().username}`, {
 
             }).then(response => {
                 const { statusCode } = response.data;

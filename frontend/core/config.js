@@ -1,6 +1,6 @@
 import env from '../env.json';
 
-export const SITE_NAME = 'IT JOB';
+export const SITE_NAME = 'Thuê Xe';
 
 export const SITE_URL = env.SITE_URL;
 

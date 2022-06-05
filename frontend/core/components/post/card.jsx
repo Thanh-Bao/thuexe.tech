@@ -84,8 +84,6 @@ const PostCard = (props) => {
 
     const { media, content, title, price, id, rented, createdAt } = props.post;
 
-    console.log(rented);
-
     return (
         <Link href={`/post/${id}`}>
             <Card className={classes.contentWrapper}>

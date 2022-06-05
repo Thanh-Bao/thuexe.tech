@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { API_URL } from '@/config';
 import { upload } from '@api/media';
 import { createPost } from '@api/post';

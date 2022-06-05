@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 
 const GalleryPostMedia = (props) => {
     const media = [...props.media];
-
     let cols = 2;
 
     return (
@@ -45,7 +44,7 @@ const GalleryPostMedia = (props) => {
             <ImageList sx={{ height: '30vh', overflowY: 'hidden' }} variant="quilted" cols={cols} gap={2} {...props}>
                 {
                     media.map(item => (
-                        <ImageListItem key={item._id}>
+                        <ImageListItem key={item.id}>
                             <ImageLoader item={item} />
                         </ImageListItem>
                     ))

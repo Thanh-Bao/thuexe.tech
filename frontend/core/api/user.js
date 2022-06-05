@@ -4,7 +4,7 @@ import { API_URL } from "../config";
 export function getUserByUsername(username) {
     return new Promise((resolve, reject) => {
 
-        axios.get(`${API_URL}/user/${username}`, {
+        axios.get(`${API_URL}/users/${username}`, {
 
         }).then(response => {
             const { statusCode } = response.data;
@@ -35,7 +35,7 @@ export function login(params) {
 export function USERregister(params) {
     delete params.confirmPassword;
     return new Promise((resolve, reject) => {
-        axios.post(`${API_URL}/user/register`, params).then(response => {
+        axios.post(`${API_URL}/users/register`, params).then(response => {
             const { data } = response;
             resolve(data);
         }).catch(error => { console.log(error); reject(error) })

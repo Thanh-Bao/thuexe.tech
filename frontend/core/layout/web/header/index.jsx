@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import me from '@/api/me';
 import PostCreate from '@/components/post/create';
 import { AccountCircle, AddToPhotos, ArrowDropDown, Home, Menu, Message, MoreVert, Notifications, Telegram, TrendingUp } from '@mui/icons-material';
@@ -85,7 +86,7 @@ const Header = props => {
                     <Toolbar className={classes.toolbarHeader}>
                         <Link href={`/`}>
                             <a>
-                                {/* <Image width="25px" height="25px" src="static/logo.png" alt="logo" className={styles.logo} /> */}
+                                <Image width="50px" height="50px" src="static/logo.png" alt="logo" className={styles.logo} />
                             </a>
                         </Link>
 
@@ -131,7 +132,7 @@ const Header = props => {
                         <Toolbar className={classes.toolbarHeader}>
                             <Link href={`/`}>
                                 <a>
-                                    {/* <img src="/logo.png" alt="logo" className={styles.logo} /> */}
+                                    <img src="/logo.png" alt="logo" className={styles.logo} />
                                 </a>
                             </Link>
 

@@ -36,7 +36,7 @@ const UserPortalCard = ({ user, cardProps = {} }) => {
                 </Link>
 
             }
-            title={user.username}
+            title={`Đăng bởi ${user.username}`}
             className={classes.wrapper}
             {...cardProps}
             classes={{
