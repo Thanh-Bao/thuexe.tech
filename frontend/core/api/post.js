@@ -7,9 +7,10 @@ export function createPost(params) {
     return new Promise((resolve, reject) => {
         const token = havedLogin();
 
-        axios.post(`${API_URL}/posts`, params, {
+        axios.post(`${API_URL}/posts`, JSON.stringify(params), {
             headers: {
-                "Authorization": `Bearer ${token}`
+                "Authorization": `Bearer ${token}`,
+                "content-Type": "application/json",
             }
         }).then(response => {
             const { data } = response;

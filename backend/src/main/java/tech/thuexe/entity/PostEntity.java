@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,10 +31,12 @@ public class PostEntity extends BaseEntity {
 
     @Column
     @Nationalized
+    @Size(min = 5, max = 30, message = "Tên xe phải từ 5->30 ký tự")
     private String title;
 
     @Column
     @Nationalized
+    @Size(min = 20, max = 5000, message = "Nội dung phải từ 20 đến 5000 ký tự")
     private String description;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -4,7 +4,6 @@ import PostCreate from '@/components/post/create';
 import { AccountCircle, AddToPhotos, ArrowDropDown, Home, Menu, Message, MoreVert, Notifications, Telegram, TrendingUp } from '@mui/icons-material';
 import { AppBar, Avatar, Badge, BottomNavigation, BottomNavigationAction, Button, Chip, Grid, IconButton, Stack, Toolbar } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import Link from 'next/link';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useRef, useState } from 'react';
 import { API_URL, MOBILE_WIDTH_MAXIMUM, PAGE_TAB } from '@/config';
@@ -84,11 +83,11 @@ const Header = props => {
             {MOBILE_WIDTH_MAXIMUM < screenWidth &&
                 <AppBar position="fixed" key='appbar-desktop' className={classes.appBar}>
                     <Toolbar className={classes.toolbarHeader}>
-                        <Link href={`/`}>
+                        <a href={`/`}>
                             <a>
                                 <Image width="50px" height="50px" src="static/logo.png" alt="logo" className={styles.logo} />
                             </a>
-                        </Link>
+                        </a>
 
 
                         <div className={styles.grow} />
@@ -130,11 +129,9 @@ const Header = props => {
                 <>
                     <AppBar position="fixed" key='appbar-mobile-top' className={classes.appBar}>
                         <Toolbar className={classes.toolbarHeader}>
-                            <Link href={`/`}>
-                                <a>
-                                    <img src="/logo.png" alt="logo" className={styles.logo} />
-                                </a>
-                            </Link>
+                            <a href={`/`}>
+                                <img src="/logo.png" alt="logo" className={styles.logo} />
+                            </a>
 
                             <div className={styles.grow} />
 

@@ -4,12 +4,12 @@ import { upload } from '@api/media';
 import { createPost } from '@api/post';
 import { PhotoLibrarySharp } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import { CircularProgress, Dialog, DialogContent, DialogTitle, IconButton, ImageList, ImageListItem, Input, Tooltip, Typography } from '@mui/material';
+import { CircularProgress, Dialog, DialogContent, DialogTitle, IconButton, ImageList, ImageListItem, Input, Stack, Tooltip, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import { ContentState, Editor, EditorState } from 'draft-js';
 import "draft-js/dist/Draft.css";
-import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef, useState, useEffect } from 'react';
 import Scrollbars from 'react-custom-scrollbars-2';
 import UserPostCreatePortalCard from '../user/post/userPostCreatePortalCard';
 import PostCreateLoading from './create/loading';
@@ -17,7 +17,36 @@ import PostCreateLoading from './create/loading';
 import { useDispatch } from 'react-redux';
 import { addPost } from '@/reduxTookit/slices/postsIndexSlice'
 import { postMapper } from '@/helper/mapper';
-import Image from 'next/image';
+import TextField from '@mui/material/TextField';
+import NumberFormat from 'react-number-format';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
+import { getProvince, getDistrict, getWard } from '@api/address';
+
+
+const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(props, ref) {
+    const { onChange, ...other } = props;
+    return (
+        <NumberFormat
+            {...other}
+            getInputRef={ref}
+            onValueChange={(values) => {
+                onChange({
+                    target: {
+                        name: props.name,
+                        value: values.value,
+                    },
+                });
+            }}
+            thousandSeparator
+            isNumericString
+            prefix="VNĐ  "
+        />
+    );
+});
 
 const useStyles = makeStyles((theme) => ({
     titleCreatePost: {
@@ -57,6 +86,54 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PostCreate = (props, ref) => {
+
+    const [price, setPrice] = useState(300000);
+    const [showErrorPrice, setErrorPrice] = useState(false);
+
+    const [title, setTitle] = useState("");
+    const [showErrorTitle, setErrorTitle] = useState(false);
+
+    const [provinces, setProvinces] = useState([]);
+    const [districts, setDistrics] = useState([]);
+    const [wards, setWards] = useState([]);
+
+    const [provinceId, setProvinceId] = useState(4);
+    const [districtId, setDistrictId] = useState(16);
+    const [wardId, setWardId] = useState(1034);
+
+    useEffect(() => {
+        getProvince()
+            .then(({ LtsItem }) => {
+                setProvinces(LtsItem);
+            })
+            .catch(() => alert("Lỗi lấy danh sách tỉnh"))
+    }, [])
+
+    useEffect(() => {
+        if (provinceId != null) {
+            getDistrict(provinceId)
+                .then(list => {
+                    if (list != null && list.length > 0) {
+                        setDistrics(list);
+                    }
+                })
+                .catch(() => alert("Lỗi lấy danh sách huyện"))
+        }
+    }, [provinceId])
+
+    useEffect(() => {
+        if (districtId != null) {
+            getWard(districtId)
+                .then(list => {
+                    if (list != null && list.length > 0) {
+                        setWards(list);
+                    }
+                })
+                .catch(() => alert("Lỗi lấy danh sách xã"))
+        }
+    }, [districtId])
+
+    //____________________________________________
     const styles = useStyles();
     const { me, afterLogin = () => { } } = props;
 
@@ -110,12 +187,20 @@ const PostCreate = (props, ref) => {
         setHandlingRequest(true);
         loadingModal.current.open();
 
-        const mediaId = fileUploads.map(item => ({ link: item }));
+        const mediaIds = fileUploads.map(item => ({ link: item }));
 
         const params = {
             description: editorState.getCurrentContent().getPlainText(),
-            images: mediaId,
+            images: mediaIds,
+            price: price,
+            title: title,
+            location: {
+                provinceId: provinceId,
+                districtId: districtId,
+                wardId: wardId
+            }
         }
+        console.log("XXX", params)
         createPost(params).then(post => {
             setEditorState(EditorState.push(editorState, ContentState.createFromText('')));
             setFileUploads([]);
@@ -127,6 +212,47 @@ const PostCreate = (props, ref) => {
             loadingModal.current.close();
         })
     }
+    //_______________________________________
+
+    const handlePriceChange = event => {
+        const value = event.target.value;
+        setPrice(value);
+        if (value > 300000 && value <= 10000000) {
+            setErrorPrice(false);
+        } else {
+            setErrorPrice(true);
+        }
+    }
+
+    const handleTitleChange = event => {
+        const title = event.target.value;
+        setTitle(title);
+        if (title.length >= 5 && title.length < 30) {
+            setErrorTitle(false);
+        } else {
+            setErrorTitle(true);
+        }
+    }
+
+    const handleLocationChange = ({ target: { name, value } }) => {
+        switch (name) {
+            case 'province':
+                setProvinceId(value);
+                setDistrictId(null);
+                setWardId(null);
+                break;
+            case 'district':
+                setDistrictId(value);
+                setWardId(null);
+                break;
+            case 'ward':
+                setWardId(value);
+                break;
+            default:
+                alert("lỗi chọn Id địa chỉ");
+                break;
+        }
+    };
 
     return (
         <>
@@ -136,7 +262,71 @@ const PostCreate = (props, ref) => {
                     <UserPostCreatePortalCard ref={userCard} user={me} />
 
                     <br />
-
+                    <TextField
+                        onChange={handleTitleChange}
+                        style={{ width: "100%" }}
+                        label="Nhập tên xe, hãng, ..."
+                        value={title}
+                        error={showErrorTitle}
+                        helperText={showErrorTitle ? "Tên xe thiểu 5 ký tự" : ""}
+                        variant="outlined" />
+                    <br />
+                    <br />
+                    <TextField
+                        onChange={handlePriceChange}
+                        style={{ width: "100%" }}
+                        label="Giá thuê theo ngày" variant="outlined"
+                        error={showErrorPrice}
+                        helperText={showErrorPrice ? "Tối thiểu 300K, tối đa 10 triệu" : ""}
+                        value={price}
+                        InputProps={{
+                            inputComponent: NumberFormatCustom,
+                        }}
+                    />
+                    <br />
+                    <br />
+                    <Stack direction="row" spacing={2} justifyContent="space-around">
+                        <FormControl fullWidth>
+                            <InputLabel>Chọn tỉnh</InputLabel>
+                            <Select
+                                name="province"
+                                value={provinceId}
+                                label="Chọn tỉnh"
+                                onChange={handleLocationChange}
+                            >
+                                {provinces.map(({ ID, Title }) =>
+                                    <MenuItem key={ID} value={ID}>{Title}</MenuItem>
+                                )}
+                            </Select>
+                        </FormControl>
+                        <FormControl fullWidth>
+                            <InputLabel>Chọn huyện</InputLabel>
+                            <Select
+                                name="district"
+                                value={districtId}
+                                label="Chọn huyện"
+                                onChange={handleLocationChange}
+                            >
+                                {districts.map(({ ID, Title }) =>
+                                    <MenuItem key={ID} value={ID}>{Title}</MenuItem>
+                                )}
+                            </Select>
+                        </FormControl>
+                        <FormControl fullWidth>
+                            <InputLabel>Chọn xã</InputLabel>
+                            <Select
+                                name="ward"
+                                value={wardId}
+                                label="Chọn xã"
+                                onChange={handleLocationChange}
+                            >
+                                {wards.map(({ ID, Title }) =>
+                                    <MenuItem key={ID} value={ID}>{Title}</MenuItem>
+                                )}
+                            </Select>
+                        </FormControl>
+                    </Stack>
+                    <hr />
                     <div className={styles.textEditor} onClick={focusEditor}>
                         <Editor
                             ref={editorRef}
@@ -192,7 +382,7 @@ const PostCreate = (props, ref) => {
                         <LoadingButton
                             onClick={uploadPost}
                             color="primary"
-                            disabled={(!(editorState.getCurrentContent().hasText() && editorState.getCurrentContent().getPlainText().length > 0) || fileUploads.length == 0 || fileLoadings > 0 || handlingRequest == true)}
+                            disabled={(!(editorState.getCurrentContent().hasText() && editorState.getCurrentContent().getPlainText().length > 0) || fileUploads.length == 0 || fileLoadings > 0 || handlingRequest == true && !showErrorPrice && !showErrorTitle || title.length < 5)}
                             loadingPosition="start"
                             loading={handlingRequest}
                             className={styles.buttonUpload}

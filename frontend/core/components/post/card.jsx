@@ -1,6 +1,5 @@
 import { Card, CardContent, Tooltip, Typography, Chip, Stack, IconButton, Divider } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import Link from 'next/link';
 import React, { useState } from 'react';
 import ShowMore from '../showMore';
 import GalleryPostMedia from '../gallery/postMedia';
@@ -85,13 +84,13 @@ const PostCard = (props) => {
     const { media, content, title, price, id, rented, createdAt } = props.post;
 
     return (
-        <Link href={`/post/${id}`}>
+        <a style={{ textDecoration: 'none' }} href={`/post/${id}`}>
             <Card className={classes.contentWrapper}>
                 <PostUserCard post={props.post} />
                 <Divider />
                 <div className={classes.titleContainer}>
                     <h3 className={classes.title}>{title}</h3>
-                    <h3 className={classes.price}>{price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')} đ</h3>
+                    <h3 className={classes.price}>{price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')} đ/ngày</h3>
                 </div>
                 <Stack spacing={1}>
                     <CardContent className={classes.content}>
@@ -123,7 +122,7 @@ const PostCard = (props) => {
                     </Stack>
                 </Stack>
             </Card>
-        </Link >
+        </a>
     );
 }
 

@@ -1,7 +1,10 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 import { ImageList, ImageListItem } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import _ from 'lodash';
 import React, { useState } from 'react';
+import { API_URL } from '@/config';
 
 
 import ImageLoader from './imageLoader';
@@ -41,15 +44,19 @@ const GalleryPostMedia = (props) => {
 
     return (
         <>
-            <ImageList sx={{ height: '30vh', overflowY: 'hidden' }} variant="quilted" cols={cols} gap={2} {...props}>
-                {
-                    media.map(item => (
-                        <ImageListItem key={item.id}>
-                            <ImageLoader item={item} />
-                        </ImageListItem>
-                    ))
-                }
-            </ImageList>
+            {
+                media.length > 1 ?
+                    <ImageList sx={{ height: '30vh', overflowY: 'hidden' }} variant="quilted" cols={cols} gap={2} {...props}>
+                        {
+                            media.map(item => (
+                                <ImageListItem key={item.id}>
+                                    <ImageLoader item={item} />
+                                </ImageListItem>
+                            ))
+                        }
+                    </ImageList> :
+                    <img src={`${API_URL}/images/${media[0].link}`}/>
+            }
         </>
     );
 }

@@ -40,12 +40,7 @@ const UserPostCreatePortalCard = ({ user, cardProps = {} }, ref) => {
             title={
                 <> 
                     {user.username}
-
                     <br/>
-
-                    <ToggleButton size='small' classes={{ root: classes.rootAnonymous }} value={isAnonymous} selected={isAnonymous} onChange={() => { setAnonymous(!isAnonymous); }} >
-                        {isAnonymous ? <> <VisibilityOff  classes={{ root: classes.iconAnonymous }} /> &nbsp; Option 1 </> : <> <Visibility classes={{ root: classes.iconAnonymous }}  /> &nbsp; Option 2 </> }
-                    </ToggleButton>
                 </>
             }
             
