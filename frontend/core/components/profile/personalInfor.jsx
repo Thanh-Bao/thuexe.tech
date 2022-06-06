@@ -9,7 +9,6 @@ import Button from '@mui/material/Button';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
 import Tooltip from '@mui/material/Tooltip';
-import { unfollow, follow } from "@/api/user";
 import { useSnackbar } from 'notistack';
 
 const useStyles = makeStyles(theme => ({

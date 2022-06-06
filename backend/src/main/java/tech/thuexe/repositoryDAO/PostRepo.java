@@ -12,8 +12,8 @@ import java.util.List;
 public interface PostRepo extends JpaRepository<PostEntity, Integer> {
     List<PostEntity> findAllByOrderByCreatedAtDesc();
 
-    @Query(value = "select * from _post where user_id = ?1",nativeQuery=true)
-    List<PostEntity> findAllByUserId(int id);
+    @Query(value = "select * from _post JOIN _user ON _post.user_id = _user.id where _user._username = ?1",nativeQuery=true)
+    List<PostEntity> findByUsername(String username);
 
     Page<PostEntity> findAllByRented(boolean rented, Pageable pageable);
 

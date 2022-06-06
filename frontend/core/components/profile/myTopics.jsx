@@ -4,6 +4,7 @@ import PostSkeleton from '@/components/skeleton/post';
 import { Grid } from '@mui/material';
 import _ from 'lodash';
 import { useEffect, useState } from "react";
+import { postMapper } from '@/helper/mapper';
 
 const MyTopics = (props) => {
     const [loading, setLoading] = useState(true);
@@ -12,13 +13,12 @@ const MyTopics = (props) => {
     const { user } = props;
 
     useEffect(() => {
-        // getPostByUser(user.username).then(payload => {
-        //     setLoading(false);
-
-        //     setPosts(payload);
-        // })
-
-    }, [posts.length])
+        getPostByUser(user.username).then(item => {
+            const data = item.map(postMapper)
+            setLoading(false);
+            setPosts(data);
+        })
+    }, [])
 
     return (
         <Grid container spacing={4}>

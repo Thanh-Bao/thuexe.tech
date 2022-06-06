@@ -47,9 +47,9 @@ public class UserController {
         return ResponseEntity.ok().body(dataMapperUtils.map(userService.getUser(username), UserDTO.class));
     }
 
-    @GetMapping("/{id}/posts")
-    public ResponseEntity<List<PostEntity>> getPosts(@PathVariable int id) {
-        return ResponseEntity.ok().body(postService.findAllByUserId(id));
+    @GetMapping("/{username}/posts")
+    public ResponseEntity<List<PostEntity>> getPosts(@PathVariable String username) {
+        return ResponseEntity.ok().body(postService.findAllByUserId(username));
     }
 
     @GetMapping("/isactive/{username}")

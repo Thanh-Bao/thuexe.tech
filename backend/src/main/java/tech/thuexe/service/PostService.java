@@ -16,7 +16,7 @@ public interface PostService {
 
     void reRent(int id);
 
-    List<PostEntity> findAllByUserId(int id);
+    List<PostEntity> findAllByUserId(String username);
 
     //List<PostReadDTO> getPostsAreNotRent(Pageable pageable);
 
