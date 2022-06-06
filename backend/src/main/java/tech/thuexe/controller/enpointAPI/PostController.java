@@ -9,6 +9,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tech.thuexe.DTO.post.PostReadDTO;
 import tech.thuexe.DTO.post.PostWriteDTO;
+import tech.thuexe.entity.PostEntity;
+import tech.thuexe.repositoryDAO.PostRepo;
 import tech.thuexe.service.PostService;
 import tech.thuexe.utility.DataMapperUtils;
 
@@ -22,7 +24,8 @@ public class PostController {
     private PostService postService;
     @Autowired
     private DataMapperUtils mapperUtils;
-
+    @Autowired
+    private PostRepo pr;
     @PostMapping()
     public ResponseEntity<PostReadDTO> save(@RequestBody PostWriteDTO post) {
         return ResponseEntity.ok().body(postService.save(post));
@@ -44,7 +47,6 @@ public class PostController {
         postService.reRent(postId);
         return ResponseEntity.ok("Ok");
     }
-
     /* @GetMapping("/all/province/{id}")
     public ResponseEntity<List<PostReadDTO>> getPostsByProvince(
             @PathVariable int id,

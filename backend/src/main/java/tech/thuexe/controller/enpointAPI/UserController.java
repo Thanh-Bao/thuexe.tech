@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import tech.thuexe.DTO.user.UserDTO;
+import tech.thuexe.entity.PostEntity;
 import tech.thuexe.entity.UserEntity;
 import tech.thuexe.repositoryDAO.UserRepo;
+import tech.thuexe.service.PostService;
 import tech.thuexe.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +28,9 @@ public class UserController {
     @Autowired
     private  UserService userService;
     @Autowired
-    UserRepo repo;
+    private PostService postService;
+    @Autowired
+    private UserRepo repo;
     @Autowired
     private DataMapperUtils dataMapperUtils;
 
@@ -41,6 +45,11 @@ public class UserController {
             throw new CustomException("Username không tồn tại, hãy kiểm tra lại", HttpStatus.BAD_REQUEST);
         }
         return ResponseEntity.ok().body(dataMapperUtils.map(userService.getUser(username), UserDTO.class));
+    }
+
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<List<PostEntity>> getPosts(@PathVariable int id) {
+        return ResponseEntity.ok().body(postService.findAllByUserId(id));
     }
 
     @GetMapping("/isactive/{username}")

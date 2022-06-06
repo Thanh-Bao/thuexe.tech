@@ -16,6 +16,8 @@ public interface PostService {
 
     void reRent(int id);
 
+    List<PostEntity> findAllByUserId(int id);
+
     //List<PostReadDTO> getPostsAreNotRent(Pageable pageable);
 
     //List<PostReadDTO> getPostsByProvince(int id, Pageable pageable);
