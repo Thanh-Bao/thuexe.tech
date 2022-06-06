@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Grid, Paper, Stack, TextField, Tooltip } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import HTMLReactParse from 'html-react-parser';
@@ -18,6 +18,10 @@ import { ImageList, ImageListItem } from '@mui/material';
 import Box from '@mui/material/Box';
 import { getPost } from '@/api/post';
 import { formatSpacingNumber } from '@/helper/roundNumber';
+import { getProvinceName } from '@/helper/address';
+import { getWard, getDistrict, getProvince } from '@api/address';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+
 const useStyles = makeStyles((theme) => ({
     wrapper: {
         backgroundColor: theme.palette.primary.bgColor,
@@ -54,7 +58,31 @@ const useStyles = makeStyles((theme) => ({
 
 const Post = ({ article }) => {
     const classes = useStyles();
-    const { user, id, createdAt, images, price, title, description } = article;
+    const { user, id, createdAt, images, price, title, description, location: { provinceId, districtId, wardId } } = article;
+
+
+    const addressInit = {
+        province: "Lỗi lấy tên tỉnh",
+        district: "lỗi lấy huyện",
+        ward: "lỗi lấy tên xã"
+    }
+
+    const [address, setAddress] = useState(addressInit);
+
+    useEffect(() => {
+        Promise.all([getProvince(provinceId), getDistrict(districtId), getWard(wardId)])
+            .then(res =>
+                setAddress(
+                    {
+                        province: res[0].Title,
+                        district: res[1].Title,
+                        ward: res[2].Title
+                    }
+                )
+            )
+            .catch(() => setAddress(addressInit))
+    }, []);
+
 
     return (
         <>
@@ -86,10 +114,22 @@ const Post = ({ article }) => {
                                         }
                                     }}
                                 />
-                                <hr/>
+                                <div style={{ marginLeft: '20px' }}>
+                                    <Stack direction="row" alignItems="center">
+                                        <LocationOnIcon />
+                                        <h4 style={{ fontWeight: 400, color: "#40403f" }}>
+                                            <a 
+                                            href={`https://www.google.com/maps/search/${address.ward}, ${address.district}, ${address.province}`}
+                                            target="_blank" rel="noreferrer">
+                                            {`${address.ward}, ${address.district}, ${address.province}`}
+                                            </a>
+                                        </h4>
+                                    </Stack>
+                                </div>
+                                <hr />
                                 <Stack direction="row" justifyContent="space-around" >
                                     <h1>{title}</h1>
-                                    <h1 style={{color: "red"}}>{formatSpacingNumber(price)}đ/ngày</h1>
+                                    <h1 style={{ color: "red" }}>{formatSpacingNumber(price)}đ/ngày</h1>
                                 </Stack>
                                 <div style={{ boxSizing: "border-box", padding: "20px" }}>{HTMLReactParse(description)}</div>
                             </Paper>

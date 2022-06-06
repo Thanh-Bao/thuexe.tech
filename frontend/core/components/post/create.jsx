@@ -24,7 +24,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-import { getProvince, getDistrict, getWard } from '@api/address';
+import { getProvinces, getDistricts, getWards } from '@api/address';
 
 
 const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(props, ref) {
@@ -92,6 +92,7 @@ const PostCreate = (props, ref) => {
 
     const [title, setTitle] = useState("");
     const [showErrorTitle, setErrorTitle] = useState(false);
+    const [showErrorContent, setErrorContent] = useState(false);
 
     const [provinces, setProvinces] = useState([]);
     const [districts, setDistrics] = useState([]);
@@ -101,8 +102,9 @@ const PostCreate = (props, ref) => {
     const [districtId, setDistrictId] = useState(16);
     const [wardId, setWardId] = useState(1034);
 
+
     useEffect(() => {
-        getProvince()
+        getProvinces()
             .then(({ LtsItem }) => {
                 setProvinces(LtsItem);
             })
@@ -111,7 +113,7 @@ const PostCreate = (props, ref) => {
 
     useEffect(() => {
         if (provinceId != null) {
-            getDistrict(provinceId)
+            getDistricts(provinceId)
                 .then(list => {
                     if (list != null && list.length > 0) {
                         setDistrics(list);
@@ -123,7 +125,7 @@ const PostCreate = (props, ref) => {
 
     useEffect(() => {
         if (districtId != null) {
-            getWard(districtId)
+            getWards(districtId)
                 .then(list => {
                     if (list != null && list.length > 0) {
                         setWards(list);
@@ -189,8 +191,10 @@ const PostCreate = (props, ref) => {
 
         const mediaIds = fileUploads.map(item => ({ link: item }));
 
+        const description = editorState.getCurrentContent().getPlainText();
+
         const params = {
-            description: editorState.getCurrentContent().getPlainText(),
+            description: description,
             images: mediaIds,
             price: price,
             title: title,
@@ -200,7 +204,6 @@ const PostCreate = (props, ref) => {
                 wardId: wardId
             }
         }
-        console.log("XXX", params)
         createPost(params).then(post => {
             setEditorState(EditorState.push(editorState, ContentState.createFromText('')));
             setFileUploads([]);
@@ -226,7 +229,7 @@ const PostCreate = (props, ref) => {
 
     const handleTitleChange = event => {
         const title = event.target.value;
-        setTitle(title);
+        setTitle(title.toUpperCase());
         if (title.length >= 5 && title.length < 30) {
             setErrorTitle(false);
         } else {
@@ -268,7 +271,7 @@ const PostCreate = (props, ref) => {
                         label="Nhập tên xe, hãng, ..."
                         value={title}
                         error={showErrorTitle}
-                        helperText={showErrorTitle ? "Tên xe thiểu 5 ký tự" : ""}
+                        helperText={showErrorTitle ? "Tên xe thiểu 5 ký tự, tối đa 30 ký tự" : ""}
                         variant="outlined" />
                     <br />
                     <br />
@@ -326,13 +329,26 @@ const PostCreate = (props, ref) => {
                             </Select>
                         </FormControl>
                     </Stack>
+                    <h4>Mô tả:</h4>
+                    {showErrorContent && 
+                    <spans style={{ color: 'red' }}>
+                        Tối thiểu 140 ký tự ({editorState.getCurrentContent().getPlainText().length}/140)
+                        </spans>}
                     <hr />
+                    <br />
                     <div className={styles.textEditor} onClick={focusEditor}>
                         <Editor
                             ref={editorRef}
                             editorState={editorState}
-                            onChange={setEditorState}
-                            placeholder="Nội dung vài biết"
+                            onChange={e => {
+                                setEditorState(e);
+                                if (editorState.getCurrentContent().getPlainText().length > 140) {
+                                    setErrorContent(false);
+                                } else {
+                                    setErrorContent(true);
+                                }
+                            }}
+                            placeholder="Mô tả về động cơ, tình trạng bảo dưỡng, phụ phí, bảo hiểm, hồ sơ đăng kiểm, ..."
                         />
                     </div>
 
@@ -382,7 +398,7 @@ const PostCreate = (props, ref) => {
                         <LoadingButton
                             onClick={uploadPost}
                             color="primary"
-                            disabled={(!(editorState.getCurrentContent().hasText() && editorState.getCurrentContent().getPlainText().length > 0) || fileUploads.length == 0 || fileLoadings > 0 || handlingRequest == true && !showErrorPrice && !showErrorTitle || title.length < 5)}
+                            disabled={(!(editorState.getCurrentContent().hasText() && editorState.getCurrentContent().getPlainText().length > 140) || fileUploads.length == 0 || fileLoadings > 0 || handlingRequest == true && !showErrorPrice && !showErrorTitle || title.length < 5)}
                             loadingPosition="start"
                             loading={handlingRequest}
                             className={styles.buttonUpload}

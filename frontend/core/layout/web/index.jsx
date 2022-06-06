@@ -4,6 +4,7 @@ import { makeStyles } from '@mui/styles';
 import Footer from './footer';
 import Header from './header';
 import { Scrollbars } from 'react-custom-scrollbars-2';
+import { getProvinces } from '@api/address';
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
@@ -22,6 +23,18 @@ const useStyles = makeStyles((theme) => ({
 const WebLayout = (props) => {
     const { children, header = true } = props;
     const classes = useStyles();
+
+    useEffect(() => {
+        if (localStorage.getItem("PROVINCES") == null) {
+            getProvinces()
+                .then(({ LtsItem }) => {
+                    const provinces = LtsItem.map(({ ID, Title }) => ({ ID, Title }));
+                    console.log("INIT provices", provinces);
+                    localStorage.setItem("PROVINCES", JSON.stringify(provinces));
+                })
+                .catch(() => alert("Lỗi init danh sách tỉnh"))
+        }
+    }, [])
 
     return (
         <React.Fragment>

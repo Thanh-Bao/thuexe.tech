@@ -9,6 +9,8 @@ import PostUserCard from './userCard';
 import moment from 'moment-timezone';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PaidIcon from '@mui/icons-material/Paid';
+import { getProvinceName } from '@/helper/address';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 const useStyles = makeStyles((theme) => ({
     media: {
@@ -40,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
     },
     mediaCounter: {
         padding: '0 16px 12px',
+        display: 'flex',
+        justifyContent: 'space-between',
     },
     mediaCount: {
         color: theme.typography.body2.color,
@@ -81,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
 const PostCard = (props) => {
     const classes = useStyles();
 
-    const { media, content, title, price, id, rented, createdAt } = props.post;
+    const { media, content, title, price, id, rented, createdAt, location: { provinceId } } = props.post;
 
     return (
         <a style={{ textDecoration: 'none' }} href={`/post/${id}`}>
@@ -101,9 +105,19 @@ const PostCard = (props) => {
                         </ShowMore>
                     </CardContent>
                     <CardContent className={classes.mediaCounter}>
-                        <Tooltip title="Xem toàn bộ hình">
-                            <Chip size='small' className={classes.mediaCount} avatar={<PhotoLibrary />} label={`${media.length < 5 ? media.length : `${roundToNearest5(media.length)}+`}`} />
-                        </Tooltip>
+                        <div>
+                            <Tooltip title="Xem toàn bộ hình">
+                                <Chip size='small' className={classes.mediaCount} avatar={<PhotoLibrary />} label={`${media.length < 5 ? media.length : `${roundToNearest5(media.length)}+`}`} />
+                            </Tooltip>
+                        </div>
+                        <div>
+                            {getProvinceName(provinceId) &&
+                                <Stack direction="row" alignItems="center">
+                                    <LocationOnIcon />
+                                    <span style={{ fontWeight: 400, color: "#40403f" }}>{getProvinceName(provinceId)}</span>
+                                </Stack>
+                            }
+                        </div>
                     </CardContent>
                     <GalleryPostMedia media={media} maximage={4} className={classes.mediaWrapper} />
                     <Stack direction="row" justifyContent="space-around" >
@@ -122,7 +136,7 @@ const PostCard = (props) => {
                     </Stack>
                 </Stack>
             </Card>
-        </a>
+        </a >
     );
 }
 

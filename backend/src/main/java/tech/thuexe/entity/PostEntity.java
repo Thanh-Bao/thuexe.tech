@@ -36,7 +36,7 @@ public class PostEntity extends BaseEntity {
 
     @Column
     @Nationalized
-    @Size(min = 20, max = 5000, message = "Nội dung phải từ 20 đến 5000 ký tự")
+    @Size(min = 140, max = 5000, message = "Nội dung phải từ 140 đến 5000 ký tự")
     private String description;
 
     @OneToOne(cascade = CascadeType.ALL)

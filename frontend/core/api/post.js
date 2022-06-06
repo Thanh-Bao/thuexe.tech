@@ -7,6 +7,8 @@ export function createPost(params) {
     return new Promise((resolve, reject) => {
         const token = havedLogin();
 
+        console.log(JSON.stringify(params))
+
         axios.post(`${API_URL}/posts`, JSON.stringify(params), {
             headers: {
                 "Authorization": `Bearer ${token}`,

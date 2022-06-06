@@ -32,4 +32,28 @@ public class AddressController {
         Object _response = template.getForObject(URL,Object.class);
         return _response;
     }
+
+    @GetMapping("/provinces/{id}")
+    public Object getProvinceDetail( @PathVariable int id){
+        String URL = "https://thongtindoanhnghiep.co/api/city/"+id;
+        RestTemplate template = new RestTemplateBuilder().build();
+        Object _response = template.getForObject(URL,Object.class);
+        return _response;
+    }
+
+    @GetMapping("/districts/{id}")
+    public Object getDistrictDetail( @PathVariable int id){
+        String URL = "https://thongtindoanhnghiep.co/api/district/"+id;
+        RestTemplate template = new RestTemplateBuilder().build();
+        Object _response = template.getForObject(URL,Object.class);
+        return _response;
+    }
+
+    @GetMapping("/wards/{id}")
+    public Object getWardDetail( @PathVariable int id){
+        String URL = "https://thongtindoanhnghiep.co/api/ward/"+id;
+        RestTemplate template = new RestTemplateBuilder().build();
+        Object _response = template.getForObject(URL,Object.class);
+        return _response;
+    }
 }
