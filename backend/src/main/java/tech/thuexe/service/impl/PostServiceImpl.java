@@ -1,14 +1,12 @@
 package tech.thuexe.service.impl;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tech.thuexe.DTO.post.PostReadDTO;
 import tech.thuexe.DTO.post.PostWriteDTO;
-import tech.thuexe.entity.LocationEntity;
 import tech.thuexe.entity.PostEntity;
 import tech.thuexe.entity.UserEntity;
-import tech.thuexe.repository.PostRepo;
+import tech.thuexe.repositoryDAO.PostRepo;
 import tech.thuexe.service.PostService;
 import tech.thuexe.service.UserService;
 import tech.thuexe.utility.DataMapperUtils;
@@ -18,12 +16,14 @@ import java.util.List;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
 
-    private final PostRepo postRepo;
-    private final UserService userService;
-    private final DataMapperUtils dataMapperUtils;
+    @Autowired
+    private PostRepo postRepo;
+    @Autowired
+    private  UserService userService;
+    @Autowired
+    private DataMapperUtils dataMapperUtils;
 
 
     @Override
@@ -42,12 +42,6 @@ public class PostServiceImpl implements PostService {
         return dataMapperUtils.mapAll(post, PostReadDTO.class);
     }
 
-    @Override
-    public List<PostReadDTO> getPostsAreNotRent(Pageable pageable) {
-        List<PostEntity> postEntities = postRepo.findAllByRented(false, pageable).getContent();
-        return dataMapperUtils.mapAll(postEntities, PostReadDTO.class);
-    }
-
 
     @Override
     public PostEntity findById(int id) {
@@ -59,6 +53,13 @@ public class PostServiceImpl implements PostService {
         PostEntity postEntity = findById(id);
         postEntity.setRented(false);
     }
+
+
+    /*@Override
+    public List<PostReadDTO> getPostsAreNotRent(Pageable pageable) {
+        List<PostEntity> postEntities = postRepo.findAllByRented(false, pageable).getContent();
+        return dataMapperUtils.mapAll(postEntities, PostReadDTO.class);
+    }*/
 
     /*@Override
     public List<PostReadDTO> getPostsByProvince(int id, Pageable pageable) {

@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import tech.thuexe.DTO.user.UserDTO;
 import tech.thuexe.entity.UserEntity;
+import tech.thuexe.repositoryDAO.UserRepo;
 import tech.thuexe.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +18,15 @@ import tech.thuexe.utility.DataMapperUtils;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController  @RequestMapping(path = "/users") @Validated
 public class UserController {
 
     @Autowired
     private  UserService userService;
+    @Autowired
+    UserRepo repo;
     @Autowired
     private DataMapperUtils dataMapperUtils;
 
@@ -58,7 +62,7 @@ public class UserController {
         userService.addRoleToUser(user.getUsername(), Config.ROLE.USER.getValue());
         return ResponseEntity.created(uri).body(dataMapperUtils.map(userService.getUser(user.getUsername()), UserDTO.class));
     }
-
+    
 }
 
 

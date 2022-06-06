@@ -1,4 +1,4 @@
-package tech.thuexe.repository;
+package tech.thuexe.repositoryDAO;
 import tech.thuexe.entity.RoleEntity;
 import tech.thuexe.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import tech.thuexe.entity.OrderEntity;
 import tech.thuexe.entity.PostEntity;
 import tech.thuexe.entity.UserEntity;
-import tech.thuexe.repository.OrderRepo;
+import tech.thuexe.repositoryDAO.OrderRepo;
 import tech.thuexe.service.OrderService;
 import tech.thuexe.service.PostService;
 import tech.thuexe.service.UserService;

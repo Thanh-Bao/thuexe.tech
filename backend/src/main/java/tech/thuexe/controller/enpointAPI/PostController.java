@@ -38,7 +38,14 @@ public class PostController {
         return ResponseEntity.ok().body(mapperUtils.map(postService.findById(id),PostReadDTO.class));
     };
 
-   /* @GetMapping("/all/province/{id}")
+
+    @PutMapping("/re-rent")
+    public ResponseEntity<String> reRent(@RequestParam int postId) {
+        postService.reRent(postId);
+        return ResponseEntity.ok("Ok");
+    }
+
+    /* @GetMapping("/all/province/{id}")
     public ResponseEntity<List<PostReadDTO>> getPostsByProvince(
             @PathVariable int id,
             @RequestParam int page,
@@ -48,19 +55,13 @@ public class PostController {
         return ResponseEntity.ok().body(postService.getPostsByProvince(id, pageable));
     }*/
 
-    @GetMapping("/all")
+  /*      @GetMapping("/all")
     public ResponseEntity<List<PostReadDTO>> getPostsAreNotRent(
             @RequestParam int page,
             @RequestParam int size) {
         Pageable pageable = PageRequest.of(page-1, size);
         return ResponseEntity.ok().body(postService.getPostsAreNotRent(pageable));
-    }
-
-    @PutMapping("/re-rent")
-    public ResponseEntity<String> reRent(@RequestParam int postId) {
-        postService.reRent(postId);
-        return ResponseEntity.ok("Ok");
-    }
+    }*/
 }
 
 

@@ -12,11 +12,11 @@ public interface PostService {
 
     List<PostReadDTO> getPosts();
 
-    List<PostReadDTO> getPostsAreNotRent(Pageable pageable);
-
     PostEntity findById(int id);
 
     void reRent(int id);
+
+    //List<PostReadDTO> getPostsAreNotRent(Pageable pageable);
 
     //List<PostReadDTO> getPostsByProvince(int id, Pageable pageable);
 }

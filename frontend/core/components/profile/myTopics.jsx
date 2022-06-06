@@ -12,11 +12,11 @@ const MyTopics = (props) => {
     const { user } = props;
 
     useEffect(() => {
-        getPostByUser(user._id).then(payload => {
-            setLoading(false);
+        // getPostByUser(user.username).then(payload => {
+        //     setLoading(false);
 
-            setPosts(payload);
-        })
+        //     setPosts(payload);
+        // })
 
     }, [posts.length])
 

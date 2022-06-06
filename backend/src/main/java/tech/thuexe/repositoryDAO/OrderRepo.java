@@ -1,4 +1,4 @@
-package tech.thuexe.repository;
+package tech.thuexe.repositoryDAO;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import tech.thuexe.entity.OrderEntity;
