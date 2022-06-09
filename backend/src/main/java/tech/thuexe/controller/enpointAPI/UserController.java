@@ -52,6 +52,11 @@ public class UserController {
         return ResponseEntity.ok().body(postService.findAllByUserId(username));
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<UserDTO>> getUsers() {
+        return ResponseEntity.ok().body(userService.findAll());
+    }
+
     @GetMapping("/isactive/{username}")
     public ResponseEntity<Boolean> checkUserIsActive(@PathVariable String username) throws CustomException {
         if(!userService.exists(username)){

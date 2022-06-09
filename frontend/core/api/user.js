@@ -21,6 +21,26 @@ export function getUserByUsername(username) {
     })
 }
 
+export function getUsers() {
+    return new Promise((resolve, reject) => {
+
+        axios.get(`${API_URL}/users/all`, {
+
+        }).then(response => {
+            const { statusCode } = response.data;
+
+            if (statusCode == 401) {
+                resolve(null);
+            }
+            else {
+                resolve(response.data)
+            }
+
+            resolve(data);
+        }).catch(error => reject(error))
+    })
+}
+
 export function login(params) {
     delete params.confirmPassword;
     return new Promise((resolve, reject) => {

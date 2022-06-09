@@ -94,4 +94,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return  authentication.getName();
     }
 
+    @Override
+    public List<UserDTO> findAll() {
+        return dataMapperUtils.mapAll(userRepo.findAll(), UserDTO.class);
+    }
+
 }
