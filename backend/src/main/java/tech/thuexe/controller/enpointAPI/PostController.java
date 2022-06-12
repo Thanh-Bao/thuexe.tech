@@ -11,6 +11,7 @@ import tech.thuexe.DTO.post.PostReadDTO;
 import tech.thuexe.DTO.post.PostWriteDTO;
 import tech.thuexe.entity.PostEntity;
 import tech.thuexe.repositoryDAO.PostRepo;
+import tech.thuexe.service.LikeService;
 import tech.thuexe.service.PostService;
 import tech.thuexe.utility.DataMapperUtils;
 
@@ -25,7 +26,7 @@ public class PostController {
     @Autowired
     private DataMapperUtils mapperUtils;
     @Autowired
-    private PostRepo pr;
+    private LikeService likeService;
     @PostMapping()
     public ResponseEntity<PostReadDTO> save(@RequestBody PostWriteDTO post) {
         return ResponseEntity.ok().body(postService.save(post));
@@ -45,8 +46,14 @@ public class PostController {
     @PutMapping("/re-rent")
     public ResponseEntity<String> reRent(@RequestParam int postId) {
         postService.reRent(postId);
-        return ResponseEntity.ok("Ok");
+        return ResponseEntity.ok("ok");
     }
+
+    @PostMapping("/{id}/like")
+    public void likePost(@PathVariable Integer id) {
+        likeService.modifyUserLiked(id);
+    }
+
     /* @GetMapping("/all/province/{id}")
     public ResponseEntity<List<PostReadDTO>> getPostsByProvince(
             @PathVariable int id,

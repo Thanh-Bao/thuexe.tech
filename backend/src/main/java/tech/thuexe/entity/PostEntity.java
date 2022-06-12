@@ -54,6 +54,9 @@ public class PostEntity extends BaseEntity {
     @Column
     private boolean rented;
 
+    @OneToMany(mappedBy = "postLiked")
+    private List<LikeEntity> likes = new ArrayList<>();
+
     public void addImage(ImageEntity image) {
         images.add(image);
         image.setPost(this);
