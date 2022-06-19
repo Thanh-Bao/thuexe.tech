@@ -15,6 +15,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -55,6 +56,13 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                     new ObjectMapper().writeValue(response.getOutputStream(), error);
                 }
             } else {
+                if(request.getServletPath().contains("ADMIN_MNG")){
+                    HttpSession sessionForAdmin = request.getSession();
+                    if(sessionForAdmin.getAttribute("ADMIN_HAD_LOGIN")==null){
+                        response.setStatus(FORBIDDEN.value());
+                        return;
+                    }
+                }
                 filterChain.doFilter(request,response);
             }
         }

@@ -1,4 +1,4 @@
-package tech.thuexe.controller.enpointAPI;
+package tech.thuexe.controller.RESTfulAPI;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.web.bind.annotation.GetMapping;

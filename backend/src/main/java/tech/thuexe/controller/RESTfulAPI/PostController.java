@@ -1,16 +1,11 @@
-package tech.thuexe.controller.enpointAPI;
+package tech.thuexe.controller.RESTfulAPI;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tech.thuexe.DTO.post.PostReadDTO;
 import tech.thuexe.DTO.post.PostWriteDTO;
-import tech.thuexe.entity.PostEntity;
-import tech.thuexe.repositoryDAO.PostRepo;
 import tech.thuexe.service.LikeService;
 import tech.thuexe.service.PostService;
 import tech.thuexe.utility.DataMapperUtils;

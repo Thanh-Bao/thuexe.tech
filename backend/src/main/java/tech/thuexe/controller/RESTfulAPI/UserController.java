@@ -1,4 +1,4 @@
-package tech.thuexe.controller.enpointAPI;
+package tech.thuexe.controller.RESTfulAPI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,7 +9,6 @@ import tech.thuexe.entity.UserEntity;
 import tech.thuexe.repositoryDAO.UserRepo;
 import tech.thuexe.service.PostService;
 import tech.thuexe.service.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -20,7 +19,6 @@ import tech.thuexe.utility.DataMapperUtils;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController  @RequestMapping(path = "/users") @Validated
 public class UserController {
