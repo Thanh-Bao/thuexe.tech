@@ -52,7 +52,7 @@ public class UserController {
         return ResponseEntity.ok().body(postService.findAllByUserId(username));
     }
 
-    @GetMapping("/all")
+    @GetMapping()
     public ResponseEntity<List<UserDTO>> getUsers() {
         return ResponseEntity.ok().body(userService.findAll());
     }

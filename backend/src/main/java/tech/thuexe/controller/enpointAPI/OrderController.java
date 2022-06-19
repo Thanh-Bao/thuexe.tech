@@ -13,21 +13,21 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/order")
+@RequestMapping(path = "/orders")
 @Validated
 public class OrderController {
 
     @Autowired
     private OrderService orderService;
 
-    @PostMapping("/save")
+    @PostMapping()
     public ResponseEntity<OrderEntity> save(@RequestBody OrderEntity order,
                                             @RequestParam int postId) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path(null).toUriString());
         return ResponseEntity.created(uri).body(orderService.save(order, postId));
     }
 
-    @GetMapping("/all")
+    @GetMapping()
     public ResponseEntity<List<OrderEntity>> getOrders() {
         return ResponseEntity.ok().body(orderService.findAllByUser());
     }

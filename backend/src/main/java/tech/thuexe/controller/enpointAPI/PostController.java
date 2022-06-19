@@ -43,9 +43,9 @@ public class PostController {
     };
 
 
-    @PutMapping("/re-rent")
-    public ResponseEntity<String> reRent(@RequestParam int postId) {
-        postService.reRent(postId);
+    @PutMapping("/{id}/re-rent")
+    public ResponseEntity<String> reRent(@PathVariable int id) {
+        postService.reRent(id);
         return ResponseEntity.ok("ok");
     }
 

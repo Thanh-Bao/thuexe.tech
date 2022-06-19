@@ -45,8 +45,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeHttpRequests().
                 antMatchers("/**").permitAll();
-        http.authorizeHttpRequests().antMatchers(GET, "/users").hasAnyAuthority(Config.ROLE.ADMIN.getValue());
-        http.authorizeHttpRequests().antMatchers(POST, "/posts").hasAnyAuthority(Config.ROLE.USER.getValue());
         http.authorizeHttpRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
