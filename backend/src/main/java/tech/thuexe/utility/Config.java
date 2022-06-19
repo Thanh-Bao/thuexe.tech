@@ -4,10 +4,6 @@ public class Config {
     public enum ROLE {
         USER("USER"),
         ADMIN("AMIN");
-        public class Names{
-            public static final String USER = "USER";
-            public static final String ADMIN = "AMIN";
-        }
         private String value;
         ROLE(String s) {
             this.value = s;

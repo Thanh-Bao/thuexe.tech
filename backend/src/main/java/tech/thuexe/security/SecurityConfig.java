@@ -1,12 +1,5 @@
 package tech.thuexe.security;
 
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import tech.thuexe.utility.Config;
-import tech.thuexe.security.filter.CustomAuthenticationFilter;
-import tech.thuexe.security.filter.CustomAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,15 +12,17 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import tech.thuexe.security.filter.CustomAuthenticationFilter;
+import tech.thuexe.security.filter.CustomAuthorizationFilter;
+import tech.thuexe.utility.Config;
 
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 
 @Configuration @EnableWebSecurity @RequiredArgsConstructor
-@EnableGlobalMethodSecurity(
-        prePostEnabled = true,
-        securedEnabled = true,
-        jsr250Enabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -43,6 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         customAuthenticationFilter.setFilterProcessesUrl("/login");
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.authorizeHttpRequests().antMatchers(GET, "/users").hasAnyAuthority(Config.ROLE.ADMIN.getValue());
+        http.authorizeHttpRequests().antMatchers(POST, "/posts").hasAnyAuthority(Config.ROLE.USER.getValue());
         http.authorizeHttpRequests().
                 antMatchers("/**").permitAll();
         http.authorizeHttpRequests().anyRequest().authenticated();
