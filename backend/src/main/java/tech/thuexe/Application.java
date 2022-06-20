@@ -45,7 +45,7 @@ public class Application implements WebMvcConfigurer {
 		return new ModelMapper();
 	}
 
-	@Bean
+	 @Bean
 	public  ObjectMapper objectMapper() {return  new ObjectMapper();}
 
 	@Bean
