@@ -14,27 +14,40 @@
 <body>
 <input type="text" id="_username">
 <input type="text" id="_password">
-<button id="_submit">LOGIN</button>
+<button id="_submit" onclick="submit();">LOGIN</button>
 </body>
 <script>
-    $(document).ready(()=> {
-        $("#_submit").click(() => {
-            let username = $("#_username").val();
-            let password = $("#_password").val();
-
-            $.ajax({
-                type: "POST",
-                url: 'login',
-                dataType: "application/json",
-                data: JSON.stringify({username: username, password: password}),
-                success: () => {
-                    alert("ahihi123")
-                },
-            });
+       /* $("#_submit").click(() => {
 
             location.replace("/ADMIN_MNG/test");
+        })*/
 
-        })
-    });
+       const submit = () => {
+           let username = $("#_username").val();
+           let password = $("#_password").val();
+
+           if(username =='' || password==''){
+               alert("Không được bỏ trống");
+               return;
+           }
+
+           $.ajax({
+               type: "POST",
+               url: 'login',
+               data: JSON.stringify({username: username, password: password}),
+               success:  () => {
+                   location.href = "/ADMIN_MNG/test"
+               },
+               statusCode: {
+                   401: () => {
+                       alert("Sai tài khoản hoặc mật khẩu. Mã lỗi 401");
+                   },
+                   500: () => {
+                       alert("Lỗi server. Mã lỗi 500");
+                   }
+               }
+           });
+       }
+
 </script>
 </html>

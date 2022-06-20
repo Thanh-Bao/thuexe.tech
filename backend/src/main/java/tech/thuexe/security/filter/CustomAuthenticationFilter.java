@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.HttpStatus.OK;
 
@@ -63,6 +64,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
             sessionForAdmin.setAttribute("ADMIN_HAD_LOGIN", "LOGGED_IN");
             Cookie uiColorCookie = new Cookie("JSESSIONID", sessionForAdmin.getId());
             response.addCookie(uiColorCookie);
+            response.setStatus(OK.value());
         } else {
             Algorithm algorithm = Algorithm.HMAC256(Config.CONFIG.SECRET.getValue().getBytes());
             String access_token = JWT.create()

@@ -60,6 +60,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                     HttpSession sessionForAdmin = request.getSession();
                     if(sessionForAdmin.getAttribute("ADMIN_HAD_LOGIN")==null){
                         response.setStatus(FORBIDDEN.value());
+                        response.sendRedirect("/admin");
                         return;
                     }
                 }
