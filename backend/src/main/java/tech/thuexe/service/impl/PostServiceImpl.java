@@ -47,6 +47,7 @@ public class PostServiceImpl implements PostService {
     public PostEntity findById(int id) {
         return postRepo.findById(id).get();
     }
+
     @Override
     public void reRent(int id) {
         PostEntity postEntity = findById(id);

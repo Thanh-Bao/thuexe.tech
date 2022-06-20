@@ -25,16 +25,24 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderEntity save(OrderEntity orderEntity, int postId) {
         PostEntity postEntity = postService.findById(postId);
-        postEntity.setRented(true);
-        UserEntity user = userService.getUser(userService.getUsername());
-        orderEntity.setUser(user);
-        orderEntity.setPost(postEntity);
-        return orderRepo.save(orderEntity);
+        UserEntity userEntity = userService.getUser(userService.getUsername());
+        if (postEntity == null || userEntity == null) {
+            throw new IllegalStateException("User or Post not found!");
+        } else {
+            postEntity.setRented(true);
+            orderEntity.setUser(userEntity);
+            orderEntity.setPost(postEntity);
+            return orderRepo.save(orderEntity);
+        }
     }
 
     @Override
     public List<OrderEntity> findAllByUser() {
-        UserEntity user = userService.getUser(userService.getUsername());
-        return orderRepo.findAllByUser(user);
+        UserEntity userEntity = userService.getUser(userService.getUsername());
+        if (userEntity == null) {
+            throw new IllegalStateException("User not found!");
+        }else {
+            return orderRepo.findAllByUser(userEntity);
+        }
     }
 }

@@ -19,8 +19,7 @@ import tech.thuexe.security.filter.CustomAuthenticationFilter;
 import tech.thuexe.security.filter.CustomAuthorizationFilter;
 import tech.thuexe.utility.Config;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
 
 @Configuration @EnableWebSecurity @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -39,7 +38,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeHttpRequests().antMatchers(GET, "/users").hasAnyAuthority(Config.ROLE.ADMIN.getValue());
-        http.authorizeHttpRequests().antMatchers(POST, "/posts", "/image").hasAnyAuthority(Config.ROLE.USER.getValue());
+        http.authorizeHttpRequests().antMatchers(GET,
+                "/orders"
+        ).hasAnyAuthority(Config.ROLE.USER.getValue());
+        http.authorizeHttpRequests().antMatchers(POST,
+                "/posts/**",
+                "/orders/**",
+                "/image"
+        ).hasAnyAuthority(Config.ROLE.USER.getValue());
+        http.authorizeHttpRequests().antMatchers(PUT,
+                "/posts/**"
+        ).hasAnyAuthority(Config.ROLE.USER.getValue());
         http.authorizeHttpRequests().
                 antMatchers("/**").permitAll();
         http.authorizeHttpRequests().anyRequest().authenticated();
