@@ -44,6 +44,24 @@ public class PostController {
         return ResponseEntity.ok("ok");
     }
 
+    @PutMapping("/{id}/hide")
+    public ResponseEntity<String> hide(@PathVariable int id) {
+        postService.hide(id);
+        return ResponseEntity.ok("ok");
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> update(@PathVariable int id, @RequestBody PostWriteDTO post) {
+        postService.update(id, post);
+        return ResponseEntity.ok("ok");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable int id) {
+        postService.delete(id);
+        return ResponseEntity.ok("ok");
+    }
+
     @PostMapping("/{id}/like")
     public void likePost(@PathVariable Integer id) {
         likeService.modifyUserLiked(id);

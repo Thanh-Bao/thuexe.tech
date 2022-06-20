@@ -9,6 +9,7 @@ import tech.thuexe.entity.UserEntity;
 import tech.thuexe.repositoryDAO.PostRepo;
 import tech.thuexe.service.PostService;
 import tech.thuexe.service.UserService;
+import tech.thuexe.utility.CustomException;
 import tech.thuexe.utility.DataMapperUtils;
 
 import javax.transaction.Transactional;
@@ -21,7 +22,7 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private PostRepo postRepo;
     @Autowired
-    private  UserService userService;
+    private UserService userService;
     @Autowired
     private DataMapperUtils dataMapperUtils;
 
@@ -51,12 +52,50 @@ public class PostServiceImpl implements PostService {
     @Override
     public void reRent(int id) {
         PostEntity postEntity = findById(id);
-        postEntity.setRented(false);
+        if (isOwner(postEntity)) {
+            postEntity.setRented(false);
+        } else {
+            throw new IllegalStateException("You are not owner of this post");
+        }
     }
 
     @Override
     public List<PostEntity> findAllByUserId(String username) {
         return postRepo.findByUsername(username);
+    }
+
+    @Override
+    public void hide(int id) {
+        PostEntity postEntity = findById(id);
+        if (isOwner(postEntity)) {
+            postEntity.setRented(true);
+        } else {
+            throw new IllegalStateException("You are not owner of this post");
+        }
+    }
+
+    @Override
+    public void update(int id, PostWriteDTO post) {
+        PostEntity postEntity = findById(id);
+        if (isOwner(postEntity)) {
+            postEntity.setDescription(post.getDescription());
+            postEntity.setImages(post.getImages());
+            postEntity.setLocation(post.getLocation());
+            postEntity.setTitle(post.getTitle());
+            postEntity.setPrice(post.getPrice());
+        } else {
+            throw new IllegalStateException("You are not owner of this post");
+        }
+    }
+
+    @Override
+    public void delete(int id) {
+        PostEntity postEntity = findById(id);
+        if (isOwner(postEntity)) {
+            postRepo.delete(postEntity);
+        } else {
+            throw new IllegalStateException("You are not owner of this post");
+        }
     }
 
 
@@ -86,6 +125,14 @@ public class PostServiceImpl implements PostService {
         postEntity.setDescription(postWriteDTO.getDescription());
         postEntity.setUser(user);
         return postEntity;
+    }
+
+    private boolean isOwner(PostEntity postEntity) {
+        if (userService.getUsername().equals(postEntity.getUser().getUsername())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

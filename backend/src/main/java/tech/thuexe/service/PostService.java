@@ -18,6 +18,12 @@ public interface PostService {
 
     List<PostEntity> findAllByUserId(String username);
 
+    void hide(int id);
+
+    void update(int id, PostWriteDTO post);
+
+    void delete(int id);
+
     //List<PostReadDTO> getPostsAreNotRent(Pageable pageable);
 
     //List<PostReadDTO> getPostsByProvince(int id, Pageable pageable);
