@@ -7,8 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/ADMIN_MNG")
 public class TestController {
-    @GetMapping("/test")
-    public String usersMNG(){
-        return "test";
+
+    @GetMapping("/dashboard")
+    public String getDashboard(){
+        return "dashboard";
+    }
+
+    @GetMapping("/users")
+    public String getUsers(){
+        return "users";
     }
 }
