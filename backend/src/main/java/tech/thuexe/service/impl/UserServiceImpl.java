@@ -1,5 +1,6 @@
 package tech.thuexe.service.impl;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import tech.thuexe.DTO.user.UserDTO;
@@ -16,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tech.thuexe.service.UserService;
 import tech.thuexe.utility.Config;
+import tech.thuexe.utility.CustomException;
 import tech.thuexe.utility.DataMapperUtils;
 
 import javax.transaction.Transactional;
@@ -34,15 +36,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity user  = userRepo.findByUsername(username);
-        if (user==null){
+        UserEntity user = userRepo.findByUsername(username);
+        if (user == null) {
             throw new UsernameNotFoundException("UserEntity not found in the database");
         }
         Collection<SimpleGrantedAuthority> authrities = new ArrayList<>();
         user.getRoles().forEach(role -> {
             authrities.add(new SimpleGrantedAuthority(role.getName()));
         });
-        return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),authrities);
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authrities);
     }
 
     @Override
@@ -54,8 +56,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDTO saveUser(UserEntity user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setActive(true);
-        UserEntity userResult = userRepo.save(dataMapperUtils.map(user,UserEntity.class));
-        return dataMapperUtils.map(userResult,UserDTO.class);
+        UserEntity userResult = userRepo.save(dataMapperUtils.map(user, UserEntity.class));
+        return dataMapperUtils.map(userResult, UserDTO.class);
     }
 
     @Override
@@ -65,7 +67,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void addRoleToUser(String username, String roleName) {
-        UserEntity userEntity =  userRepo.findByUsername(username);
+        UserEntity userEntity = userRepo.findByUsername(username);
         RoleEntity roleEntity = roleRepo.findByName(roleName);
         userEntity.getRoles().add(roleEntity);
     }
@@ -81,7 +83,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         RoleEntity roleEntity = roleRepo.findByName(Config.ROLE.USER.getValue());
         roles.add(roleEntity);
         List<UserEntity> users = userRepo.findAllByRolesIn(roles);
-        return dataMapperUtils.mapAll(users,UserDTO.class);
+        return dataMapperUtils.mapAll(users, UserDTO.class);
     }
 
     @Override
@@ -91,12 +93,32 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (authentication == null || !authentication.isAuthenticated()) {
             return null;
         }
-        return  authentication.getName();
+        return authentication.getName();
     }
 
     @Override
     public List<UserDTO> findAll() {
         return dataMapperUtils.mapAll(userRepo.findAll(), UserDTO.class);
+    }
+
+    @Override
+    public void lock(String username) throws CustomException {
+        UserEntity user = userRepo.findByUsername(username);
+        if (user == null) {
+            throw new CustomException("User not exists!", HttpStatus.BAD_REQUEST);
+        } else {
+            user.setActive(false);
+        }
+    }
+
+    @Override
+    public void unlock(String username) throws CustomException {
+        UserEntity user = userRepo.findByUsername(username);
+        if (user == null) {
+            throw new CustomException("User not exists!", HttpStatus.BAD_REQUEST);
+        } else {
+            user.setActive(true);
+        }
     }
 
 }

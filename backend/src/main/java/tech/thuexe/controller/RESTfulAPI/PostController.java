@@ -8,6 +8,7 @@ import tech.thuexe.DTO.post.PostReadDTO;
 import tech.thuexe.DTO.post.PostWriteDTO;
 import tech.thuexe.service.LikeService;
 import tech.thuexe.service.PostService;
+import tech.thuexe.utility.CustomException;
 import tech.thuexe.utility.DataMapperUtils;
 
 import java.util.List;
@@ -51,7 +52,7 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> update(@PathVariable int id, @RequestBody PostWriteDTO post) {
+    public ResponseEntity<String> update(@PathVariable int id, @RequestBody PostWriteDTO post) throws CustomException {
         postService.update(id, post);
         return ResponseEntity.ok("ok");
     }

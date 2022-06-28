@@ -50,6 +50,18 @@ public class UserController {
         return ResponseEntity.ok().body(postService.findAllByUserId(username));
     }
 
+    @PutMapping("/{username}/lock")
+    public ResponseEntity<String> lock(@PathVariable String username) throws CustomException {
+        userService.lock(username);
+        return ResponseEntity.ok().body("ok");
+    }
+
+    @PutMapping("/{username}/unlock")
+    public ResponseEntity<String> unlock(@PathVariable String username) throws CustomException {
+        userService.unlock(username);
+        return ResponseEntity.ok().body("ok");
+    }
+
     @GetMapping()
     public ResponseEntity<List<UserDTO>> getUsers() {
         return ResponseEntity.ok().body(userService.findAll());

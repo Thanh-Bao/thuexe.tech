@@ -3,6 +3,7 @@ package tech.thuexe.service;
 import tech.thuexe.DTO.post.PostReadDTO;
 import tech.thuexe.DTO.post.PostWriteDTO;
 import tech.thuexe.entity.PostEntity;
+import tech.thuexe.utility.CustomException;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public interface PostService {
 
     void hide(int id);
 
-    void update(int id, PostWriteDTO post);
+    void update(int id, PostWriteDTO post) throws CustomException;
 
     void delete(int id);
 

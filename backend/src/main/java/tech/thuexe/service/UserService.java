@@ -3,6 +3,7 @@ package tech.thuexe.service;
 import tech.thuexe.DTO.user.UserDTO;
 import tech.thuexe.entity.RoleEntity;
 import tech.thuexe.entity.UserEntity;
+import tech.thuexe.utility.CustomException;
 
 import java.util.List;
 
@@ -15,4 +16,8 @@ public interface UserService {
     List<UserDTO> getUsers();
     String getUsername();
     List<UserDTO> findAll();
+
+    void lock(String username) throws CustomException;
+
+    void unlock(String username) throws CustomException;
 }
