@@ -53,8 +53,7 @@ public class PostController {
 
     @PutMapping("/{id}")
     public ResponseEntity<String> update(@PathVariable int id, @RequestBody PostWriteDTO post) throws CustomException {
-        postService.update(id, post);
-        return ResponseEntity.ok("ok");
+        return ResponseEntity.ok("Chua lam");
     }
 
     @DeleteMapping("/{id}")

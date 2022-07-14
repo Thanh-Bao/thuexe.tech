@@ -32,38 +32,34 @@
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Users</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Posts</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th scope="col">Username</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Phone</th>
-                                    <th scope="col">Active</th>
-                                    <th scope="col">Lock</th>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Owner</th>
+                                    <th scope="col">Hide</th>
+                                    <th scope="col"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="user" items="${users}" varStatus="loop">
+                                <c:forEach var="post" items="${posts}" varStatus="loop">
                                     <tr>
-                                        <th scope="row">${user.username}</th>
-                                        <td>${user.name}</td>
-                                        <td>${user.phone}</td>
-                                        <td>
-                                            <div id="div-active${loop.index}">
-                                                    <span>${user.active}</span>
-                                            </div>
-                                        </td>
+                                        <th scope="row">${post.id}</th>
+                                        <td>${post.title}</td>
+                                        <td>${post.user.username}</td>
+                                        <td>${post.rented}</td>
                                         <td>
                                             <div id="div-lock${loop.index}">
-                                                <c:if test="${user.active}">
-                                                    <i onclick="lock(${loop.index}, '${user.username}')" class="lock fa-solid fa-lock"></i>
+                                                <c:if test="${!post.rented}">
+                                                    <i onclick="lock(${loop.index}, '${post.id}')" class="lock fa-solid fa-lock"></i>
                                                 </c:if>
-                                                <c:if test="${!user.active}">
-                                                    <i onclick="unlock(${loop.index}, '${user.username}')" class="unlock fa-solid fa-lock-open"></i>
+                                                <c:if test="${post.rented}">
+                                                    <i onclick="unlock(${loop.index}, '${post.id}')" class="unlock fa-solid fa-lock-open"></i>
                                                 </c:if>
                                             </div>
                                         </td>
