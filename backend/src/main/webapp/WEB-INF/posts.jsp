@@ -35,39 +35,48 @@
                         <h6 class="m-0 font-weight-bold text-primary">Posts</h6>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th scope="col">Id</th>
-                                    <th scope="col">Title</th>
-                                    <th scope="col">Owner</th>
-                                    <th scope="col">Hide</th>
-                                    <th scope="col"></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach var="post" items="${posts}" varStatus="loop">
+                        <form action='<c:url value ="/ADMIN_MNG/posts"/>' id="formSubmit" method="get">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
                                     <tr>
-                                        <th scope="row">${post.id}</th>
-                                        <td>${post.title}</td>
-                                        <td>${post.user.username}</td>
-                                        <td>${post.rented}</td>
-                                        <td>
-                                            <div id="div-lock${loop.index}">
-                                                <c:if test="${!post.rented}">
-                                                    <i onclick="lock(${loop.index}, '${post.id}')" class="lock fa-solid fa-lock"></i>
-                                                </c:if>
-                                                <c:if test="${post.rented}">
-                                                    <i onclick="unlock(${loop.index}, '${post.id}')" class="unlock fa-solid fa-lock-open"></i>
-                                                </c:if>
-                                            </div>
-                                        </td>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Owner</th>
+                                        <th scope="col">Hide</th>
+                                        <th scope="col"></th>
                                     </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach var="post" items="${posts}" varStatus="loop">
+                                        <tr>
+                                            <th scope="row">${post.id}</th>
+                                            <td>${post.title}</td>
+                                            <td>${post.user.username}</td>
+                                            <td>${post.rented}</td>
+                                            <td>
+                                                <div id="div-lock${loop.index}">
+                                                    <c:if test="${!post.rented}">
+                                                        <i onclick="lock(${loop.index}, '${post.id}')"
+                                                           class="lock fa-solid fa-lock"></i>
+                                                    </c:if>
+                                                    <c:if test="${post.rented}">
+                                                        <i onclick="unlock(${loop.index}, '${post.id}')"
+                                                           class="unlock fa-solid fa-lock-open"></i>
+                                                    </c:if>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                                <div class="container" style="display: flex; justify-content: center">
+                                    <ul class="pagination" id="pagination"></ul>
+                                    <input type="hidden" value="" id="page" name="page"/>
+                                    <input type="hidden" value="" id="limit" name="limit"/>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
 
@@ -86,73 +95,37 @@
 </body>
 <script>
 
-    <c:url var="rootUrl" value="/users/"/>
-
     const lock = (index, username) => {
-        if (window.confirm("Khóa tài khoản "+username+"?")) {
-
-            $.ajax({
-                type: "PUT",
-                url: ${rootUrl}+username+'/lock',
-                success: () => {
-                    let divLock = document.getElementById("div-lock" + index);
-                    let divActive = document.getElementById("div-active" + index);
-
-                    const span = document.createElement("span");
-                    span.innerHTML = "false";
-                    divActive.replaceChildren(span);
-
-
-                    const iconUnlock = document.createElement("i");
-                    iconUnlock.classList.add('unlock', 'fa-solid', 'fa-lock-open');
-                    iconUnlock.setAttribute("onclick", "unlock(" + index +", "+ "'"+username+"'" + ")");
-                    divLock.replaceChildren(iconUnlock);
-                },
-                statusCode: {
-                    401: () => {
-                        alert("Sai tài khoản hoặc mật khẩu. Mã lỗi 401");
-                    },
-                    500: () => {
-                        alert("Lỗi server. Mã lỗi 500");
-                    }
-                }
-            });
+        if (window.confirm("Ẩn bài đăng " + username + "?")) {
 
         }
 
     }
 
     const unlock = (index, username) => {
-        if (window.confirm("Mở khóa tài khoản "+username+"?")) {
+        if (window.confirm("Ẩn bài đăng " + username + "?")) {
 
-            $.ajax({
-                type: "PUT",
-                url: ${rootUrl}+username+'/unlock',
-                success: () => {
-                    let divLock = document.getElementById("div-lock" + index);
-                    let divActive = document.getElementById("div-active" + index);
-
-                    const span = document.createElement("span");
-                    span.innerHTML = "true";
-                    divActive.replaceChildren(span);
-
-                    const iconLock = document.createElement("i");
-                    iconLock.classList.add('lock', 'fa-solid', 'fa-lock');
-                    iconLock.setAttribute("onclick", "lock(" + index +", "+ "'"+username+"'" + ")");
-                    divLock.replaceChildren(iconLock);
-                },
-                statusCode: {
-                    401: () => {
-                        alert("Sai tài khoản hoặc mật khẩu. Mã lỗi 401");
-                    },
-                    500: () => {
-                        alert("Lỗi server. Mã lỗi 500");
-                    }
-                }
-            });
 
         }
     }
+
+    let totalPages = ${paging.totalPage};
+    let currentPage = ${paging.page};
+    $(function () {
+        window.pagObj = $('#pagination').twbsPagination({
+            totalPages: totalPages,
+            visiblePages: 10,
+            startPage: currentPage,
+            onPageClick: function (event, page) {
+                if (currentPage != page) {
+                    $('#limit').val(5);
+                    $('#page').val(page);
+                    $('#formSubmit').submit();
+                }
+
+            }
+        });
+    });
 
 
 </script>
