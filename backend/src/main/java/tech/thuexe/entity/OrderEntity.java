@@ -22,6 +22,9 @@ public class OrderEntity extends BaseEntity {
     @Column(nullable = false)
     private double amount;
 
+    @Column(nullable = false)
+    private boolean isPay;
+
     @ManyToOne
     @JoinColumn(
             name = "post_id",

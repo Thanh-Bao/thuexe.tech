@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.thuexe.entity.OrderEntity;
 import tech.thuexe.service.OrderService;
+import tech.thuexe.utility.CustomException;
 
 import java.net.URI;
 import java.util.List;
@@ -29,6 +30,17 @@ public class OrderController {
     @GetMapping()
     public ResponseEntity<List<OrderEntity>> getOrders() {
         return ResponseEntity.ok().body(orderService.findAllByUser());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<OrderEntity> getOrder(@PathVariable int id) {
+        return ResponseEntity.ok().body(orderService.findById(id));
+    }
+
+    @PutMapping("/{id}/checkout")
+    public ResponseEntity<String> checkout(@PathVariable int id) throws CustomException {
+        orderService.checkout(id);
+        return ResponseEntity.ok().body("ok");
     }
 
 }

@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeHttpRequests().antMatchers(GET, "/users").hasAnyAuthority(Config.ROLE.ADMIN.getValue());
 //        http.authorizeHttpRequests().antMatchers(PUT, "/users/**").hasAnyAuthority(Config.ROLE.ADMIN.getValue());
         http.authorizeHttpRequests().antMatchers(GET,
-                "/orders"
+                "/orders/**"
         ).hasAnyAuthority(Config.ROLE.USER.getValue());
         http.authorizeHttpRequests().antMatchers(POST,
                 "/posts/**",
@@ -50,7 +50,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/image"
         ).hasAnyAuthority(Config.ROLE.USER.getValue());
         http.authorizeHttpRequests().antMatchers(PUT,
-                "/posts/**"
+                "/posts/**",
+                "/orders/**"
         ).hasAnyAuthority(Config.ROLE.USER.getValue());
         http.authorizeHttpRequests().antMatchers(DELETE,
                 "/posts/**"
