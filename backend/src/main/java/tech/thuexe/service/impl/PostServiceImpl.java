@@ -1,6 +1,7 @@
 package tech.thuexe.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import tech.thuexe.DTO.post.PostReadDTO;
@@ -36,6 +37,12 @@ public class PostServiceImpl implements PostService {
             return null;
         }
         return dataMapperUtils.map(postEntity, PostReadDTO.class);
+    }
+
+    @Override
+    public List<PostReadDTO> getPosts(Pageable pageable) {
+        List<PostEntity> postEntities = postRepo.findAll(pageable).getContent();
+        return dataMapperUtils.mapAll(postEntities, PostReadDTO.class);
     }
 
     @Override
@@ -84,6 +91,11 @@ public class PostServiceImpl implements PostService {
     public void delete(int id) {
         PostEntity postEntity = findById(id);
         postRepo.delete(postEntity);
+    }
+
+    @Override
+    public int count() {
+        return (int)postRepo.count();
     }
 
 
