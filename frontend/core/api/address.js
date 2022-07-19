@@ -54,3 +54,4 @@ export function getWard(id) {
         }).catch(error => reject(error))
     })
 }
+
