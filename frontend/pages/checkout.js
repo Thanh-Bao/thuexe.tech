@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "999px",
         backgroundColor: "#0078d2",
         color: "#fff",
-        width: "120px",
+
         "&:hover": {
             color: "#0078d2",
         }
@@ -93,46 +93,50 @@ const Checkout = () => {
                     <div className={classes.content}>
                         <div className={classes.post}>
                             <img className={classes.postImg} src='https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/suzuki_ertiga_2021/p/g/2021/02/05/12/eSO62gDYCmq14ou8Javh1w.jpg' alt='xe' />
-                            <div style={{ marginLeft: "0.5rem", fontSize: "25px"}}>Xe siêu nhân đỏ</div>
+                            <div style={{ marginLeft: "0.5rem", fontSize: "25px" }}>Xe siêu nhân đỏ</div>
                         </div>
                     </div>
                     <Divider />
                     <div className={classes.checkoutInfo}>
 
-                        <h3>Ngày thuê xe:</h3>
-                        <h3>Ngày trả xe:</h3>
                         <div style={{ display: "flex" }}>
                             <div style={{ flex: "1" }}>
+                                <h3>Ngày thuê xe:</h3>
+                                <h3>Ngày trả xe:</h3>
                                 <h2 style={{ display: "inline" }}>Giá: </h2> <span className={classes.price}>{price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')} đ</span>
                             </div>
 
-                            <div>
-                                <Button onClick={handleClickOpen} className={classes.btnCheckout} size='large'>Đặt xe</Button>
-                                <Dialog
-                                    open={open}
-                                    onClose={handleClose}
-                                    aria-labelledby="alert-dialog-title"
-                                    aria-describedby="alert-dialog-description"
-                                >
-                                    <DialogContent>
-                                        <DialogContentText id="alert-dialog-description">
-                                            <div style={{display:"flex", alignItems: "center", flexDirection: "column", color: "green"}}>
-                                                <CheckCircleOutline style={{fontSize: "70px"}}/>
-                                                <h2>Đặt xe thành công </h2>
-                                            </div>
-                                            
-                                        </DialogContentText>
-                                    </DialogContent>
-                                    <DialogActions>
-        
-                                        <Button onClick={handleClose} autoFocus>
-                                            Đóng
-                                        </Button>
-                                    </DialogActions>
-                                </Dialog>
+                            <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                                <img style={{ width: "100px", height: "100px", marginBottom: "1rem"}} src="https://static.mservice.io/blogscontents/momo-upload-api-211217174745-637753600658721515.png" alt='qr' />
+                                <div>
+                                    <Button onClick={handleClickOpen} className={classes.btnCheckout} size='large'>Thanh toán</Button>
+                                    <Dialog
+                                        open={open}
+                                        onClose={handleClose}
+                                        aria-labelledby="alert-dialog-title"
+                                        aria-describedby="alert-dialog-description"
+                                    >
+                                        <DialogContent>
+                                            <DialogContentText id="alert-dialog-description">
+                                                <div style={{ display: "flex", alignItems: "center", flexDirection: "column", color: "green" }}>
+                                                    <CheckCircleOutline style={{ fontSize: "70px" }} />
+                                                    <h2>Thanh toán thành công </h2>
+                                                </div>
+
+                                            </DialogContentText>
+                                        </DialogContent>
+                                        <DialogActions>
+
+                                            <Button onClick={handleClose} autoFocus>
+                                                <a style={{textDecoration: "none"}} href='http://localhost:3000'>Đóng</a>
+                                            </Button>
+                                        </DialogActions>
+                                    </Dialog>
+                                </div>
+
                             </div>
 
-                            
+
 
                         </div>
                     </div>

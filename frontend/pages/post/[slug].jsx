@@ -14,7 +14,7 @@ import WebLayout from '@/layout/web';
 
 import UserPortalCard from '@/components/user/portalCard';
 import DotDivider from '@/components/dotDivider';
-import { ImageList, ImageListItem } from '@mui/material';
+import { ImageList, ImageListItem, Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import { getPost } from '@/api/post';
 import { formatSpacingNumber } from '@/helper/roundNumber';
@@ -54,6 +54,16 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: 'none',
     },
     linkPost: theme.linkPost,
+    btnCheckout: {
+        borderRadius: "999px",
+        backgroundColor: "#0078d2",
+        color: "#fff",
+
+        "&:hover": {
+            color: "#0078d2",
+        }
+
+    }
 }));
 
 const Post = ({ article }) => {
@@ -127,6 +137,9 @@ const Post = ({ article }) => {
                                     </Stack>
                                 </div>
                                 <hr />
+
+                                <Button className={classes.btnCheckout} size='large'>Đặt xe</Button>
+                                
                                 <Stack direction="row" justifyContent="space-around" >
                                     <h1>{title}</h1>
                                     <h1 style={{ color: "red" }}>{formatSpacingNumber(price)}đ/ngày</h1>
