@@ -15,6 +15,8 @@ import tech.thuexe.utility.CustomException;
 import tech.thuexe.utility.DataMapperUtils;
 
 import javax.transaction.Transactional;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -89,22 +91,47 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void delete(int id) {
-        PostEntity postEntity = findById(id);
-        postRepo.delete(postEntity);
+        try {
+            PostEntity postEntity = findById(id);
+            postRepo.delete(postEntity);
+        } catch (Exception e) {
+            hide(id);
+        }
     }
 
     @Override
     public int count() {
-        return (int)postRepo.count();
+        return postRepo.countByRented(false);
     }
 
 
-
-    /*@Override
+    @Override
     public List<PostReadDTO> getPostsAreNotRent(Pageable pageable) {
         List<PostEntity> postEntities = postRepo.findAllByRented(false, pageable).getContent();
         return dataMapperUtils.mapAll(postEntities, PostReadDTO.class);
-    }*/
+    }
+
+    @Override
+    public List<PostReadDTO> findAllByName(String value) {
+        try {
+            List<PostEntity> postEntities = postRepo.findAllByTitleContains(value);
+            return dataMapperUtils.mapAll(postEntities, PostReadDTO.class);
+        } catch (Exception e) {
+            return new ArrayList<PostReadDTO>();
+        }
+    }
+
+    @Override
+    public List<PostReadDTO> findAllByTitleDesc(Pageable pageable) {
+        List<PostEntity> postEntities = postRepo.findAllByRentedOrderByTitleDesc(false, pageable);
+        return dataMapperUtils.mapAll(postEntities, PostReadDTO.class);
+    }
+
+    @Override
+    public List<PostReadDTO> findAllByTitleAsc(Pageable pageable) {
+        List<PostEntity> postEntities = postRepo.findAllByRentedOrderByTitleAsc(false, pageable);
+        return dataMapperUtils.mapAll(postEntities, PostReadDTO.class);
+    }
 
     /*@Override
     public List<PostReadDTO> getPostsByProvince(int id, Pageable pageable) {

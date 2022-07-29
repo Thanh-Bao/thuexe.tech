@@ -59,7 +59,7 @@ public class PostController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable int id) {
         postService.delete(id);
-        return ResponseEntity.ok("ok");
+        return ResponseEntity.ok(""+id);
     }
 
     @PostMapping("/{id}/like")

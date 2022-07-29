@@ -53,9 +53,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/posts/**",
                 "/orders/**"
         ).hasAnyAuthority(Config.ROLE.USER.getValue());
-        http.authorizeHttpRequests().antMatchers(DELETE,
-                "/posts/**"
-        ).hasAnyAuthority(Config.ROLE.USER.getValue());
+//        http.authorizeHttpRequests().antMatchers(DELETE,
+//                "/posts/**"
+//        ).hasAnyAuthority(Config.ROLE.USER.getValue());
         http.authorizeHttpRequests().
                 antMatchers("/**").permitAll();
         http.authorizeHttpRequests().anyRequest().authenticated();

@@ -47,7 +47,7 @@
                         </form>
                     </div>
                     <div class="card-body">
-                        <form action='<c:url value ="/ADMIN_MNG/posts"/>' id="formSubmit" method="get">
+                        <form action='<c:url value ="/ADMIN_MNG/posts/asc"/>' id="formSubmit" method="get">
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>

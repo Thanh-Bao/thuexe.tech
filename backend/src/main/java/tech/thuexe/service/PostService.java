@@ -30,7 +30,12 @@ public interface PostService {
 
     int count();
 
-    //List<PostReadDTO> getPostsAreNotRent(Pageable pageable);
+    List<PostReadDTO> getPostsAreNotRent(Pageable pageable);
+
+    List<PostReadDTO> findAllByName(String value);
+
+    List<PostReadDTO> findAllByTitleDesc(Pageable pageable);
+    List<PostReadDTO> findAllByTitleAsc(Pageable pageable);
 
     //List<PostReadDTO> getPostsByProvince(int id, Pageable pageable);
 }
