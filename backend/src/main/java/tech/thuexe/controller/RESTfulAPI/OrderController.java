@@ -37,7 +37,7 @@ public class OrderController {
         return ResponseEntity.ok().body(orderService.findById(id));
     }
 
-    @PutMapping("/{id}/checkout")
+    @PostMapping("/{id}/checkout")
     public ResponseEntity<String> checkout(@PathVariable int id) throws CustomException {
         orderService.checkout(id);
         return ResponseEntity.ok().body("ok");
