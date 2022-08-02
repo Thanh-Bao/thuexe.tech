@@ -12,10 +12,15 @@ BẢO:
 - Đăng ký đăng nhập
 - xử lý upload và lưu ảnh
 - Đăng bài viết
+- Tìm post (chưa hoàn thành)
 
-Danh: 
+DANH: 
 - Trang admin JSP, Jquery
-- Chức năng: 
-  + Order API
-  + Post 
-(CURD Post API, order API)
+- Chức năng API: 
+  + thêm đơn hàng
+  + phân trang post
+  + block user
+  + xóa post
+  + sắp xếp post
+  + tìm post
+
